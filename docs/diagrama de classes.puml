@@ -1,0 +1,109 @@
+@startuml
+
+class User {
+    - id : int
+    - name : string
+    - lastname : string
+    - username : string
+    - email : string
+    - image : string
+}
+
+class Login {
+    - id : int
+    - user_id : User
+    - username : string
+    - password : string
+}
+
+class Role {
+    - id : int
+    - user_id : User
+    - role_type : RoleType
+}
+
+class RoleType {
+    - id : int
+    - name : string
+    - description : string
+}
+
+class Musician {
+    - id : int
+    - valoration : Valoration
+    - instrument : Instrument
+}
+
+class Organizer {
+    - id : int
+    - organization : Organization
+}
+
+class Organization {
+    - id : int
+    - name : string
+    - email : string
+    - description : string
+    - type : OrganizationType
+}
+
+class OrganizationType {
+    - id : int
+    - name : string
+    - description : string
+}
+
+class Valoration {
+    - id : int
+    - user_id : User
+    - title : string
+    - description : string
+}
+
+class Event {
+    - id : int
+    - name : string
+    - description : string
+    - date : Date
+    - created_at : Date
+    - location : string
+    - details : Details
+}
+
+class Details {
+    - id : int
+    - min_payment : float
+    - required_instrument : Instrument
+}
+
+class Classification {
+    - id : int
+    - name : string
+}
+
+class Instrument {
+    - id : int
+    - name : string
+    - classification : Classification
+}
+
+User "1" -- "1" Login
+User "1" -- "0..n" Role
+
+Role "1" -- "1" RoleType
+Role "1" -- "1" Musician
+Role "1" -- "1" Organizer
+
+Musician -- Valoration
+Musician "1" -- "1" Instrument
+Musician "0..n" -- "0..n" Organization
+
+Organization "1" -- "0..n" Organizer
+Organization "0..n" -- "0..n" OrganizationType
+Organization -- Event
+
+Classification "1" -- "0..n" Instrument
+
+Event "1" -- "1" Details
+
+@enduml

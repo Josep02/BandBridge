@@ -1,0 +1,124 @@
+@font-face {
+    font-family: Gotham-Light;
+    src: url('../fonts/Gotham/Gotham-Light.otf') format('opentype');
+}
+@font-face {
+    font-family: Gotham-Medium;
+    src: url('../fonts/Gotham/Gotham-Medium.otf') format('opentype');
+}
+@font-face {
+    font-family: Gotham-Black;
+    src: url('../fonts/Gotham/Gotham-Black.otf') format('opentype');
+}
+
+/*Background colors*/
+.bg-0 {
+    background-image: linear-gradient(rgb(24, 24, 24, 1), rgba(0, 0, 0, 0.5)), url('../images/duotone.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bg-3 {
+    background-image: linear-gradient(rgb(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../images/duotone4.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bg-4 {
+    background-image: linear-gradient(to top, rgba(24, 24, 24, 1), rgba(0, 0, 0, 0.5)), url('../images/duotone5.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bg-5 {
+    background-image:
+            radial-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5), rgba(24, 24, 24, 1), rgba(24, 24, 24, 1)),
+            url('../images/duotone6.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bg-1 {
+    background-color: #f47d6e;
+}
+
+.bg-2 {
+    background-color: #181818;
+}
+
+/*Fonts*/
+* {
+    font-family: 'Gotham-Light', sans-serif;
+}
+
+.ff-2 {
+    font-family: 'Gotham-Medium', sans-serif;
+}
+
+.ff-3 {
+    font-family: 'Gotham-Black', sans-serif;
+}
+
+/*Font size*/
+.fs-0 {
+    font-size: 80px;
+}
+
+/*Buttons*/
+.button-1 {
+    font-family: 'Gotham-Light', sans-serif;
+    border: 1px solid white;
+    color: white;
+    border-radius: 4px;
+    background: none;
+    padding: 5px 10px 5px 10px;
+    transition: background 0.3s, color 0.3s;
+}
+
+.button-1:hover {
+    color: #181818;
+    background: white;
+}
+
+.button-2 {
+    font-family: 'Gotham-Light', sans-serif;
+    border: 1px solid #181818;
+    border-radius: 4px;
+    background: none;
+    padding: 5px 10px 5px 10px;
+    transition: background 0.3s, color 0.3s;
+}
+
+.button-2:hover {
+    color: white;
+    background: #181818;
+    border: 1px solid #181818;
+}
+
+/*Cards*/
+
+.card-1 {
+    width: 250px;
+}
+
+/*Targets*/
+
+.target-1 {
+    color: white;
+    background-color: #181818;
+    border: 1px solid #181818;
+    border-radius: 6px;
+    padding: 2px 8px 2px 8px;
+}
+
+.zoom {
+    transition: transform 0.3s ease;
+}
+
+.zoom:hover {
+    transform: scale(1.1);
+}

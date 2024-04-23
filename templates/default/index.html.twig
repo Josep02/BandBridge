@@ -1,0 +1,187 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BandBridge{% endblock %}
+
+{% block body %}
+    <div class="container-fluid bg-0 pt-5 pb-5 mb-5">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8">
+                <div class="m-0">
+                    <p class="fs-0 ff-3 m-0 text-light">La música nunca <br> ha estado tan cerca</p>
+                </div>
+                <hr class="text-white" />
+            </div>
+            <div class="col-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8">
+                <div>
+                    <p class="fs-5 ff-1 text-light m-0">Conexión entre músicos</p>
+                </div>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+
+    <div class="container-fluid pt-5 pb-5">
+        <div class="row">
+            <div class="col-12 text-center fs-1 ff-1">
+                <p class="m-0">Quiénes somos?</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8 text-center">
+                <p class="m-0">Nos dedicamos a conectar músicos de todo el mundo para que puedan colaborar y crear experiencias musicales únicas y memorables. Nuestro objetivo principal es proporcionar una plataforma donde los músicos puedan encontrar oportunidades de actuación, conectar con otros artistas afines, y compartir su pasión por la música.</p>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+
+    <div class="container-fluid pt-5 pb-5">
+        <div class="row">
+            <div class="col-6 bg-3 d-flex align-items-center justify-content-center">
+                <div class="card card-1 mt-5 mb-5 zoom">
+                    <img src="{{ asset('../assets/images/card.png') }}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-title ff-2 fs-4">Concierto Primavera</p>
+                        <p class="card-text">Se necesitan musicos para completar un grupo de 50 con la Agrupacion Musical de Oliva.</p>
+                        <p class="card-text ff-2 d-flex align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                                <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
+                                <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                            </svg>
+                            Oliva, Valencia
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 d-flex align-items-center justify-content-center">
+                <div class="ps-4">
+                    <p class="m-0 fs-1 pt-4 pb-4">Crea y gestiona eventos</p>
+                    <p class="m-0 pb-4">Nuestra plataforma permite a los usuarios crear y publicar eventos musicales, desde conciertos en vivo hasta jam sessions y sesiones de estudio.</p>
+                    <p class="m-0 pb-4">Los organizadores tienen la libertad de establecer los detalles del evento, incluidos la fecha, la ubicación, el género musical y el número de músicos necesarios.</p>
+                </div>
+            </div>
+            <div class="col-2 p-0"></div>
+        </div>
+    </div>
+
+    <div class="container-fluid pt-5 pb-5">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8 text-center">
+                <hr class="text-dark mt-0 mb-5" />
+                <p class="m-0">En nuestra plataforma, los músicos tienen la oportunidad de participar en una amplia variedad de eventos musicales creados por otros miembros de la comunidad. Ya sea que estén buscando expandir su red profesional, ganar experiencia en el escenario o simplemente compartir su pasión por la música, nuestra plataforma ofrece un espacio dinámico donde los músicos pueden conectarse, colaborar y participar en emocionantes eventos musicales en todo momento.</p>
+                <hr class="text-dark mt-5 mb-0" />
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+
+    <div class="container-fluid pt-5 pb-5">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-3">
+                <div class="card h-100">
+                     <div class="card-body bg-2 rounded-1">
+                        <p class="card-text ff-2 fs-1 p-4 text-light text-end">Muestra tu experiencia a los demas usuarios</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card">
+                    <div class="card-body d-flex align-items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                        </svg>
+                        <div class="ps-3">
+                            <p class="m-0">Fernando</p>
+                            <p class="m-0">Cabrera Lloret</p>
+                        </div>
+                    </div>
+                    <div class="card-body d-flex align-items-center justify-content-center">
+                        <div class="target-1 m-1">Saxofon</div>
+                        <div class="target-1 m-1">Flauta</div>
+                        <div class="target-1 m-1">Clarinete</div>
+                    </div>
+                    <div class="m-3 border bg-light rounded-2 zoom">
+                        <div class="d-flex align-items-center">
+                            <div><p class="pt-3 pe-3 ps-3 m-0 ff-2">Paco Borrull</p></div>
+                            <div class="pt-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#FFD700" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#FFD700" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#FFD700" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#FFD700" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#FFD700" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <p class=" p-3 m-0">Excelente actuacion!!! Nos hacia falta un clarinete para completar al grupo, Fernando nos salvo, no dudaremos en volverlo a llamar.</p>
+                    </div>
+                    <div class="m-3 border bg-light rounded-2 zoom">
+                        <div class="d-flex align-items-center">
+                            <div><p class="pt-3 pe-3 ps-3 m-0 ff-2">Joan Llobell</p></div>
+                            <div class="pt-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#FFD700" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#FFD700" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#FFD700" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#FFD700" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <p class=" p-3 m-0">Muy bien tocado la verdad, una actuacion muy buena.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 card-body">
+                <div>
+                    <p class="fs-2">Un buen perfil puede ayudarte a conseguir más actuaciones en el futuro</p>
+                </div>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+
+    <div class="container-fluid mt-5 pt-5 pb-5 bg-4">
+        <div class="row">
+            <div class="col-12 text-center fs-1 ff-1">
+                <p class="m-0 text-light ff-2">Bienvenido a BandBridge</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8 text-center">
+                <p class="m-0 p-4 text-light">Inicia sesion o crea una cuenta para poder empezar.</p>
+            </div>
+            <div class="col-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8 d-flex align-items-center justify-content-center">
+                <div class="pe-4"><a href="{{ path('app_login_index') }}"><button class="button-1">Iniciar sesion</button></a></div>
+                <div class="ps-4"><button class="button-1">Registrarse</button></div>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+{% endblock %}
