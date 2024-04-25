@@ -1,41 +1,19 @@
 @startuml
-
-class User {
+class Musician {
     - id : int
     - name : string
     - lastname : string
     - username : string
     - email : string
     - image : string
-}
-
-class Login {
-    - id : int
-    - user_id : User
-    - username : string
     - password : string
-}
-
-class Role {
-    - id : int
-    - user_id : User
-    - role_type : RoleType
-}
-
-class RoleType {
-    - id : int
-    - name : string
-    - description : string
-}
-
-class Musician {
-    - id : int
     - valoration : Valoration
     - instrument : Instrument
 }
 
-class Organizer {
+class MusicianClass {
     - id : int
+    - musician : Musician
     - organization : Organization
 }
 
@@ -55,7 +33,7 @@ class OrganizationType {
 
 class Valoration {
     - id : int
-    - user_id : User
+    - user : User
     - title : string
     - description : string
 }
@@ -65,15 +43,16 @@ class Event {
     - name : string
     - description : string
     - date : Date
-    - created_at : Date
+    - created : Date
     - location : string
     - details : Details
 }
 
 class Details {
     - id : int
-    - min_payment : float
-    - required_instrument : Instrument
+    - minPayment : float
+    - requiredInstrument : Instrument
+    - quantity : int
 }
 
 class Classification {
@@ -87,23 +66,19 @@ class Instrument {
     - classification : Classification
 }
 
-User "1" -- "1" Login
-User "1" -- "0..n" Role
+Musician -- Musician
+Musician "1" -- "0..N" Valoration
+Musician "1" -- "N" Instrument
+Musician "1" -- "N" MusicianClass
+Musician "1..N" -- "1..N" Details
 
-Role "1" -- "1" RoleType
-Role "1" -- "1" Musician
-Role "1" -- "1" Organizer
+MusicianClass "N" -- "1" Organization
 
-Musician -- Valoration
-Musician "1" -- "1" Instrument
-Musician "0..n" -- "0..n" Organization
+Organization "1" -- "0..N" OrganizationType
+Organization "1" -- "0..N" Event
 
-Organization "1" -- "0..n" Organizer
-Organization "0..n" -- "0..n" OrganizationType
-Organization -- Event
+Classification "1" -- "0..N" Instrument
 
-Classification "1" -- "0..n" Instrument
-
-Event "1" -- "1" Details
+Event "1" -- "0..N" Details
 
 @enduml

@@ -1,118 +1,67 @@
 @startuml
-entity "User" {
-    * id : int
-    --
-    name : string
-    lastname : string
-    username : string
-    email : string
-    image : string
+entity Musician {
+    + id : int
+    - name : string
+    - lastname : string
+    - username : string
+    - email : string
+    - image : string
+    - password : string
 }
 
-entity "Login" {
-    * id : int
-    --
-    username : string
-    password : string
-    user_id : int
+entity Valoration {
+    + id : int
+    - title : string
+    - description : string
 }
 
-entity "Role" {
-    * id : int
-    --
-    user_id : int
-    role_type_id : int
+entity Instrument {
+    + id : int
+    - name : string
 }
 
-entity "RoleType" {
-    * id : int
-    --
-    name : string
-    description : string
+entity MusicianClass {
+    + id : int
 }
 
-entity "Musician" {
-    * id : int
-    --
-    valoration_id : int
-    instrument_id : int
+entity Organization {
+    + id : int
+    - name : string
+    - email : string
+    - description : string
 }
 
-entity "Organizer" {
-    * id : int
-    --
-    organization_id : int
+entity OrganizationType {
+    + id : int
+    - name : string
+    - description : string
 }
 
-entity "Organization" {
-    * id : int
-    --
-    name : string
-    email : string
-    description : string
-    type_id : int
+entity Event {
+    + id : int
+    - name : string
+    - description : string
+    - date : Date
+    - created : Date
+    - location : string
 }
 
-entity "OrganizationType" {
-    * id : int
-    --
-    name : string
-    description : string
+entity Details {
+    + id : int
+    - minPayment : float
+    - quantity : int
 }
 
-entity "Valoration" {
-    * id : int
-    --
-    title : string
-    description : string
-    user_id : int
-}
+Musician ||--o{ Valoration
+Musician ||--|{ Instrument
+Musician ||--|{ MusicianClass
+Musician }o--o{ Details
 
-entity "Event" {
-    * id : int
-    --
-    name : string
-    description : string
-    date : Date
-    created_at : Date
-    location : string
-    organization_id : int
-    details_id : int
-}
+MusicianClass }|--|| Organization
 
-entity "Details" {
-    * id : int
-    --
-    min_payment : float
-    required_instrument_id : int
-}
+Organization ||--o{ OrganizationType
+Organization ||--o{ Event
 
-entity "Classification" {
-    * id : int
-    --
-    name : string
-}
-
-entity "Instrument" {
-    * id : int
-    --
-    name : string
-    classification_id : int
-}
-
-User ||--|| Login : has
-User ||--|{ Role : has
-Role ||--|| Musician : has
-Role ||--|| Organizer : has
-Musician ||--o{ Valoration : owns
-Musician ||--|{ Instrument : plays
-Musician ||--|{ Organization : belongs
-Organization ||--o{ Organizer : has
-Organization ||--o{ Event : hosts
-Organization ||--o{ OrganizationType : belongs
-OrganizationType ||--o{ Event : hosts
-Classification ||--o{ Instrument : classifies
-Event ||--o{ Details : has
-Instrument ||--o{ Details : required for
+Event ||--o{ Details
 
 @enduml
