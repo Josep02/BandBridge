@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Musician;
+use App\Entity\Instrument;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
@@ -19,9 +20,10 @@ class MusicianFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $musicians = [];
+        $instruments = $manager->getRepository(Instrument::class)->findAll();
 
-        for ($i = 0 ; $i < 10 ; $i++) {
+        // Insertar músicos
+        for ($i = 0; $i < 10; $i++) {
             $musician = new Musician();
             $musician->setName($this->faker->name);
             $musician->setLastname($this->faker->lastName);
@@ -30,7 +32,9 @@ class MusicianFixtures extends Fixture
             $musician->setUsername($this->faker->userName);
             $musician->setImage('image.jpg');
 
-            $musicians[] = $musician;
+            $randomInstrument = $this->faker->randomElement($instruments);
+            $musician->setInstrument($randomInstrument);
+
             $manager->persist($musician);
         }
 

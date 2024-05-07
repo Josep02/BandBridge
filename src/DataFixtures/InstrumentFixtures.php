@@ -51,9 +51,8 @@ class InstrumentFixtures extends Fixture
             'Timbales',
             'Congas',
             'Bongos',
-            'Maracas',
             'Xilófono',
-            'Glockenspiel',
+            'Platos',
         ]);
 
         $manager->flush();
