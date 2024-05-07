@@ -52,10 +52,19 @@ entity Details {
     - quantity : int
 }
 
+entity ParticipationRequest {
+    - id : int
+    - state : int
+    - musician : Musician
+    - details : Details
+}
+
 Musician ||--o{ Valoration
 Musician ||--|{ Instrument
 Musician ||--|{ MusicianClass
-Musician }o--o{ Details
+Musician }o--o{ ParticipationRequest
+
+ParticipationRequest ||--|| Event
 
 MusicianClass }|--|| Organization
 

@@ -33,7 +33,6 @@ class OrganizationType {
 
 class Valoration {
     - id : int
-    - user : User
     - title : string
     - description : string
 }
@@ -66,11 +65,20 @@ class Instrument {
     - classification : Classification
 }
 
+class ParticipationRequest {
+    - id : int
+    - state : int
+    - musician : Musician
+    - details : Details
+}
+
 Musician -- Musician
 Musician "1" -- "0..N" Valoration
 Musician "1" -- "N" Instrument
 Musician "1" -- "N" MusicianClass
-Musician "1..N" -- "1..N" Details
+Musician "1" -- "0..N" ParticipationRequest
+
+ParticipationRequest "1" -- "1" Event
 
 MusicianClass "N" -- "1" Organization
 
