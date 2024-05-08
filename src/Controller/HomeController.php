@@ -12,10 +12,12 @@ class HomeController extends AbstractController
     #[Route('/home', name: 'app_home')]
     public function index(EventRepository $eventRepository): Response
     {
-        $openEvents = $eventRepository->findAll();
+        $activeEvents = $eventRepository->findBy(['state' => 'Active']);
+        $closedEvents = $eventRepository->findBy(['state' => 'Closed']);
 
         return $this->render('home/index.html.twig', [
-            'openEvents' => $openEvents,
+            'activeEvents' => $activeEvents,
+            'closedEvents' => $closedEvents,
         ]);
     }
 }

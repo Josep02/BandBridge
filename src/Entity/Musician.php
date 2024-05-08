@@ -6,9 +6,11 @@ use App\Repository\MusicianRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: MusicianRepository::class)]
-class Musician
+class Musician implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -201,5 +203,29 @@ class Musician
         $this->Instrument = $Instrument;
 
         return $this;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getRoles(): array
+    {
+        // TODO: Implement getRoles() method.
+    }
+
+    /**
+     * @return void
+     */
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserIdentifier(): string
+    {
+        return $this->getUsername();
     }
 }

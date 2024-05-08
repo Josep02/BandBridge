@@ -22,6 +22,19 @@ class MusicianFixtures extends Fixture
     {
         $instruments = $manager->getRepository(Instrument::class)->findAll();
 
+        $randomInstrument = $this->faker->randomElement($instruments);
+
+        $admin = new Musician();
+        $admin->setName('admin');
+        $admin->setEmail('admin@gmail.com');
+        $admin->setImage('admin.jpg');
+        $admin->setInstrument($randomInstrument);
+        $admin->setLastname('admin');
+        $admin->setPassword('admin');
+        $admin->setUsername('admin');
+
+        $manager->persist($admin);
+
         // Insertar músicos
         for ($i = 0; $i < 10; $i++) {
             $musician = new Musician();

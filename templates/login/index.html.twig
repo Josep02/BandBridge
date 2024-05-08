@@ -1,105 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inicio de sesión y registro{% endblock %}
-
 {% block body %}
-    <div class="container-fluid bg-5 pt-5 pb-5" id="form-container">
-        <div class="row">
-            <div class="col-2"></div>
-            <div class="col-lg-4 d-flex justify-content-center align-items-center">
-                <div class="form-login w-100" id="login-form">
-                    <form action="" method="post" class="pt-5 pb-5">
-                        <h1 class="text-light ff-2 text-center m-0 pb-4">Iniciar sesión</h1>
-                        <div class="pb-3">
-                            <label for="login-username" class="form-label text-light">Nombre de usuario:</label>
-                            <input type="text" id="login-username" name="_username" value="" class="form-control">
-                        </div>
-                        <div class="">
-                            <label for="login-password" class="form-label text-light">Contraseña:</label>
-                            <input type="password" id="login-password" name="_password" class="form-control">
-                        </div>
-                        <div class="pt-4">
-                            <button class="button-1" type="submit">Iniciar sesión</button>
-                        </div>
-                    </form>
-                </div>
 
-                <div class="form-login w-100" id="register-form" style="display: none;">
-                    <form action="" method="post" class="pt-5 pb-5">
-                        <h1 class="text-light ff-2 text-center m-0 pb-4">Registrarse</h1>
-                        <div class="pb-3">
-                            <label for="register-username" class="form-label text-light">Nombre de usuario:</label>
-                            <input type="text" id="register-username" name="_username" value="" class="form-control">
-                        </div>
-                        <div class="pb-3">
-                            <label for="register-password" class="form-label text-light">Contraseña:</label>
-                            <input type="password" id="register-password" name="_password" class="form-control">
-                        </div>
-                        <div class="pb-3">
-                            <label for="register-confirm-password" class="form-label text-light">Repetir contraseña:</label>
-                            <input type="password" id="register-confirm-password" name="_password" class="form-control">
-                        </div>
-                        <div class="pt-4">
-                            <button class="button-1" type="submit">Registrarse</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="col-lg-4 d-flex justify-content-center align-items-center">
-                <div class="d-flex flex-column">
-                    <div id="show-register">
-                        <span class="text-light pe-2">¿No tienes cuenta?</span>
-                        <button class="button-1 mb-3">Registrarse</button>
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    <div class="container">
+        <div class="row">
+            <div class="mt-5 col-md-6 offset-md-3">
+                <form action="{{ path('app_login') }}" method="post">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username:</label>
+                        <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control">
                     </div>
-                    <div id="show-login">
-                        <span class="text-light pe-2">¿Ya tienes cuenta?</span>
-                        <button class="button-1">Iniciar sesión</button>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password:</label>
+                        <input type="password" id="password" name="_password" class="form-control">
                     </div>
-                </div>
+
+                    <button class="btn btn-primary" type="submit">Iniciar sesión</button>
+                </form>
             </div>
-            <div class="col-2"></div>
         </div>
     </div>
-
-    <style>
-        .form-login {
-            opacity: 1;
-            transition: opacity 1s ease-in-out;
-        }
-        .form-hidden {
-            opacity: 0;
-        }
-    </style>
-
-    <script>
-        document.getElementById('show-login').style.display = 'none';
-
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('show-register').addEventListener('click', function() {
-                document.getElementById('login-form').classList.add('form-hidden');
-                setTimeout(function() {
-                    document.getElementById('login-form').style.display = 'none';
-                    document.getElementById('register-form').style.display = 'block';
-                    setTimeout(function() {
-                        document.getElementById('register-form').classList.remove('form-hidden');
-                    }, 50); // Small delay for better transition
-                    document.getElementById('show-login').style.display = 'block';
-                    document.getElementById('show-register').style.display = 'none';
-                }, 1000);
-            });
-
-            document.getElementById('show-login').addEventListener('click', function() {
-                document.getElementById('register-form').classList.add('form-hidden');
-                setTimeout(function() {
-                    document.getElementById('register-form').style.display = 'none';
-                    document.getElementById('login-form').style.display = 'block';
-                    setTimeout(function() {
-                        document.getElementById('login-form').classList.remove('form-hidden');
-                    }, 50); // Small delay for better transition
-                    document.getElementById('show-login').style.display = 'none';
-                    document.getElementById('show-register').style.display = 'block';
-                }, 1000);
-            });
-        });
-    </script>
 {% endblock %}

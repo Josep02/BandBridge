@@ -71,7 +71,7 @@ class OrganizationFixtures extends Fixture
             $manager->persist($musicianClass);
         }
 
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 20; $i++) {
             $event = new Event();
 
             $randomOrganization = $organizations[array_rand($organizations)];
