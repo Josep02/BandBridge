@@ -1,20 +1,71 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}BandBridge{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8">
+                <div>
+                    <h1 class="pt-4">Proximos eventos</h1>
+                    <div class="d-flex flex-wrap justify-content-between">
+                        {% for openEvent in openEvents|slice(0, 4) %}
+                            <div class="card card-1 mt-5 mb-5 zoom">
+                                <img src="{{ asset('../assets/images/card.png') }}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <p class="card-title ff-2 fs-4">{{ openEvent.name }}</p>
+                                    <p class="card-text">
+                                        {% if openEvent.description|length > 80 %}
+                                            {{ openEvent.description|slice(0, 80) ~ '...' }}
+                                        {% else %}
+                                            {{ openEvent.description }}
+                                        {% endif %}
+                                    </p>
+                                    <p class="card-text ff-2 d-flex align-items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                                            <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
+                                            <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                                        </svg>
+                                        {{ openEvent.location }}
+                                    </p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="pb-5 text-end"><a class="button-2">Ver mas</a></div>
+                </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/var/www/html/src/Controller/HomeController.php</code></li>
-        <li>Your template at <code>/var/www/html/templates/home/index.html.twig</code></li>
-    </ul>
-</div>
+                <div>
+                    <h1 class="pt-4">Proximos eventos</h1>
+                    <div class="d-flex flex-wrap justify-content-between">
+                        {% for openEvent in openEvents|slice(0, 4) %}
+                            <div class="card card-1 mt-5 mb-5 zoom">
+                                <img src="{{ asset('../assets/images/card.png') }}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <p class="card-title ff-2 fs-4">{{ openEvent.name }}</p>
+                                    <p class="card-text">
+                                        {% if openEvent.description|length > 80 %}
+                                            {{ openEvent.description|slice(0, 80) ~ '...' }}
+                                        {% else %}
+                                            {{ openEvent.description }}
+                                        {% endif %}
+                                    </p>
+                                    <p class="card-text ff-2 d-flex align-items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                                            <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
+                                            <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                                        </svg>
+                                        {{ openEvent.location }}
+                                    </p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="pb-5 text-end"><a class="button-2">Ver mas</a></div>
+                </div>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
 {% endblock %}

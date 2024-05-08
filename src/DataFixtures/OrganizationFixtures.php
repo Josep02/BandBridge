@@ -48,7 +48,7 @@ class OrganizationFixtures extends Fixture
             $organization->setOrganizationType($randomType);
 
             $organization->setName($this->faker->company);
-            $organization->setDescription($this->faker->paragraph);
+            $organization->setDescription($this->faker->text(255));
             $organization->setEmail($this->faker->email);
             $manager->persist($organization);
             $organizations[] = $organization;
@@ -78,11 +78,14 @@ class OrganizationFixtures extends Fixture
             $event->setOrganization($randomOrganization);
 
             $event->setName($this->faker->title);
-            $event->setDescription($this->faker->paragraph);
+            $event->setDescription($this->faker->text(255));
             $event->setDate($this->faker->dateTime);
             $event->setCreated($this->faker->dateTime);
             $event->setLocation('Pego');
-            $event->setState('Active');
+
+            $randomState = $this->faker->randomElement(['Active', 'Closed']);
+            $event->setState($randomState);
+
             $manager->persist($event);
         }
 
