@@ -8,14 +8,17 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class MusicianFixtures extends Fixture
 {
     private Generator $faker;
+    private UserPasswordHasherInterface $hasher;
 
-    public function __construct()
+    public function __construct(UserPasswordHasherInterface $hasher)
     {
-        $this->faker = Factory::create();
+        $this->faker = Factory::create('es_Es');
+        $this->hasher = $hasher;
     }
 
     public function load(ObjectManager $manager): void
@@ -30,12 +33,11 @@ class MusicianFixtures extends Fixture
         $admin->setImage('admin.jpg');
         $admin->setInstrument($randomInstrument);
         $admin->setLastname('admin');
-        $admin->setPassword('admin');
+        $admin->setPassword($this->hasher->hashPassword($admin, 'admin'));
         $admin->setUsername('admin');
 
         $manager->persist($admin);
 
-        // Insertar músicos
         for ($i = 0; $i < 10; $i++) {
             $musician = new Musician();
             $musician->setName($this->faker->name);
