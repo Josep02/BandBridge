@@ -99,6 +99,20 @@
     border: 1px solid #181818;
 }
 
+.button-3 {
+    font-family: 'Gotham-Light', sans-serif;
+    border: 1px solid white;
+    background: none;
+    padding: 5px 10px 5px 10px;
+    transition: background 0.3s, color 0.3s;
+}
+
+.button-3:hover {
+    color: white;
+    background: #181818;
+    border: 1px solid #181818;
+}
+
 /*Cards*/
 
 .card-1 {

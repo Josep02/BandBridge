@@ -27,9 +27,16 @@ class Instrument
     #[ORM\OneToMany(targetEntity: Musician::class, mappedBy: 'Instrument')]
     private Collection $musicians;
 
+    /**
+     * @var Collection<int, Details>
+     */
+    #[ORM\OneToMany(targetEntity: Details::class, mappedBy: 'requiredInstrument')]
+    private Collection $details;
+
     public function __construct()
     {
         $this->musicians = new ArrayCollection();
+        $this->details = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -85,6 +92,36 @@ class Instrument
             // set the owning side to null (unless already changed)
             if ($musician->getInstrument() === $this) {
                 $musician->setInstrument(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Details>
+     */
+    public function getDetails(): Collection
+    {
+        return $this->details;
+    }
+
+    public function addDetail(Details $detail): static
+    {
+        if (!$this->details->contains($detail)) {
+            $this->details->add($detail);
+            $detail->setRequiredInstrument($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDetail(Details $detail): static
+    {
+        if ($this->details->removeElement($detail)) {
+            // set the owning side to null (unless already changed)
+            if ($detail->getRequiredInstrument() === $this) {
+                $detail->setRequiredInstrument(null);
             }
         }
 

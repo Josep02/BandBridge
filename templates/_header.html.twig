@@ -11,6 +11,13 @@
                         </a>
                         <div class="d-flex align-items-center">
                             <div class="d-flex align-items-center">
+                                <div class="pe-4">
+                                    {% if app.user %}
+                                        <a href="{{ path('app_logout') }}"><button class="button-1">Cerrar sesión</button></a>
+                                    {% else %}
+                                        <a href="{{ path('app_login') }}"><button class="button-1">Iniciar sesión</button></a>
+                                    {% endif %}
+                                </div>
                                 <form class="d-flex" role="search">
                                     <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
                                     <button class="btn btn-outline-light" type="submit">

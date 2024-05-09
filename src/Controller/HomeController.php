@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Details;
+use App\Entity\Event;
 use App\Repository\EventRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,6 +20,17 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             'activeEvents' => $activeEvents,
             'closedEvents' => $closedEvents,
+        ]);
+    }
+
+    #[Route('/home/{id}', name: 'app_home_event_show')]
+    public function show(Event $event): Response
+    {
+        $details = $event->getDetails();
+
+        return $this->render('home/show.html.twig', [
+            'event' => $event,
+            'details' => $details,
         ]);
     }
 }

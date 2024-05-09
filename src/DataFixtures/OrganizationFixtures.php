@@ -2,7 +2,9 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Details;
 use App\Entity\Event;
+use App\Entity\Instrument;
 use App\Entity\Musician;
 use App\Entity\MusicianClass;
 use App\Entity\Organization;
@@ -55,6 +57,7 @@ class OrganizationFixtures extends Fixture
         }
 
         $musicians = $manager->getRepository(Musician::class)->findAll();
+        $instruments = $manager->getRepository(Instrument::class)->findAll();
 
         for ($i = 0; $i < 5; $i++) {
             $musicianClass = new MusicianClass();
@@ -87,6 +90,19 @@ class OrganizationFixtures extends Fixture
             $event->setState($randomState);
 
             $manager->persist($event);
+
+            for ($j = 0; $j < 5; $j++) {
+                $details = new Details();
+
+                $details->setQuantity(rand(1, 5));
+                $details->setMinPayment(35);
+                $details->setEvent($event);
+
+                $randomInstrument = $instruments[array_rand($instruments)];
+                $details->setRequiredInstrument($randomInstrument);
+
+                $manager->persist($details);
+            }
         }
 
         $manager->flush();

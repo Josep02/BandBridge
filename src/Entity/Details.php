@@ -22,6 +22,9 @@ class Details
     #[ORM\ManyToOne(inversedBy: 'details')]
     private ?Event $Event = null;
 
+    #[ORM\ManyToOne(inversedBy: 'details')]
+    private ?Instrument $requiredInstrument = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,18 @@ class Details
     public function setEvent(?Event $Event): static
     {
         $this->Event = $Event;
+
+        return $this;
+    }
+
+    public function getRequiredInstrument(): ?Instrument
+    {
+        return $this->requiredInstrument;
+    }
+
+    public function setRequiredInstrument(?Instrument $requiredInstrument): static
+    {
+        $this->requiredInstrument = $requiredInstrument;
 
         return $this;
     }

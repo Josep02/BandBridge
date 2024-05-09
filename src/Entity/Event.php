@@ -43,9 +43,16 @@ class Event
     #[ORM\Column(length: 255)]
     private ?string $state = null;
 
+    /**
+     * @var Collection<int, ParticipationRequest>
+     */
+    #[ORM\OneToMany(targetEntity: ParticipationRequest::class, mappedBy: 'event')]
+    private Collection $participationRequests;
+
     public function __construct()
     {
         $this->details = new ArrayCollection();
+        $this->participationRequests = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -163,6 +170,36 @@ class Event
     public function setState(string $state): static
     {
         $this->state = $state;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ParticipationRequest>
+     */
+    public function getParticipationRequests(): Collection
+    {
+        return $this->participationRequests;
+    }
+
+    public function addParticipationRequest(ParticipationRequest $participationRequest): static
+    {
+        if (!$this->participationRequests->contains($participationRequest)) {
+            $this->participationRequests->add($participationRequest);
+            $participationRequest->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipationRequest(ParticipationRequest $participationRequest): static
+    {
+        if ($this->participationRequests->removeElement($participationRequest)) {
+            // set the owning side to null (unless already changed)
+            if ($participationRequest->getEvent() === $this) {
+                $participationRequest->setEvent(null);
+            }
+        }
 
         return $this;
     }
