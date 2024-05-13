@@ -11,8 +11,8 @@
                     <h1 class="pt-4">Proximos eventos</h1>
                     <div class="d-flex flex-wrap justify-content-between mb-5">
                         {% for activeEvent in activeEvents|slice(0, 4) %}
-                            <a href="{{ path('app_home_event_show', {id: activeEvent.id}) }}" class="text-decoration-none">
                                 <div class="card card-1">
+                                    <a href="{{ path('app_home_event_show', {id: activeEvent.id}) }}" class="text-decoration-none text-black">
                                     <img src="{{ asset('../assets/images/card.png') }}" class="card-img-top" alt="...">
                                     <div class="card-body">
                                         <p class="card-title ff-2 fs-4">{{ activeEvent.name }}</p>
@@ -31,13 +31,13 @@
                                             {{ activeEvent.location }}
                                         </p>
                                     </div>
+                                    </a>
                                     <div class="card-footer p-0">
                                         <div class="text-center">
                                             <button type="button" class=" w-100 rounded-bottom button-3">Participar</button>
                                         </div>
                                     </div>
                                 </div>
-                            </a>
                         {% endfor %}
                     </div>
                     <div class="text-center"><a><button class="button-2">Ver mas</button></a></div>
