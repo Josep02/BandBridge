@@ -80,7 +80,7 @@ class OrganizationFixtures extends Fixture
             $randomOrganization = $organizations[array_rand($organizations)];
             $event->setOrganization($randomOrganization);
 
-            $event->setName($this->faker->title);
+            $event->setName($this->faker->company);
             $event->setDescription($this->faker->text(255));
             $event->setDate($this->faker->dateTime);
             $event->setCreated($this->faker->dateTime);

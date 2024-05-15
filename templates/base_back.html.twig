@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}BandBridge{% endblock %}</title>
+    <link rel="icon" href="../assets/images/icon.png">
+    {% block stylesheets %}
+    {% endblock %}
+
+    {% block javascripts %}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {% endblock %}
+</head>
+<body>
+<main>
+    <div class="container-fluid bg-2">
+        <div class="row">
+            {# Aside de Back #}
+            {% include '_aside_back.html.twig' %}
+            <article class="col-sm-12 col-xl-10 p-0">
+                {% block body %}
+                {% endblock %}
+            </article>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

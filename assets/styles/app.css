@@ -120,11 +120,25 @@
 }
 
 .card-2 {
-    width: 400px;
+    width: 360px;
 }
 
 .card-2 img {
     width: 90px;
+}
+
+@media (max-width: 990px) {
+    .card-2 {
+        width: 100%;
+    }
+}
+
+.card-3 {
+    width: 320px;
+}
+
+.card-3 img {
+    width: 80px;
 }
 
 /*Targets*/
@@ -143,4 +157,9 @@
 
 .zoom:hover {
     transform: scale(1.1);
+}
+
+
+.gray-filter {
+    filter: grayscale(100%);
 }
