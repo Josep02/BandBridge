@@ -1,0 +1,28 @@
+@startuml BackendPages
+
+!define FONT_SIZE_LARGE 16
+!define FONT_SIZE_MEDIUM 14
+!define FONT_SIZE_SMALL 12
+
+skinparam titleFontSize FONT_SIZE_LARGE
+skinparam defaultFontSize FONT_SIZE_MEDIUM
+skinparam rectangleFontSize FONT_SIZE_SMALL
+
+title Pàgines Backend
+
+rectangle "Pàgines Backend" {
+    (Gestionar Cotxes)
+    (Llista de Cotxes del Backend)
+    (Formulari d'Edició de Cotxe)
+    (Formulari d'Afegir Nou Cotxe)
+    (Gestionar Usuaris)
+    (Llista d'Usuaris)
+    (Formulari d'Edició d'Usuari)
+    (Formulari d'Afegir Nou Usuari)
+    (Gestionar Tipus de Cotxes)
+    (Llista de Tipus de Cotxes)
+    (Formulari d'Edició de Tipus de Cotxe)
+    (Formulari d'Afegir Nou Tipus de Cotxe)
+}
+
+@enduml

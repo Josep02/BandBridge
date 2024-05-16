@@ -1,0 +1,30 @@
+@startuml LegacyMotorsUseCases
+
+left to right direction
+
+actor Customer as Customer
+actor Employee as Employee
+
+rectangle "Car Management" {
+    Customer --> (Explore Cars) /' Explorar Cotxes '/
+    Customer --> (Make Reservation) /' Realitzar Reserva '/
+    Customer --> (Manage Reservations) /' Gestionar Reserves '/
+    Customer --> (Add Comments) /' Afegir Comentaris '/
+    Customer --> (View Cart) /' Veure Carret '/
+    Employee --> (Manage Cars) /' Gestionar Cotxes '/
+}
+
+rectangle "User Management" {
+    Employee --> (Manage Users) /' Gestinar Usuaris '/
+}
+
+rectangle "Car Type Management" {
+    Employee --> (Manage Car Types) /' Gestionar Tipus de Cotxes '/
+}
+
+Customer --> (Login) /' Iniciar Sessió '/
+Customer --> (Register) /' Registrar-se '/
+Customer --> (View Profile) /' Veure Perfil '/
+Employee --> (Login) /' Iniciar Sessió '/
+
+@enduml

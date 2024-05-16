@@ -1,27 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="ca">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}BandBridge{% endblock %}</title>
-    <link rel="icon" href="../assets/images/icon.png">
+    <title>{% block title %}Legacy Motors{% endblock %}</title>
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
     {% endblock %}
 
     {% block javascripts %}
-        {% block importmap %}{{ importmap('app') }}{% endblock %}
+        {{ encore_entry_script_tags('app') }}
     {% endblock %}
 </head>
 <body>
-<main>
-    <div class="container-fluid bg-2">
-        <div class="row">
-            {# Aside de Back #}
-            {% include '_aside_back.html.twig' %}
-            <article class="col-sm-12 col-xl-10 p-0">
-                {% block body %}
-                {% endblock %}
-            </article>
-        </div>
+{% include '_header_back.html.twig' %}
+<main class="container-fluid">
+    <div class="row">
+        {% include '_aside_back.html.twig' %}
+        <section class="col-lg-10 col-md-12 bg-2 p-2">
+            {% block body %}
+            {% endblock %}
+        </section>
     </div>
 </main>
 

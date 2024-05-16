@@ -1,0 +1,129 @@
+@startuml LegacyMotorsER
+
+entity "Customer" {
+  * customer_id : int
+  --
+  email : string
+  name : string
+  surname : string
+  phone : string
+  address : string
+  dni : string
+}
+
+entity "Employee" {
+  * admin_id : int
+  --
+  name : string
+  surname : string
+}
+
+entity "Provider" {
+  * provider_id : int
+  --
+  name : string
+  email : string
+  dni : string
+  cif : string
+  address : string
+}
+
+entity "Login" {
+  * login_id : int
+  --
+  username : string
+  password : string
+  role : string
+}
+
+entity "Vehicle" {
+  * vehicle_id : int
+  --
+  plate : string
+  fuel : string
+  color : string
+  price_per_day : decimal
+  available : boolean
+  doors : int
+  capacity : int
+  transmission : string
+  description : string
+  category : string
+}
+
+entity "Brand" {
+  * brand_id : int
+  --
+  name : string
+}
+
+entity "Model" {
+  * model_id : int
+  --
+  name : string
+  description : string
+  year : int
+}
+
+entity "Reservation" {
+  * reservation_id : int
+  --
+  start_date : date
+  end_date : date
+  total_price : int
+  status : string
+}
+
+entity "Payment_Details" {
+  * payment_id : int
+  --
+  payment_method : string
+  card_number : string
+  expiry_date : date
+  cvv : string
+}
+
+entity "Review" {
+  * review_id : int
+  --
+  rating : int
+  comment : string
+  date : date
+}
+
+entity "Order" {
+  * order_id : int
+  --
+  quantity : int
+  state : string
+}
+
+entity "Image" {
+  * image_id : int
+  --
+  file_name : string
+}
+
+entity "Invoice" {
+  * invoice_id : int
+  --
+  number : string
+  price : float
+  date : date
+}
+
+Customer ||--o{ Login: "1" -- "1"
+Employee ||--o{ Login: "1" -- "1"
+Provider ||--o{ Vehicle: "1" -- "N"
+Vehicle }|--o{ Brand: "N" -- "1"
+Brand ||--o{ Model: "1" -- "N"
+Reservation ||--o{ Customer: "N" -- "1"
+Reservation ||--o{ Payment_Details: "1" -- "1"
+Reservation ||--o{ Review: "1" -- "N"
+Vehicle ||--o{ Reservation: "1" -- "N"
+Image ||--o{ Vehicle: "N" -- "1"
+Invoice ||--o{ Customer: "N" -- "1"
+Order ||--o{ Vehicle: "1" -- "N"
+Order ||--o{ Invoice: "1" -- "1"
+
+@enduml

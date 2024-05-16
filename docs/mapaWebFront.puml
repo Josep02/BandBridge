@@ -1,0 +1,29 @@
+@startuml FrontendPages
+
+!define FONT_SIZE_LARGE 16
+!define FONT_SIZE_MEDIUM 14
+!define FONT_SIZE_SMALL 12
+
+skinparam titleFontSize FONT_SIZE_LARGE
+skinparam defaultFontSize FONT_SIZE_MEDIUM
+skinparam rectangleFontSize FONT_SIZE_SMALL
+
+title Pàgines Frontend
+
+rectangle "Frontend" {
+    User --> (Inici Frontend)
+    User --> (Explorar Cotxes)
+    User --> (Realitzar Reserva)
+    User --> (Gestionar Reserves)
+    User --> (Afegir Comentaris i Puntuacions)
+}
+
+rectangle "Pàgines Frontend" {
+    (Inici Frontend)
+    (Explorar Cotxes)
+    (Realitzar Reserva)
+    (Gestionar Reserves)
+    (Afegir Comentaris i Puntuacions)
+}
+
+@enduml

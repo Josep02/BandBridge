@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}BandBridge{% endblock %}</title>
-        <link rel="icon" href="../assets/images/icon.png">
-        {% block stylesheets %}
-        {% endblock %}
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}BandBridge{% endblock %}</title>
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-    </head>
-    <body>
-        {% include '_header.html.twig' %}
-        {% block body %}{% endblock %}
-        {% include '_footer.html.twig' %}
-    </body>
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</head>
+<body class="p-0">
+{% include '_header.html.twig' %}
+<main role="main">
+    {% block body %}
+    {% endblock %}
+</main>
+{% include '_footer.html.twig' %}
+</body>
 </html>

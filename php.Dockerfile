@@ -4,7 +4,7 @@ RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 # change document root directory
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 
-RUN sed -ri -e 's!memory_limit = 128M!memory_limit = 256M!g' /usr/local/etc/php/php.ini
+# RUN sed -ri -e 's!disable_functions =!disable_functions = putenv!g' /usr/local/etc/php/php.ini
 
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
@@ -25,6 +25,8 @@ RUN yes | pecl install xdebug \
     && echo "xdebug.start_with_request=yes" >> /usr/local/etc/php/conf.d/xdebug.ini
 
 
+
+
 # Instalar extensiones y herramientas necesarias para Composer
 RUN apt-get update && apt-get install -y \
     libpng-dev\
@@ -42,13 +44,6 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd
 
 
-# Instal·lar suport traduccions
-RUN apt-get -y update \
-    && apt-get install -y libicu-dev \
-    && docker-php-ext-configure intl \
-    && docker-php-ext-install intl
-
-
 # Instalar Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
@@ -62,13 +57,8 @@ RUN mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - &&\
  apt-get install -y nodejs
 
- # Instalar wkhtmltopdf
-RUN apt-get update && apt-get install -y \
-    wkhtmltopdf \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
 # docker-compose exec web-server composer install \
 # docker-compose exec web-server /bin/bash
 # docker-compose exec web-server symfony ....
 # docker-compose exec web-server php bin/console ...
+

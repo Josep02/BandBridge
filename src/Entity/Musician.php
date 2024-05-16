@@ -56,6 +56,10 @@ class Musician implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: ParticipationRequest::class, mappedBy: 'musician')]
     private Collection $participationRequests;
 
+    #[ORM\OneToOne(inversedBy: 'musician', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Login $login = null;
+
     public function __construct()
     {
         $this->musician_class = new ArrayCollection();
@@ -262,6 +266,18 @@ class Musician implements UserInterface, PasswordAuthenticatedUserInterface
                 $participationRequest->setMusician(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLogin(): ?Login
+    {
+        return $this->login;
+    }
+
+    public function setLogin(Login $login): static
+    {
+        $this->login = $login;
 
         return $this;
     }

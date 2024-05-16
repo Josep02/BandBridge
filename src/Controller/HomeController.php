@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Details;
 use App\Entity\Event;
 use App\Repository\EventRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
