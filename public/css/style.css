@@ -166,15 +166,45 @@
 
 
 .button-back-1 {
-    border: 1px solid red;
-    background-color: red;
-    border-radius: 0 0 4px 0;
+    border: 1px solid lightgray;
+    color: #ff2f2f;
+    background-color: white;
+    border-radius: 0 0 0 4px;
     padding: 5px 10px 5px 10px;
     transition: background 0.3s, color 0.3s;
 }
 
 .button-back-1:hover {
     color: white;
-    background: #181818;
-    border: 1px solid #181818;
+    background: #ff2f2f;
+    border: 1px solid #ff2f2f;
+}
+
+.button-back-2 {
+    border: 1px solid lightgray;
+    color: #2727ff;
+    background-color: white;
+    padding: 5px 10px 5px 10px;
+    transition: background 0.3s, color 0.3s;
+}
+
+.button-back-2:hover {
+    color: white;
+    background: #2727ff;
+    border: 1px solid #2727ff;
+}
+
+.button-back-3 {
+    border: 1px solid lightgray;
+    color: #3acf3a;
+    background-color: white;
+    border-radius: 0 0 4px 0;
+    padding: 5px 10px 5px 10px;
+    transition: background 0.3s, color 0.3s;
+}
+
+.button-back-3:hover {
+    color: white;
+    background: #3acf3a;
+    border: 1px solid #3acf3a;
 }

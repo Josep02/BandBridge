@@ -2,7 +2,7 @@
     <nav id="main-menu">
         <div class="text-center text-white pt-3">
             <span class="ff-2 fs-5">
-                <img src="{{ asset('../assets/images/icon.png') }}" alt="Logo" width="35" height="35">
+                <img src="{{ asset('images/icon.png') }}" alt="Logo" width="35" height="35">
                 BandBridge
             </span>
         </div>
@@ -12,10 +12,10 @@
                 <a href="{{ path('app_back') }}" class="text-decoration-none text-white">Inicio</a>
             </li>
             <li class="submenu">
-                <a href="{{ path('app_back_events') }}" class="text-decoration-none text-white">Eventos</a>
+                <a href="{{ path('app_back_event_index') }}" class="text-decoration-none text-white">Eventos</a>
             </li>
             <li class="submenu">
-                <a href="{{ path('app_back_users') }}" class="text-decoration-none text-white">Usuarios</a>
+                <a href="{{ path('app_back_musician_index') }}" class="text-decoration-none text-white">Usuarios</a>
             </li>
             <li class="submenu">
                 <a href="#" class="text-decoration-none text-white">Organizaciones</a>
