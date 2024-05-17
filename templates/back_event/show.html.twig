@@ -1,0 +1,68 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}Event{% endblock %}
+
+{% block body %}
+    <div class="rounded-2 bg-white p-3">
+        <h1>Evento <span class="fs-4 ps-2">nº {{ event.id }}</span></h1>
+
+        <table class="table">
+            <tbody>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ event.name }}</td>
+            </tr>
+            <tr>
+                <th>Descripcion</th>
+                <td>{{ event.description }}</td>
+            </tr>
+            <tr>
+                <th>Fecha del evento</th>
+                <td>{{ event.date ? event.date|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Fecha de publicacion</th>
+                <td>{{ event.created ? event.created|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Localizacion</th>
+                <td>{{ event.location }}</td>
+            </tr>
+            <tr>
+                <th>Estado</th>
+                <td>{{ event.state }}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h2>Detalles del evento</h2>
+
+        {% if event.details is not empty %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Instrumento requerido</th>
+                    <th>Pago mínimo</th>
+                    <th>Cantidad</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for detail in event.details %}
+                    <tr>
+                        <td>{{ detail.requiredInstrument.name }}</td>
+                        <td>{{ detail.minPayment }}</td>
+                        <td>{{ detail.quantity }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No se encontraron detalles para este evento.</p>
+        {% endif %}
+
+
+        <a href="{{ path('app_back_event_index') }}">back to list</a>
+        <a href="{{ path('app_back_event_edit', {'id': event.id}) }}">edit</a>
+        {{ include('back_event/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

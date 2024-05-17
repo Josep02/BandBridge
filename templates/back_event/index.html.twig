@@ -1,0 +1,75 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}BandBridge{% endblock %}
+
+{% block body %}
+    <div class="rounded-2 bg-white p-3">
+        <h1 class="pb-3">Administra los eventos</h1>
+        <div class="d-flex flex-wrap justify-content-evenly">
+            {% for event in events %}
+                <div class="card card-2 mt-2 mb-2">
+                    <div class="d-flex align-items-center">
+                        <div class="p-3 {% if event.state == 'Closed' %}gray-filter{% endif %}">
+                            <img src="{{ asset('images/card.png') }}" class="rounded-2" alt="...">
+                        </div>
+                        <div>
+                            <p class="card-title ff-2 fs-4 pe-3">{{ event.name }}</p>
+                        </div>
+                    </div>
+                    <div class="card-body pt-0">
+                        <p class="card-text">
+                            {% if event.description|length > 70 %}
+                                {{ event.description|slice(0, 70) ~ '...' }}
+                            {% else %}
+                                {{ event.description }}
+                            {% endif %}
+                        </p>
+                        <p class="card-text ff-2 d-flex align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                                <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
+                                <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                            </svg>
+                            Oliva, Valencia
+                        </p>
+                    </div>
+                    <div class="card-footer p-0">
+                        <div class="text-center d-flex">
+                            <!-- Button to trigger modal -->
+                            <button class="w-100 button-back-1" data-bs-toggle="modal" data-bs-target="#deleteModal{{ event.id }}">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                            <a href="{{ path('app_back_event_show', {'id': event.id}) }}" class="w-100 button-back-2">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                            <a href="{{ path('app_back_event_edit', {'id': event.id}) }}" class="w-100 button-back-3">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Delete Confirmation Modal -->
+                <div class="modal fade" id="deleteModal{{ event.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteModalLabel{{ event.id }}" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="deleteModalLabel{{ event.id }}">Confirmar Eliminación</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                ¿Estás seguro de que deseas eliminar este evento?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <form method="post" action="{{ path('app_back_event_delete', {'id': event.id}) }}">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ event.id) }}">
+                                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
