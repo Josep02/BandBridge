@@ -11,14 +11,41 @@
             <li class="submenu">
                 <a href="{{ path('app_back') }}" class="text-decoration-none text-white">Inicio</a>
             </li>
-            <li class="submenu">
-                <a href="{{ path('app_back_event_index') }}" class="text-decoration-none text-white">Eventos</a>
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white ps-0 fs-5" data-bs-toggle="collapse" data-bs-target="#event-collapse" aria-expanded="false">
+                    Eventos
+                </button>
+                <div class="collapse" id="event-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="{{ path('app_back_event_index') }}" class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white ps-3">Todos los eventos</a></li>
+                        <li><a href="{{ path('app_back_event_new') }}" class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white ps-3">Nuevo evento</a></li>
+                    </ul>
+                </div>
             </li>
-            <li class="submenu">
-                <a href="{{ path('app_back_musician_index') }}" class="text-decoration-none text-white">Usuarios</a>
+
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white ps-0 fs-5" data-bs-toggle="collapse" data-bs-target="#user-collapse" aria-expanded="false">
+                    Usuarios
+                </button>
+                <div class="collapse" id="user-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="{{ path('app_back_musician_index') }}" class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white ps-3">Lista de suarios</a></li>
+                        <li><a href="{{ path('app_back_musician_new') }}" class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white ps-3">Nuevo usuario</a></li>
+                        <li><a href="{{ path('app_back_musician_class_index') }}" class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white ps-3">Gestionar roles</a></li>
+                    </ul>
+                </div>
             </li>
-            <li class="submenu">
-                <a href="#" class="text-decoration-none text-white">Organizaciones</a>
+
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white ps-0 fs-5" data-bs-toggle="collapse" data-bs-target="#organization-collapse" aria-expanded="false">
+                    Organizaciones
+                </button>
+                <div class="collapse" id="organization-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="{{ path('app_back_organization_index') }}" class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white ps-3">Todas las org.</a></li>
+                        <li><a href="{{ path('app_back_organization_new') }}" class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white ps-3">Nueva organizacion</a></li>
+                    </ul>
+                </div>
             </li>
         </ul>
 

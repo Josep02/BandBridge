@@ -1,0 +1,13 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}New Event{% endblock %}
+
+{% block body %}
+    <div class="bg-white p-3 rounded-2">
+        <h1>Create new Event</h1>
+
+        {{ include('back_event/_form.html.twig') }}
+
+        <a href="{{ path('app_back_event_index') }}">back to list</a>
+    </div>
+{% endblock %}

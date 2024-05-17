@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: MusicianRepository::class)]
-class Musician implements UserInterface, PasswordAuthenticatedUserInterface
+class Musician implements PasswordAuthenticatedUserInterface, UserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -24,16 +24,10 @@ class Musician implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $lastname = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $username = null;
-
-    #[ORM\Column(length: 255)]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
     private ?string $image = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $password = null;
 
     /**
      * @var Collection<int, MusicianClass>
@@ -92,18 +86,6 @@ class Musician implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastname(string $lastname): static
     {
         $this->lastname = $lastname;
-
-        return $this;
-    }
-
-    public function getUsername(): ?string
-    {
-        return $this->username;
-    }
-
-    public function setUsername(string $username): static
-    {
-        $this->username = $username;
 
         return $this;
     }
@@ -233,14 +215,6 @@ class Musician implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return string
-     */
-    public function getUserIdentifier(): string
-    {
-        return $this->getUsername();
-    }
-
-    /**
      * @return Collection<int, ParticipationRequest>
      */
     public function getParticipationRequests(): Collection
@@ -280,5 +254,10 @@ class Musician implements UserInterface, PasswordAuthenticatedUserInterface
         $this->login = $login;
 
         return $this;
+    }
+
+    public function getUserIdentifier(): string
+    {
+        // TODO: Implement getUserIdentifier() method.
     }
 }

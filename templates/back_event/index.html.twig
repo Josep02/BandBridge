@@ -1,0 +1,91 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}BandBridge{% endblock %}
+
+{% block body %}
+    <div class="rounded-2 bg-white p-3">
+        <h1 class="pb-3">Administra los eventos</h1>
+        <div class="d-flex flex-wrap justify-content-evenly">
+            {% for event in events %}
+                <div class="card card-2 mt-2 mb-2">
+                    <div class="d-flex align-items-center">
+                        <div class="p-3 {% if event.state == 'Closed' %}gray-filter{% endif %}">
+                            <img src="{{ asset('images/card.png') }}" class="rounded-2" alt="...">
+                        </div>
+                        <div>
+                            <p class="card-title ff-2 fs-4 pe-3">{{ event.name }}</p>
+                        </div>
+                    </div>
+                    <div class="card-body pt-0">
+                        <p class="card-text">
+                            {% if event.description|length > 70 %}
+                                {{ event.description|slice(0, 70) ~ '...' }}
+                            {% else %}
+                                {{ event.description }}
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="card-footer p-0">
+                        <div class="text-center d-flex">
+                            <!-- Button to trigger delete modal -->
+                            <button class="w-100 button-back-1" data-bs-toggle="modal" data-bs-target="#deleteModal{{ event.id }}">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                            <!-- Button to trigger view modal -->
+                            <button class="w-100 button-back-2" data-bs-toggle="modal" data-bs-target="#viewModal{{ event.id }}">
+                                <i class="fa fa-eye"></i>
+                            </button>
+                            <a href="{{ path('app_back_event_edit', {'id': event.id}) }}" class="w-100 button-back-3">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Delete Confirmation Modal -->
+                <div class="modal fade" id="deleteModal{{ event.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteModalLabel{{ event.id }}" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="deleteModalLabel{{ event.id }}">Confirmar Eliminación</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                ¿Estás seguro de que deseas eliminar este evento?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <form method="post" action="{{ path('app_back_event_delete', {'id': event.id}) }}">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ event.id) }}">
+                                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- View Event Details Modal -->
+                <div class="modal fade" id="viewModal{{ event.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="viewModalLabel{{ event.id }}" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="viewModalLabel{{ event.id }}">Detalles del Evento</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <h2>{{ event.name }}</h2>
+                                <p><strong>Descripción:</strong> {{ event.description }}</p>
+                                <p><strong>Ubicación:</strong> Oliva, Valencia</p>
+                                <p><strong>Estado:</strong> {{ event.state }}</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <a href="{{ path('app_back_event_show', {'id': event.id}) }}" class="btn btn-primary">Ver más</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

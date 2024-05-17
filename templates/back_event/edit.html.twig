@@ -1,0 +1,70 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}Edit Event{% endblock %}
+
+{% block body %}
+    <div class="rounded-2 bg-white p-3">
+        <h1>Evento <span class="fs-4 ps-2"># {{ event.id }}</span></h1>
+
+        {{ form_start(form) }}
+        <table class="table">
+            <tbody>
+            <tr>
+                <th>{{ form_label(form.name) }}</th>
+                <td class="w-100">
+                    {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.name) }}
+                </td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.description) }}</th>
+                <td>
+                    {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.description) }}
+                </td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.date) }}</th>
+                <td>
+                    {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.date) }}
+                </td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.created) }}</th>
+                <td>
+                    {{ form_widget(form.created, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.created) }}
+                </td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.location) }}</th>
+                <td>
+                    {{ form_widget(form.location, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.location) }}
+                </td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.state) }}</th>
+                <td>
+                    {{ form_widget(form.state, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.state) }}
+                </td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.organization) }}</th>
+                <td>
+                    {{ form_widget(form.organization, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.organization) }}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
+        {{ form_end(form) }}
+
+        <a href="{{ path('app_back_event_index') }}" class="btn btn-secondary mt-3">Volver a la lista</a>
+        <a href="{{ path('app_back_event_show', {'id': event.id}) }}" class="btn btn-info mt-3">Ver</a>
+    </div>
+{% endblock %}

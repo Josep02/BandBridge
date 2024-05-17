@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ParticipationRequestRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ParticipationRequestRepository::class)]
@@ -21,6 +22,9 @@ class ParticipationRequest
 
     #[ORM\ManyToOne(inversedBy: 'participationRequests')]
     private ?Event $event = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $applicationDate = null;
 
     public function getId(): ?int
     {
@@ -59,6 +63,18 @@ class ParticipationRequest
     public function setEvent(?Event $event): static
     {
         $this->event = $event;
+
+        return $this;
+    }
+
+    public function getApplicationDate(): ?\DateTimeInterface
+    {
+        return $this->applicationDate;
+    }
+
+    public function setApplicationDate(\DateTimeInterface $applicationDate): static
+    {
+        $this->applicationDate = $applicationDate;
 
         return $this;
     }

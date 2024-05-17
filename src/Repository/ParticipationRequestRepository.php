@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Musician;
 use App\Entity\ParticipationRequest;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -45,4 +46,24 @@ class ParticipationRequestRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function findByMusician(Musician $musician)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.musician = :musician')
+            ->setParameter('musician', $musician)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findByState(Musician $musician, string $state): array
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.musician = :musician')
+            ->andWhere('p.state = :state')
+            ->setParameter('musician', $musician)
+            ->setParameter('state', $state)
+            ->getQuery()
+            ->getResult();
+    }
 }

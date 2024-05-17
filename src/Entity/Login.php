@@ -27,7 +27,6 @@ class Login implements PasswordAuthenticatedUserInterface, UserInterface
     #[ORM\OneToOne(mappedBy: 'login', cascade: ['persist', 'remove'])]
     private ?Musician $musician = null;
 
-
     public function getId(): ?int
     {
         return $this->id;

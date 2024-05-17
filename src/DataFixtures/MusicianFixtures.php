@@ -32,8 +32,6 @@ class MusicianFixtures extends Fixture
         $admin->setEmail('admin@gmail.com');
         $admin->setImage('admin.jpg');
         $admin->setLastname('admin');
-        $admin->setPassword($this->hasher->hashPassword($admin, 'admin'));
-        $admin->setUsername('admin');
 
         // Crear un login para el usuario admin
         $adminLogin = new Login();
@@ -45,14 +43,29 @@ class MusicianFixtures extends Fixture
         $manager->persist($admin);
         $manager->persist($adminLogin);
 
+        // Crear un usuario admin
+        $user = new Musician();
+        $user->setName('pepe');
+        $user->setEmail('pepe@gmail.com');
+        $user->setImage('pepe.jpg');
+        $user->setLastname('pepe');
+
+        // Crear un login para el usuario admin
+        $userLogin = new Login();
+        $userLogin->setUsername('pepe');
+        $userLogin->setPassword($this->hasher->hashPassword($user, 'pepe'));
+        $userLogin->setRole('ROLE_USER');
+        $userLogin->setMusician($user);
+
+        $manager->persist($user);
+        $manager->persist($userLogin);
+
         // Crear usuarios normales
         for ($i = 0; $i < 10; $i++) {
             $musician = new Musician();
             $musician->setName($this->faker->name);
             $musician->setLastname($this->faker->lastName);
-            $musician->setPassword($this->hasher->hashPassword($musician, 'password'));
             $musician->setEmail($this->faker->email);
-            $musician->setUsername($this->faker->userName);
             $musician->setImage('image.jpg');
 
             $randomInstrument = $this->faker->randomElement($instruments);
@@ -60,7 +73,7 @@ class MusicianFixtures extends Fixture
 
             // Crear un login para el usuario normal
             $normalLogin = new Login();
-            $normalLogin->setUsername($musician->getUsername());
+            $normalLogin->setUsername('manolo');
             $normalLogin->setPassword($this->hasher->hashPassword($musician, 'password'));
             $normalLogin->setRole('ROLE_USER');
             $normalLogin->setMusician($musician);

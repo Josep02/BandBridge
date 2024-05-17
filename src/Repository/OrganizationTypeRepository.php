@@ -22,7 +22,7 @@ class OrganizationTypeRepository extends ServiceEntityRepository
     }
 
     //    /**
-    //     * @return OrganizationType[] Returns an array of OrganizationType objects
+    //     * @return BackOrganizationType[] Returns an array of BackOrganizationType objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -36,7 +36,7 @@ class OrganizationTypeRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?OrganizationType
+    //    public function findOneBySomeField($value): ?BackOrganizationType
     //    {
     //        return $this->createQueryBuilder('o')
     //            ->andWhere('o.exampleField = :val')

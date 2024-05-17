@@ -6,10 +6,12 @@ use App\Entity\Instrument;
 use App\Entity\Musician;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class MusicianType extends AbstractType
+class BackMusicianType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -22,8 +24,16 @@ class MusicianType extends AbstractType
             ->add('password')
             ->add('Instrument', EntityType::class, [
                 'class' => Instrument::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
             ])
+            ->add('username', TextType::class, [
+                'mapped' => false, //No es de l'entitat musician
+                'required' => true,
+            ])
+            ->add('password', PasswordType::class, [
+                'mapped' => false, //No es de l'entitat musician
+                'required' => true,
+            ]);
         ;
     }
 

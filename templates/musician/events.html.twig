@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mis eventos{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1>Mis eventos</h1>
+
+                <div class="d-flex flex-wrap justify-content-center">
+                    {% for participation in participations %}
+                        <div class="card card-2 mt-2 mb-2">
+                            <div class="d-flex align-items-center">
+                                <div class="p-3">
+                                    <img src="{{ asset('images/card.png') }}" class="rounded-2" alt="...">
+                                </div>
+                                <div><p class="card-title ff-2 fs-4 pe-3">{{ participation.event.name }}</p></div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <h1>Refused</h1>
+                <div class="d-flex flex-wrap justify-content-center">
+                    {% for refused in refuseds %}
+                        <div class="card card-2 mt-2 mb-2">
+                            <div class="d-flex align-items-center">
+                                <div class="p-3">
+                                    <img src="{{ asset('images/card.png') }}" class="rounded-2" alt="...">
+                                </div>
+                                <div><p class="card-title ff-2 fs-4 pe-3">{{ refused.event.name }}</p></div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <h1>Accepted</h1>
+                <div class="d-flex flex-wrap justify-content-center">
+                    {% for accepted in accepteds %}
+                        <div class="card card-2 mt-2 mb-2">
+                            <div class="d-flex align-items-center">
+                                <div class="p-3">
+                                    <img src="{{ asset('images/card.png') }}" class="rounded-2" alt="...">
+                                </div>
+                                <div><p class="card-title ff-2 fs-4 pe-3">{{ accepted.event.name }}</p></div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
