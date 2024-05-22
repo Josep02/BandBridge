@@ -1,0 +1,76 @@
+@startuml
+entity Musician {
+    + id : int
+    - name : string
+    - lastname : string
+    - username : string
+    - email : string
+    - image : string
+    - password : string
+}
+
+entity Valoration {
+    + id : int
+    - title : string
+    - description : string
+}
+
+entity Instrument {
+    + id : int
+    - name : string
+}
+
+entity MusicianClass {
+    + id : int
+}
+
+entity Organization {
+    + id : int
+    - name : string
+    - email : string
+    - description : string
+}
+
+entity OrganizationType {
+    + id : int
+    - name : string
+    - description : string
+}
+
+entity Event {
+    + id : int
+    - name : string
+    - description : string
+    - date : Date
+    - created : Date
+    - location : string
+}
+
+entity Details {
+    + id : int
+    - minPayment : float
+    - quantity : int
+}
+
+entity ParticipationRequest {
+    - id : int
+    - state : int
+    - musician : Musician
+    - details : Details
+}
+
+Musician ||--o{ Valoration
+Musician ||--|{ Instrument
+Musician ||--|{ MusicianClass
+Musician }o--o{ ParticipationRequest
+
+ParticipationRequest ||--|| Event
+
+MusicianClass }|--|| Organization
+
+Organization ||--o{ OrganizationType
+Organization ||--o{ Event
+
+Event ||--o{ Details
+
+@enduml

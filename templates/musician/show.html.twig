@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Musician{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row mt-5 mb-5">
+            <!-- Contenedor grande a la izquierda -->
+            <div class="col-6">
+                <div class="rounded-2 border border-secondary p-3 h-100 text-center align-content-center">
+                    <img src="https://github.com/mdo.png" alt="" width="120" height="120" class="rounded-circle me-2">
+                    <span class="fs-2">@{{ app.user.username }}</span>
+
+                    <div class="pt-4">
+                        <h1>{{ musician.name }} {{ musician.lastname }}</h1>
+                    </div>
+                </div>
+            </div>
+            <!-- Contenedores pequeños a la derecha -->
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-6 pb-4">
+                        <div class="rounded-2 border border-secondary p-3 box-2 text-center align-content-center">
+                            <a href="{{ path('app_musician_edit', {'id': musician.id}) }}"><i class="fa fa-pencil"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-6 pb-4">
+                        <div class="rounded-2 border border-secondary p-3 box-2 text-center align-content-center">
+                            <a href="{{ path('app_musician_events', {'id': musician.id}) }}"><i class="fa-solid fa-calendar-days"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="rounded-2 border border-secondary p-3 box-2 text-center align-content-center">
+                            {% if organizer %}
+                                <a href="{{ path('app_musician_events', {'id': musician.id}) }}"><i class="fa-solid fa-sitemap"></i></a>
+                            {% else %}
+                                <i class="fa-solid fa-sitemap text-muted"></i>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="rounded-2 border border-secondary p-3 box-2 text-center align-content-center">
+                            <i class="fa-regular fa-comment"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if events is not empty %}
+            <div class="row mt-4">
+                <div class="col-12">
+                    <h1>Tus próximos eventos</h1>
+                    <div class="d-flex justify-content-center">
+                        {% for event in events %}
+                            <div class="card card-2 mt-2 mb-2">
+                                <div class="d-flex align-items-center">
+                                    <div class="p-3">
+                                        <img src="{{ asset('images/card.png') }}" class="rounded-2" alt="...">
+                                    </div>
+                                    <div>
+                                        <p class="card-title ff-2 fs-4 pe-3">{{ event.event.name }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

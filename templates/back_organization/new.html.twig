@@ -1,0 +1,13 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}New Organization{% endblock %}
+
+{% block body %}
+    <div class="bg-white rounded-2 p-3">
+        <h1>Crear nueva organizacion</h1>
+
+        {{ include('back_organization/_form.html.twig') }}
+
+        <a href="{{ path('app_back_organization_index') }}">back to list</a>
+    </div>
+{% endblock %}

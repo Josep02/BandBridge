@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MusicianClass{% endblock %}
+
+{% block body %}
+    <h1>MusicianClass</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ musician_class.id }}</td>
+            </tr>
+            <tr>
+                <th>Role</th>
+                <td>{{ musician_class.role }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_back_musician_class_index') }}">back to list</a>
+
+    <a href="{{ path('app_back_musician_class_edit', {'id': musician_class.id}) }}">edit</a>
+
+    {{ include('back_musician_class/_delete_form.html.twig') }}
+{% endblock %}

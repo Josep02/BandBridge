@@ -1,0 +1,43 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}Organization index{% endblock %}
+
+{% block body %}
+    <div class="bg-white rounded-2 p-3">
+        <h1>Organization index</h1>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for organization in organizations %}
+                <tr>
+                    <td>
+                        <img src="{{ asset('images/card.png') }}" alt="" width="60" height="60" class="rounded-circle me-2">
+                    </td>
+                    <td>{{ organization.name }}</td>
+                    <td>{{ organization.email }}</td>
+                    <td>{{ organization.description }}</td>
+                    <td>
+                        <a href="{{ path('app_back_organization_show', {'id': organization.id}) }}">show</a>
+                        <a href="{{ path('app_back_organization_edit', {'id': organization.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ path('app_back_organization_new') }}">Create new</a>
+    </div>
+{% endblock %}
