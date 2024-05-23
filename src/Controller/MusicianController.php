@@ -62,7 +62,7 @@ class MusicianController extends AbstractController
     #[Route('/{id}', name: 'app_musician_show', methods: ['GET'])]
     public function show(Musician $musician, MusicianClassRepository $musicianClassRepository, ParticipationRequestRepository $participationRequestRepository): Response
     {
-        $organizer = !empty($musicianClassRepository->findBy(['musician' => $musician, 'role' => 'Organizer']));
+        $organizer = !empty($musicianClassRepository->findBy(['musician' => $musician]));
 
         $events = $participationRequestRepository->findByState($musician, 'Accepted');
 
@@ -113,6 +113,18 @@ class MusicianController extends AbstractController
             'participations' => $participations,
             'refuseds' => $refused,
             'accepteds' => $accepted,
+        ]);
+    }
+
+    #[Route('/{id}/organizations', name: 'app_musician_organizations', methods: ['GET'])]
+    public function organizations(Musician $musician, MusicianClassRepository $musicianClassRepository): Response
+    {
+        $organizer = $musicianClassRepository->findBy(['musician' => $musician, 'role' => 'Organizer']);
+        $musician = $musicianClassRepository->findBy(['musician' => $musician, 'role' => 'Musician']);
+
+        return $this->render('musician/organizations.html.twig', [
+            'organizer' => $organizer,
+            'musician' => $musician,
         ]);
     }
 

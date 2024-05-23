@@ -2,14 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\Login;
 use App\Entity\Musician;
 use App\Form\BackMusicianType;
+use App\Form\MusicianType;
 use App\Repository\MusicianClassRepository;
 use App\Repository\MusicianRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/back/musician')]
@@ -24,13 +27,26 @@ class BackMusicianController extends AbstractController
     }
 
     #[Route('/new', name: 'app_back_musician_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
         $musician = new Musician();
+        $login = new Login();
+
         $form = $this->createForm(BackMusicianType::class, $musician);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $username = $form->get('username')->getData();
+            $password = $form->get('password')->getData();
+
+            $login->setUsername($username);
+            $hashedPassword = $passwordHasher->hashPassword($login, $password);
+            $login->setPassword($hashedPassword);
+            $login->setRole('ROLE_USER');
+
+            $musician->setLogin($login);
+
+            $entityManager->persist($login);
             $entityManager->persist($musician);
             $entityManager->flush();
 

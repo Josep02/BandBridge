@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mis eventos{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="mt-2">Organizaciones</h1>
+
+                <h2 class="mt-4">Eres organizador de:</h2>
+                <div class="pt-1 pb-1 border border-1 rounded-2">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Organizacion</th>
+                                <th scope="col">Correo</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for organize in organizer %}
+                                <tr>
+                                    <td>
+                                        <img src="{{ asset('images/card.png') }}" alt="" width="60" height="60" class="rounded-circle">
+                                    </td>
+                                    <td class="align-middle">{{ organize.organization.name }}</td>
+                                    <td class="align-middle">{{ organize.organization.email }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <h2 class="mt-4">Formas parte de:</h2>
+                <div class="pt-1 pb-1 border border-1 rounded-2">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Organizacion</th>
+                                <th scope="col">Correo</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for musi in musician %}
+                                <tr>
+                                    <td>
+                                        <img src="{{ asset('images/card.png') }}" alt="" width="60" height="60" class="rounded-circle">
+                                    </td>
+                                    <td class="align-middle">{{ musi.organization.name }}</td>
+                                    <td class="align-middle">{{ musi.organization.email }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

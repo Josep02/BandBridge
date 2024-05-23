@@ -11,21 +11,21 @@
             <div class="col-sm-12 col-md-12 col-lg-10 col-xl-8">
                 <h1 class="">Eventos para ti</h1>
                 <div class="d-flex flex-wrap justify-content-center justify-content-md-center justify-content-lg-between justify-content-xl-between">
-                    {% for activeEvent in activeEvents|slice(0, 2) %}
+                    {% for forMeEvent in forMeEvents|slice(0, 2) %}
                         <div class="card card-2 mt-2 mb-2">
-                            <a href="{{ path('app_home_event_show', {id: activeEvent.id}) }}" class="text-decoration-none text-black">
+                            <a href="{{ path('app_home_event_show', {id: forMeEvent.id}) }}" class="text-decoration-none text-black">
                                 <div class="d-flex align-items-center">
                                     <div class="p-3">
                                         <img src="{{ asset('images/card.png') }}" class="rounded-2" alt="...">
                                     </div>
-                                    <div><p class="card-title ff-2 fs-4 pe-3">{{ activeEvent.name }}</p></div>
+                                    <div><p class="card-title ff-2 fs-4 pe-3">{{ forMeEvent.name }}</p></div>
                                 </div>
                                 <div class="card-body pt-0">
                                     <p class="card-text">
-                                        {% if activeEvent.description|length > 75 %}
-                                            {{ activeEvent.description|slice(0, 75) ~ '...' }}
+                                        {% if forMeEvent.description|length > 75 %}
+                                            {{ forMeEvent.description|slice(0, 75) ~ '...' }}
                                         {% else %}
-                                            {{ activeEvent.description }}
+                                            {{ forMeEvent.description }}
                                         {% endif %}
                                     </p>
                                     <p class="card-text ff-2 d-flex align-items-center">
@@ -42,6 +42,7 @@
                             <div class="card-footer p-0">
                                 <div class="text-center">
                                     <button type="button" class=" w-100 rounded-bottom button-3">Participar</button>
+                                    <a href="{{ path('app_home_participation_create', {'id': forMeEvent.id}) }}" class="button-3">Participar</a>
                                 </div>
                             </div>
                         </div>
@@ -66,19 +67,19 @@
             <div class="col-xl-12">
                 <h1 class="">Eventos para ti</h1>
                 <div class=" d-flex flex-wrap justify-content-center justify-content-md-center justify-content-lg-between justify-content-xl-between mb-2">
-                    {% for activeEvent in activeEvents|slice(0, 3) %}
+                    {% for forMeEvent in forMeEvents|slice(0, 3) %}
                         <div class="card card-2 mt-2 mb-2">
                             <div class="d-flex align-items-center">
                                 <div class="p-3"><img src="{{ asset('images/card.png') }}"
                                                       class="rounded-2" alt="..."></div>
-                                <div><p class="card-title ff-2 fs-4 pe-3">{{ activeEvent.name }}</p></div>
+                                <div><p class="card-title ff-2 fs-4 pe-3">{{ forMeEvent.name }}</p></div>
                             </div>
                             <div class="card-body pt-0">
                                 <p class="card-text">
-                                    {% if activeEvent.description|length > 75 %}
-                                        {{ activeEvent.description|slice(0, 75) ~ '...' }}
+                                    {% if forMeEvent.description|length > 75 %}
+                                        {{ forMeEvent.description|slice(0, 75) ~ '...' }}
                                     {% else %}
-                                        {{ activeEvent.description }}
+                                        {{ forMeEvent.description }}
                                     {% endif %}
                                 </p>
                                 <p class="card-text ff-2 d-flex align-items-center">
@@ -93,7 +94,9 @@
                             </div>
                             <div class="card-footer p-0">
                                 <div class="text-center">
-                                    <button type="button" class=" w-100 rounded-bottom button-3">Participar</button>
+                                    <a href="{{ path('app_home_participation_create', {'id': forMeEvent.id}) }}">
+                                        <button type="button" class=" w-100 rounded-bottom button-3">Participar</button>
+                                    </a>
                                 </div>
                             </div>
                         </div>

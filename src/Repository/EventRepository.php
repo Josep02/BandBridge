@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Event;
+use App\Entity\Instrument;
+use App\Entity\ParticipationRequest;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -45,4 +47,15 @@ class EventRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function findForMe(Instrument $instrument): array
+    {
+        return $this->createQueryBuilder('e')
+            ->join('e.details', 'd')
+            ->where('d.requiredInstrument = :instrument')
+            ->setParameter('instrument', $instrument)
+            ->getQuery()
+            ->getResult();
+    }
+
 }
