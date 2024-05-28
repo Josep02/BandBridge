@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Organization{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="mt-5 d-flex">
+                    <div class="me-3">
+                        <img src="{{ asset('images/card.png') }}" alt="" width="120" height="120" class="rounded-2">
+                    </div>
+                    <div>
+                        <p class="fs-2">{{ organization.name }}</p>
+                        <p>{{ organization.email }}</p>
+                    </div>
+                </div>
+
+                <hr class="mt-4 mb-4">
+
+                <p class="text-center">{{ organization.description }}</p>
+
+                {% if musicians is not empty %}
+                    <h2 class="mt-5">Sus musicos</h2>
+                    <ul>
+                        {% for musician in musicians %}
+                            <li>{{ musician.musician.name }} - {{ musician.musician.instrument.name }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
