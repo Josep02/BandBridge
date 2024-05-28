@@ -58,7 +58,6 @@ class HomeController extends AbstractController
 
         $event = $entityManager->getRepository(Event::class)->find($id);
 
-        // Verificar si ya existe una solicitud de participación para este evento y músico
         $existingParticipation = $participationRequestRepository->findOneBy([
             'event' => $event,
             'musician' => $musician
@@ -84,7 +83,7 @@ class HomeController extends AbstractController
 
         $this->addFlash(
             'success',
-            "S'ha enviat una sol.licitud per a participar en l'event."
+            "Ya se ha enviado una solicitud para este evento"
         );
 
         return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);

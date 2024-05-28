@@ -16,7 +16,9 @@
                             <tr>
                                 <th scope="col"></th>
                                 <th scope="col">Organizacion</th>
+                                <th scope="col">Clase de organizacion</th>
                                 <th scope="col">Correo</th>
+                                <th scope="col"></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -26,7 +28,13 @@
                                         <img src="{{ asset('images/card.png') }}" alt="" width="60" height="60" class="rounded-circle">
                                     </td>
                                     <td class="align-middle">{{ organize.organization.name }}</td>
+                                    <td class="align-middle">{{ organize.organization.organizationType.name }}</td>
                                     <td class="align-middle">{{ organize.organization.email }}</td>
+                                    <td class="align-middle">
+                                        <a href="{{ path('app_organization_organizer_show', {'id': organize.organization.id}) }}">
+                                            <button class="btn btn-primary">Ver organizacion</button>
+                                        </a>
+                                    </td>
                                 </tr>
                             {% endfor %}
                             </tbody>
@@ -42,7 +50,9 @@
                             <tr>
                                 <th scope="col"></th>
                                 <th scope="col">Organizacion</th>
+                                <th scope="col">Clase de organizacion</th>
                                 <th scope="col">Correo</th>
+                                <th scope="col"></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -52,7 +62,13 @@
                                         <img src="{{ asset('images/card.png') }}" alt="" width="60" height="60" class="rounded-circle">
                                     </td>
                                     <td class="align-middle">{{ musi.organization.name }}</td>
+                                    <td class="align-middle">{{ musi.organization.organizationType.name }}</td>
                                     <td class="align-middle">{{ musi.organization.email }}</td>
+                                    <td class="align-middle">
+                                        <a href="{{ path('app_organization_show', {'id': musi.organization.id}) }}">
+                                            <button class="btn btn-primary">Ver organizacion</button>
+                                        </a>
+                                    </td>
                                 </tr>
                             {% endfor %}
                             </tbody>

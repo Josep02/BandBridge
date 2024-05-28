@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Event;
 use App\Form\EventType;
 use App\Repository\EventRepository;
+use App\Repository\OrganizationRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,17 +17,36 @@ use Symfony\Component\Routing\Attribute\Route;
 class EventController extends AbstractController
 {
     #[Route('/', name: 'app_event_index', methods: ['GET'])]
-    public function index(EventRepository $eventRepository): Response
+    public function index(EventRepository $eventRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $q = $request->query->get('q', '');
+        if (empty($q)) {
+            $query = $eventRepository->findAllQuery();
+        } else {
+            $query = $eventRepository->findByTextQuery($q);
+        }
+
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            9
+        );
+
         return $this->render('event/index.html.twig', [
-            'events' => $eventRepository->findAll(),
+            'events' => $pagination,
+            'pagination' => $pagination,
+            'q' => $q
         ]);
     }
 
-    #[Route('/new', name: 'app_event_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/new/{id}', name: 'app_event_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager, OrganizationRepository $organizationRepository, int $organizationId): Response
     {
+        $organization = $organizationRepository->find($organizationId);
+
         $event = new Event();
+        $event->setOrganization($organization);
+
         $form = $this->createForm(EventType::class, $event);
         $form->handleRequest($request);
 
@@ -41,6 +62,7 @@ class EventController extends AbstractController
             'form' => $form,
         ]);
     }
+
 
     #[Route('/{id}', name: 'app_event_show', methods: ['GET'])]
     public function show(Event $event): Response

@@ -105,7 +105,7 @@ class MusicianController extends AbstractController
     #[Route('/{id}/events', name: 'app_musician_events', methods: ['GET'])]
     public function events(Musician $musician, ParticipationRequestRepository $participationRequestRepository): Response
     {
-        $participations = $participationRequestRepository->findByMusician($musician);
+        $participations = $participationRequestRepository->findByState($musician, 'In process');
         $refused = $participationRequestRepository->findByState($musician, 'Refused');
         $accepted = $participationRequestRepository->findByState($musician, 'Accepted');
 

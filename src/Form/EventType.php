@@ -1,12 +1,12 @@
 <?php
-
 namespace App\Form;
 
 use App\Entity\Event;
-use App\Entity\Organization;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class EventType extends AbstractType
@@ -15,20 +15,19 @@ class EventType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('description')
-            ->add('date', null, [
-                'widget' => 'single_text',
+            ->add('description', TextareaType::class, [
+                'attr' => ['rows' => 6],
             ])
-            ->add('created', null, [
+            ->add('date', DateTimeType::class, [
                 'widget' => 'single_text',
             ])
             ->add('location')
-            ->add('state')
-            ->add('organization', EntityType::class, [
-                'class' => Organization::class,
-                'choice_label' => 'id',
-            ])
-        ;
+            ->add('state', ChoiceType::class, [
+                'choices' => [
+                    'Active' => 'Active',
+                    'Inactive' => 'Inactive',
+                ],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

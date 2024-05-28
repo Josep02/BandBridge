@@ -1,11 +1,51 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Event{% endblock %}
+{% block title %}Nuevo evento{% endblock %}
 
 {% block body %}
-    <h1>Create new Event</h1>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <h1 class="mb-4">Crear nuevo evento</h1>
 
-    {{ include('event/_form.html.twig') }}
+                {{ form_start(form) }}
 
-    <a href="{{ path('app_event_index') }}">back to list</a>
+                <div class="mb-3">
+                    {{ form_label(form.name, 'Nombre del Evento', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.name) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.description, 'Descripción', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.description) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.date, 'Fecha', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.date) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.location, 'Ubicación', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.location, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.location) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.state, 'Estado', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.state, {'attr': {'class': 'form-select'}}) }}
+                    {{ form_errors(form.state) }}
+                </div>
+
+                <div class="text-end mt-3">
+                    <button type="submit" class="btn btn-primary">Crear evento</button>
+                </div>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

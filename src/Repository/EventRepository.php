@@ -6,6 +6,7 @@ use App\Entity\Event;
 use App\Entity\Instrument;
 use App\Entity\ParticipationRequest;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -57,5 +58,12 @@ class EventRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findAllQuery(): Query
+    {
+        return $this->createQueryBuilder('e')
+            ->getQuery();
+    }
+
 
 }

@@ -3,11 +3,49 @@
 {% block title %}Edit Event{% endblock %}
 
 {% block body %}
-    <h1>Edit Event</h1>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <h1 class="mb-4">Editar evento</h1>
 
-    {{ include('event/_form.html.twig', {'button_label': 'Update'}) }}
+                {{ form_start(form) }}
 
-    <a href="{{ path('app_event_index') }}">back to list</a>
+                <div class="mb-3">
+                    {{ form_label(form.name, 'Nombre del Evento', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.name) }}
+                </div>
 
-    {{ include('event/_delete_form.html.twig') }}
+                <div class="mb-3">
+                    {{ form_label(form.description, 'Descripción', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.description) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.date, 'Fecha', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.date) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.location, 'Ubicación', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.location, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.location) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.state, 'Estado', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.state, {'attr': {'class': 'form-select'}}) }}
+                    {{ form_errors(form.state) }}
+                </div>
+
+                <button type="submit" class="btn btn-primary">Actualizar</button>
+
+                {{ form_end(form) }}
+
+                {{ include('event/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
 {% endblock %}
