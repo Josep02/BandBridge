@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Instrument;
 use App\Entity\Login;
 use App\Entity\Musician;
 use App\Form\MusicianType;
+use App\Repository\InstrumentRepository;
 use App\Repository\MusicianClassRepository;
 use App\Repository\MusicianRepository;
 use App\Repository\ParticipationRequestRepository;
@@ -27,15 +29,24 @@ class MusicianController extends AbstractController
     }
 
     #[Route('/new', name: 'app_musician_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, InstrumentRepository $instrumentRepository, UserPasswordHasherInterface $passwordHasher): Response
     {
         $musician = new Musician();
         $login = new Login();
+
+        $instruments = $entityManager->getRepository(Instrument::class)->findAll();
 
         $form = $this->createForm(MusicianType::class, $musician);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($musician->getImage() === null) {
+                $musician->setImage('example.png');
+            }
+            $instrumentoSeleccionado = $request->request->get('instrumento');
+
+            $instrument = $instrumentRepository->find($instrumentoSeleccionado);
+
             $username = $form->get('username')->getData();
             $password = $form->get('password')->getData();
 
@@ -46,18 +57,22 @@ class MusicianController extends AbstractController
 
             $musician->setLogin($login);
 
+            $musician->setInstrument($instrument);
+
             $entityManager->persist($login);
             $entityManager->persist($musician);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_musician_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('musician/new.html.twig', [
             'musician' => $musician,
             'form' => $form,
+            'instruments' => $instruments,
         ]);
     }
+
 
     #[Route('/{id}', name: 'app_musician_show', methods: ['GET'])]
     public function show(Musician $musician, MusicianClassRepository $musicianClassRepository, ParticipationRequestRepository $participationRequestRepository): Response

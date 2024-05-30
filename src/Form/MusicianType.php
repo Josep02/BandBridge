@@ -6,10 +6,12 @@ use App\Entity\Instrument;
 use App\Entity\Musician;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
 
 class MusicianType extends AbstractType
 {
@@ -19,21 +21,23 @@ class MusicianType extends AbstractType
             ->add('name')
             ->add('lastname')
             ->add('email')
-            ->add('image')
-            ->add('Instrument', EntityType::class, [
-                'class' => Instrument::class,
-                'choice_label' => 'name',
+            ->add('image', FileType::class, [
+                'label' => 'Imagen de perfil',
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control',
+                ],
             ])
             ->add('username', TextType::class, [
-                'mapped' => false, //No es de l'entitat musician
+                'mapped' => false,
                 'required' => true,
             ])
             ->add('password', PasswordType::class, [
-                'mapped' => false, //No es de l'entitat musician
+                'mapped' => false,
                 'required' => true,
             ]);
-        ;
     }
+
 
     public function configureOptions(OptionsResolver $resolver): void
     {

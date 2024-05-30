@@ -26,17 +26,12 @@
                                         <div class="offcanvas offcanvas-end bg-2 text-white" data-bs-scroll="true" tabindex="-1"
                                              id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
                                             <div class="offcanvas-header">
+                                                <h5 class="offcanvas-title" id="offcanvasScrollingLabel">@{{ app.user.username }}</h5>
                                                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
                                                         aria-label="Close">
                                                 </button>
                                             </div>
                                             <div class="offcanvas-body">
-                                                <div class="text-center mb-3">
-                                            <span>
-                                                <img src="https://github.com/mdo.png" alt="" width="70" height="70" class="rounded-circle me-2">
-                                                    @{{ app.user.username }}
-                                            </span>
-                                                </div>
                                                 <div>
                                                     <ul class="navbar-nav me-auto mb-lg-0 fs-4">
                                                         <li class="nav-item">
