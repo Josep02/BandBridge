@@ -37,11 +37,6 @@ class HomeController extends AbstractController
     #[Route('/home/{id}', name: 'app_home_event_show')]
     public function show(Event $event): Response
     {
-        $this->addFlash(
-            'warning',
-            "Sols els clients poden realitzar compres"
-        );
-
         $details = $event->getDetails();
 
         return $this->render('home/show.html.twig', [

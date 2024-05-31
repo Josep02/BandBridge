@@ -7,6 +7,9 @@ use App\Entity\Login;
 use App\Entity\Musician;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,19 +20,12 @@ class Musician1Type extends AbstractType
         $builder
             ->add('name')
             ->add('lastname')
-            ->add('username')
             ->add('email')
-            ->add('image')
-            ->add('password')
-            ->add('Instrument', EntityType::class, [
-                'class' => Instrument::class,
-                'choice_label' => 'id',
-            ])
-            ->add('login', EntityType::class, [
-                'class' => Login::class,
-                'choice_label' => 'id',
-            ])
-        ;
+            ->add('avatar', FileType::class, [
+                'label' => 'Avatar',
+                'required' => false,
+                'mapped' => false,
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

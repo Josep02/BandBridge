@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Instrument;
 use App\Entity\Login;
 use App\Entity\Musician;
+use App\Form\Musician1Type;
 use App\Form\MusicianType;
 use App\Repository\InstrumentRepository;
 use App\Repository\MusicianClassRepository;
@@ -16,6 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Core\Security;
 
 #[Route('/musician')]
 class MusicianController extends AbstractController
@@ -40,9 +42,19 @@ class MusicianController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($musician->getImage() === null) {
+            $file = $form['avatar']->getData();
+
+            if ($file) {
+                $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+
+                $file->move(
+                    $this->getParameter('images'), $fileName);
+
+                $musician->setImage($fileName);
+            } else {
                 $musician->setImage('example.png');
             }
+
             $instrumentoSeleccionado = $request->request->get('instrumento');
 
             $instrument = $instrumentRepository->find($instrumentoSeleccionado);
@@ -73,10 +85,17 @@ class MusicianController extends AbstractController
         ]);
     }
 
-
-    #[Route('/{id}', name: 'app_musician_show', methods: ['GET'])]
-    public function show(Musician $musician, MusicianClassRepository $musicianClassRepository, ParticipationRequestRepository $participationRequestRepository): Response
+    #[Route('/{id}/show', name: 'app_musician_show', methods: ['GET'])]
+    public function show($id, MusicianRepository $musicianRepository, MusicianClassRepository $musicianClassRepository, ParticipationRequestRepository $participationRequestRepository): Response
     {
+        $user = $this->getUser();
+
+        $musician = $musicianRepository->findOneBy(['login' => $user]);
+
+        if (!$musician) {
+            throw $this->createNotFoundException('No se encontró el músico asociado con este usuario.');
+        }
+
         $organizer = !empty($musicianClassRepository->findBy(['musician' => $musician]));
 
         $events = $participationRequestRepository->findByState($musician, 'Accepted');
@@ -89,20 +108,49 @@ class MusicianController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_musician_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Musician $musician, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Musician $musician, EntityManagerInterface $entityManager, Security $security, InstrumentRepository $instrumentRepository, UserPasswordHasherInterface $passwordHasher): Response
     {
-        $form = $this->createForm(MusicianType::class, $musician);
+        $instruments = $entityManager->getRepository(Instrument::class)->findAll();
+
+        $user = $security->getUser();
+        $username = $user->getUsername();
+
+        $form = $this->createForm(Musician1Type::class, $musician);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form['avatar']->getData();
+
+            if ($file) {
+                $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+
+                $file->move(
+                    $this->getParameter('images'), $fileName);
+
+                $musician->setImage($fileName);
+            }
+
+            $instrumentoSeleccionado = $request->request->get('instrumento');
+
+            $instrument = $instrumentRepository->find($instrumentoSeleccionado);
+            $musician->setInstrument($instrument);
+
+            $entityManager->persist($musician);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_musician_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash(
+                'warning',
+                "Informacion actualizada correctamente"
+            );
+
+            return $this->redirectToRoute('app_musician_show', ['id' => $musician->getId()]);
         }
 
         return $this->render('musician/edit.html.twig', [
             'musician' => $musician,
-            'form' => $form,
+            'form' => $form->createView(),
+            'instruments' => $instruments,
+            'username' => $username,
         ]);
     }
 

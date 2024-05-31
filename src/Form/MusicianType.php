@@ -21,12 +21,10 @@ class MusicianType extends AbstractType
             ->add('name')
             ->add('lastname')
             ->add('email')
-            ->add('image', FileType::class, [
-                'label' => 'Imagen de perfil',
+            ->add('avatar', FileType::class, [
+                'label' => 'Avatar',
                 'required' => false,
-                'attr' => [
-                    'class' => 'form-control',
-                ],
+                'mapped' => false,
             ])
             ->add('username', TextType::class, [
                 'mapped' => false,

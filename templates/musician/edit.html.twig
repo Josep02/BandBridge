@@ -1,13 +1,69 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Musician{% endblock %}
+{% block title %}New Musician{% endblock %}
 
 {% block body %}
-    <h1>Edit Musician</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 my-5 d-flex justify-content-center">
+                <div class="border border-black border-opacity-25 p-3 rounded-2 d-flex flex-column align-items-center form-container">
+                    <div class="text-center">
+                        <h1>Modificar perfil</h1>
+                    </div>
+                    {{ form_start(form, {'attr': {'class': 'form'}}) }}
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-floating mb-3">
+                                {{ form_widget(form.name, {'attr': {'class': 'form-control', 'placeholder': 'Nombre'}}) }}
+                                {{ form_label(form.name, 'Nombre') }}
+                            </div>
+                            <div class="form-floating mb-3">
+                                {{ form_widget(form.lastname, {'attr': {'class': 'form-control', 'placeholder': 'Apellidos'}}) }}
+                                {{ form_label(form.lastname, 'Apellidos') }}
+                            </div>
+                            <div class="form-floating mb-3">
+                                {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Correo'}}) }}
+                                {{ form_label(form.email, 'Correo') }}
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-floating mb-3">
+                                {{ form_widget(form.avatar, {'attr': {'class': 'form-control', 'placeholder': 'Avatar'}}) }}
+                                {{ form_label(form.avatar, 'Avatar') }}
+                            </div>
+                            <div>
+                                <button type="button" class="button-2 w-100 p-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    Seleccionar Instrumento
+                                </button>
 
-    {{ include('musician/_form.html.twig', {'button_label': 'Update'}) }}
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <div class="d-flex flex-wrap">
+                                                    {% for instrument in instruments %}
+                                                        <div class="button-2 m-1" data-bs-dismiss="modal">
+                                                            <input type="radio" id="instrumento{{ instrument.id }}" name="instrumento" value="{{ instrument.id }}"
+                                                                    {% if musician.instrument.id == instrument.id %} checked {% endif %}>
+                                                            <label for="instrumento{{ instrument.id }}">{{ instrument.name }}</label><br>
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="button-4">Actualizar</button>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <a href="{{ path('app_musician_index') }}">back to list</a>
-
-    {{ include('musician/_delete_form.html.twig') }}
 {% endblock %}

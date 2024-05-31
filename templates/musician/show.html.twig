@@ -8,7 +8,7 @@
             <!-- Contenedor grande a la izquierda -->
             <div class="col-6">
                 <div class="rounded-2 border border-secondary p-3 h-100 text-center align-content-center">
-                    <img src="https://github.com/mdo.png" alt="" width="120" height="120" class="rounded-circle me-2">
+                    <img src="{{ asset('images/' ~ musician.image) }}" alt="" width="120" height="120" class="rounded-circle me-2">
                     <span class="fs-2">@{{ app.user.username }}</span>
 
                     <div class="pt-4">
