@@ -3,8 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Organization;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,11 +16,7 @@ class OrganizationType extends AbstractType
         $builder
             ->add('name')
             ->add('email')
-            ->add('description')
-            ->add('organization_type', EntityType::class, [
-                'class' => self::class,
-                'choice_label' => 'id',
-            ])
+            ->add('description', TextareaType::class)
         ;
     }
 

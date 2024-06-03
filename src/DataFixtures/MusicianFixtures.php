@@ -30,7 +30,7 @@ class MusicianFixtures extends Fixture
         $admin = new Musician();
         $admin->setName('admin');
         $admin->setEmail('admin@gmail.com');
-        $admin->setImage('admin.jpg');
+        $admin->setImage('example.png');
         $admin->setLastname('admin');
 
         // Crear un login para el usuario admin
@@ -47,7 +47,7 @@ class MusicianFixtures extends Fixture
         $user = new Musician();
         $user->setName('pepe');
         $user->setEmail('pepe@gmail.com');
-        $user->setImage('pepe.jpg');
+        $user->setImage('example.png');
         $user->setLastname('pepe');
 
         // Crear un login para el usuario admin
@@ -66,7 +66,7 @@ class MusicianFixtures extends Fixture
             $musician->setName($this->faker->name);
             $musician->setLastname($this->faker->lastName);
             $musician->setEmail($this->faker->email);
-            $musician->setImage('image.jpg');
+            $musician->setImage('example.png');
 
             $randomInstrument = $this->faker->randomElement($instruments);
             $musician->setInstrument($randomInstrument);

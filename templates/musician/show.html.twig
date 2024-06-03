@@ -34,7 +34,7 @@
                             {% if organizer %}
                                 <a href="{{ path('app_musician_organizations', {'id': musician.id}) }}"><i class="fa-solid fa-sitemap"></i></a>
                             {% else %}
-                                <i class="fa-solid fa-sitemap text-muted"></i>
+                                <button type="button" class="btn btn-link fs-0" data-bs-toggle="modal" data-bs-target="#organizationModal"><i class="fa-solid fa-sitemap text-muted"></i></button>
                             {% endif %}
                         </div>
                     </div>
@@ -68,5 +68,22 @@
                 </div>
             </div>
         {% endif %}
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="organizationModal" tabindex="-1" aria-labelledby="organizationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h4 class="text-center mt-4">Lo sentimos, parece que no estás asociado a ninguna organización en este momento.</h4>
+                    <div class="text-center mt-5">
+                        <p class="mb-1">Si lo deseas puedes registrar una organizacion tu mismo.</p>
+                    </div>
+                    <div class="text-center mb-3">
+                        <a href="{{ path('app_organization_new') }}"><button class="button-2">Crear organizacion</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

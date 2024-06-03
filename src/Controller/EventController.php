@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Event;
+use App\Entity\Instrument;
 use App\Form\EventType;
 use App\Repository\EventRepository;
+use App\Repository\InstrumentRepository;
 use App\Repository\OrganizationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -39,7 +41,7 @@ class EventController extends AbstractController
         ]);
     }
 
-    #[Route('/new/{id}', name: 'app_event_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'app_event_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, OrganizationRepository $organizationRepository, int $organizationId): Response
     {
         $organization = $organizationRepository->find($organizationId);
@@ -59,10 +61,9 @@ class EventController extends AbstractController
 
         return $this->render('event/new.html.twig', [
             'event' => $event,
-            'form' => $form,
+            'form' => $form->createView()
         ]);
     }
-
 
     #[Route('/{id}', name: 'app_event_show', methods: ['GET'])]
     public function show(Event $event): Response

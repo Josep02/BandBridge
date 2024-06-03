@@ -3,9 +3,67 @@
 {% block title %}New Organization{% endblock %}
 
 {% block body %}
-    <h1>Create new Organization</h1>
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-12 my-5 d-flex justify-content-center">
+                <div class="bg-white mb-5 border border-black border-opacity-25 p-3 rounded-2 d-flex flex-column align-items-center form-container">
 
-    {{ include('organization/_form.html.twig') }}
+                    <h1>Nueva Organizacion</h1>
 
-    <a href="{{ path('app_organization_index') }}">back to list</a>
+                    {{ form_start(form, {'attr': {'class': 'form'}}) }}
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-floating mb-3">
+                                {{ form_widget(form.name, {'attr': {'class': 'form-control', 'placeholder': 'Nombre'}}) }}
+                                {{ form_label(form.name, 'Nombre') }}
+                            </div>
+                            <div class="form-floating mb-3">
+                                {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Correo'}}) }}
+                                {{ form_label(form.email, 'Correo') }}
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-floating mb-3">
+                                <button type="button" class="button-2 w-100 p-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    Tipo de organizacion
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-floating mb-3">
+                                {{ form_widget(form.description, {'attr': {'class': 'form-control', 'placeholder': 'Descripcion'}}) }}
+                                {{ form_label(form.description, 'Descripcion') }}
+                            </div>
+                        </div>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <div class="d-flex flex-wrap">
+                                            {% for type in types %}
+                                                <div class="button-2 m-1" data-bs-dismiss="modal">
+                                                    <input type="radio" id="type{{ type.id }}" name="type" value="{{ type.id }}">
+                                                    <label for="type{{ type.id }}">{{ type.name }}</label><br>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="button-4">Crear</button>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

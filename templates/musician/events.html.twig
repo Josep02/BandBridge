@@ -6,48 +6,71 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h1 class="mt-4">Solicitudes enviadas</h1>
-                <div class="d-flex flex-wrap justify-content-between">
-                    {% for participation in participations %}
-                        <div class="card card-2 mt-2 mb-2">
-                            <div class="d-flex align-items-center">
-                                <div class="p-3">
-                                    <img src="{{ asset('images/card.png') }}" class="rounded-2" alt="...">
-                                </div>
-                                <div><p class="card-title ff-2 fs-4 pe-3">{{ participation.event.name }}</p></div>
-                            </div>
+                <div class="mt-5">
+                    <h1 class="mt-5">Solicitudes enviadas</h1>
+                    {% if participations is empty %}
+                        <div class="text-center">
+                            <p>No tienes solicitudes enviadas. Aqui se mostraran las solicitudes que envies para participar en eventos.</p>
                         </div>
-                    {% endfor %}
+                    {% else %}
+                        <div class="d-flex flex-wrap justify-content-between">
+                            {% for participation in participations %}
+                                <div class="card card-2 mt-2 mb-2">
+                                    <div class="d-flex align-items-center">
+                                        <div class="p-3">
+                                            <img src="{{ asset('images/card.png') }}" class="rounded-2" alt="...">
+                                        </div>
+                                        <div><p class="card-title ff-2 fs-4 pe-3">{{ participation.event.name }}</p></div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
 
-                <h1 class="mt-3">Proximas actuaciones</h1>
-                <div class="d-flex flex-wrap justify-content-center">
-                    {% for accepted in accepteds %}
-                        <div class="card card-2 mt-2 mb-2">
-                            <div class="d-flex align-items-center">
-                                <div class="p-3">
-                                    <img src="{{ asset('images/card.png') }}" class="rounded-2" alt="...">
-                                </div>
-                                <div><p class="card-title ff-2 fs-4 pe-3">{{ accepted.event.name }}</p></div>
-                            </div>
+                <div class="mt-5">
+                    <h1 class="mt-5">Proximas actuaciones</h1>
+                    {% if accepteds is empty %}
+                        <div class="text-center">
+                            <p>Envia solicitudes para que te acepten en ellas. Aqui se mostraran tus proximos eventos.</p>
                         </div>
-                    {% endfor %}
+                    {% else %}
+                        <div class="d-flex flex-wrap justify-content-center">
+                            {% for accepted in accepteds %}
+                                <div class="card card-2 mt-2 mb-2">
+                                    <div class="d-flex align-items-center">
+                                        <div class="p-3">
+                                            <img src="{{ asset('images/card.png') }}" class="rounded-2" alt="...">
+                                        </div>
+                                        <div><p class="card-title ff-2 fs-4 pe-3">{{ accepted.event.name }}</p></div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
 
-                <h1 class="mt-3">Peticiones rechazadas</h1>
-                <div class="d-flex flex-wrap justify-content-center">
-                    {% for refused in refuseds %}
-                        <div class="card card-2 mt-2 mb-2">
-                            <div class="d-flex align-items-center">
-                                <div class="p-3">
-                                    <img src="{{ asset('images/card.png') }}" class="rounded-2" alt="...">
-                                </div>
-                                <div><p class="card-title ff-2 fs-4 pe-3">{{ refused.event.name }}</p></div>
-                            </div>
+                <div class="mt-5 mb-5">
+                    <h1 class="mt-5">Peticiones rechazadas</h1>
+                    {% if refuseds is empty %}
+                        <div class="text-center">
+                            <p>Aqui se mostrarn aquellas solicitudes en las que no te han aceptado <i class="fa-solid fa-face-sad-tear"></i>.</p>
                         </div>
-                    {% endfor %}
+                    {% else %}
+                        <div class="d-flex flex-wrap justify-content-center">
+                            {% for refused in refuseds %}
+                                <div class="card card-2 mt-2 mb-2">
+                                    <div class="d-flex align-items-center">
+                                        <div class="p-3">
+                                            <img src="{{ asset('images/card.png') }}" class="rounded-2" alt="...">
+                                        </div>
+                                        <div><p class="card-title ff-2 fs-4 pe-3">{{ refused.event.name }}</p></div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
-            </div>
         </div>
     </div>
 {% endblock %}

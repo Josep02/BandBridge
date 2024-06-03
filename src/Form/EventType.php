@@ -3,10 +3,11 @@ namespace App\Form;
 
 use App\Entity\Event;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class EventType extends AbstractType
@@ -14,14 +15,12 @@ class EventType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
-            ->add('description', TextareaType::class, [
-                'attr' => ['rows' => 6],
-            ])
+            ->add('name', TextType::class)
+            ->add('description', TextareaType::class)
             ->add('date', DateTimeType::class, [
                 'widget' => 'single_text',
             ])
-            ->add('location')
+            ->add('location', TextType::class)
             ->add('state', ChoiceType::class, [
                 'choices' => [
                     'Active' => 'Active',

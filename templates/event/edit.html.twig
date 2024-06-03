@@ -1,50 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Event{% endblock %}
+{% block title %}Nuevo evento{% endblock %}
 
 {% block body %}
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-12">
-                <h1 class="mb-4">Editar evento</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 my-5 d-flex justify-content-center">
+                <div class="bg-white mb-5 border border-black border-opacity-25 p-3 rounded-2 d-flex flex-column align-items-center form-container">
 
-                {{ form_start(form) }}
+                    <h1 class="mb-4">Crear nuevo evento</h1>
 
-                <div class="mb-3">
-                    {{ form_label(form.name, 'Nombre del Evento', {'label_attr': {'class': 'form-label'}}) }}
-                    {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
-                    {{ form_errors(form.name) }}
+                    {{ form_start(form, {'attr': {'class': 'form'}}) }}
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-floating mb-3">
+                                {{ form_widget(form.name, {'attr': {'class': 'form-control', 'placeholder': 'Nombre del evento'}}) }}
+                                {{ form_label(form.name, 'Nombre del evento') }}
+                            </div>
+                            <div class="form-floating mb-3">
+                                {{ form_widget(form.location, {'attr': {'class': 'form-control', 'placeholder': 'Ubicacion'}}) }}
+                                {{ form_label(form.location, 'Ubicacion') }}
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-floating mb-3">
+                                {{ form_widget(form.date, {'attr': {'class': 'form-control', 'placeholder': 'Fecha'}}) }}
+                                {{ form_label(form.date, 'Fecha') }}
+                            </div>
+                            <div class="form-floating mb-3">
+                                {{ form_widget(form.state, {'attr': {'class': 'form-control', 'placeholder': 'Estado'}}) }}
+                                {{ form_label(form.state, 'Estado') }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        {{ form_widget(form.description, {'attr': {'class': 'form-control', 'placeholder': 'Descripcion'}}) }}
+                        {{ form_label(form.description, 'Descripcion') }}
+                    </div>
+
+                    <div class="text-end mt-3">
+                        <button type="submit" class="btn btn-primary">Crear evento</button>
+                    </div>
+                    {{ form_end(form) }}
                 </div>
-
-                <div class="mb-3">
-                    {{ form_label(form.description, 'Descripción', {'label_attr': {'class': 'form-label'}}) }}
-                    {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
-                    {{ form_errors(form.description) }}
-                </div>
-
-                <div class="mb-3">
-                    {{ form_label(form.date, 'Fecha', {'label_attr': {'class': 'form-label'}}) }}
-                    {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
-                    {{ form_errors(form.date) }}
-                </div>
-
-                <div class="mb-3">
-                    {{ form_label(form.location, 'Ubicación', {'label_attr': {'class': 'form-label'}}) }}
-                    {{ form_widget(form.location, {'attr': {'class': 'form-control'}}) }}
-                    {{ form_errors(form.location) }}
-                </div>
-
-                <div class="mb-3">
-                    {{ form_label(form.state, 'Estado', {'label_attr': {'class': 'form-label'}}) }}
-                    {{ form_widget(form.state, {'attr': {'class': 'form-select'}}) }}
-                    {{ form_errors(form.state) }}
-                </div>
-
-                <button type="submit" class="btn btn-primary">Actualizar</button>
-
-                {{ form_end(form) }}
-
-                {{ include('event/_delete_form.html.twig') }}
             </div>
         </div>
     </div>

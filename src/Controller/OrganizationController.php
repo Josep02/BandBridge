@@ -1,19 +1,25 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\Details;
 use App\Entity\Event;
+use App\Entity\MusicianClass;
 use App\Entity\Organization;
 use App\Form\EventType;
 use App\Form\OrganizationType;
 use App\Repository\EventRepository;
+use App\Repository\InstrumentRepository;
 use App\Repository\MusicianClassRepository;
+use App\Repository\MusicianRepository;
 use App\Repository\OrganizationRepository;
+use App\Repository\OrganizationTypeRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Core\Security;
 
 #[Route('/organization')]
 class OrganizationController extends AbstractController
@@ -27,22 +33,43 @@ class OrganizationController extends AbstractController
     }
 
     #[Route('/new', name: 'app_organization_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, Security $security, EntityManagerInterface $entityManager, OrganizationTypeRepository $organizationTypeRepository): Response
     {
+        $user = $security->getUser();
+        $musician = $user->getMusician();
+
+        $types = $organizationTypeRepository->findAll();
+
         $organization = new Organization();
         $form = $this->createForm(OrganizationType::class, $organization);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $type = $request->request->get('type');
+            $organizationType = $organizationTypeRepository->find($type);
+            $organization->setOrganizationType($organizationType);
+
+            $musicianClass = new MusicianClass();
+            $musicianClass->setOrganization($organization);
+            $musicianClass->setMusician($musician);
+            $musicianClass->setRole('Organizer');
+
+            $entityManager->persist($musicianClass);
             $entityManager->persist($organization);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_organization_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash(
+                'warning',
+                "Organizacion registrada correctamente."
+            );
+
+            return $this->redirectToRoute('app_musician_show', ['id' => $musician->getId()]);
         }
 
         return $this->render('organization/new.html.twig', [
             'organization' => $organization,
             'form' => $form,
+            'types' => $types,
         ]);
     }
 
@@ -90,26 +117,31 @@ class OrganizationController extends AbstractController
     }
 
     #[Route('/{id}/organizer', name: 'app_organization_organizer_show', methods: ['GET'])]
-    public function organizer(Organization $organization, MusicianClassRepository $musicianClassRepository, EventRepository $eventRepository): Response
+    public function organizer(Organization $organization, MusicianClassRepository $musicianClassRepository, EventRepository $eventRepository, MusicianRepository $musicianRepository): Response
     {
         $musicians = $musicianClassRepository->findBy(['organization' => $organization, 'role' => 'musician']);
 
         $events = $eventRepository->findBy(['organization' => $organization]);
 
+        $allMusicians = $musicianRepository->findAll();
+
         return $this->render('organization/organizer_show.html.twig', [
             'organization' => $organization,
             'musicians' => $musicians,
             'events' => $events,
+            'allMusicians' => $allMusicians,
         ]);
     }
 
     #[Route('/{organizationId}/new-event', name: 'app_organization_event_new', methods: ['GET', 'POST'])]
-    public function newEvent($organizationId, Request $request, EntityManagerInterface $entityManager, OrganizationRepository $organizationRepository): Response
+    public function newEvent($organizationId, Request $request, EntityManagerInterface $entityManager, OrganizationRepository $organizationRepository, InstrumentRepository $instrumentRepository): Response
     {
         $organization = $organizationRepository->find($organizationId);
         if (!$organization) {
             throw $this->createNotFoundException('Organization not found');
         }
+
+        $instruments = $instrumentRepository->findAll();
 
         $event = new Event();
         $event->setOrganization($organization);
@@ -120,6 +152,23 @@ class OrganizationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($event);
+
+            for ($i = 0; $i < 2; $i++) {
+                $quantity = $request->request->get('quantity_' . $i);
+                $minPayment = $request->request->get('min_payment_' . $i);
+                $instrumentId = $request->request->get('instrument_' . $i);
+
+                $details = new Details();
+                $details->setEvent($event);
+                $details->setQuantity($quantity);
+                $details->setMinPayment($minPayment);
+
+                $instrument = $instrumentRepository->find($instrumentId);
+                $details->setRequiredInstrument($instrument);
+
+                $entityManager->persist($details);
+            }
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_organization_organizer_show', ['id' => $organizationId], Response::HTTP_SEE_OTHER);
@@ -127,7 +176,8 @@ class OrganizationController extends AbstractController
 
         return $this->render('event/new.html.twig', [
             'event' => $event,
-            'form' => $form,
+            'form' => $form->createView(),
+            'instruments' => $instruments,
         ]);
     }
 }
