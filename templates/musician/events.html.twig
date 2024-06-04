@@ -4,9 +4,23 @@
 
 {% block body %}
     <div class="container">
+        <div class="row mt-5">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Inicio</a></li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ path('app_musician_show', {'id': app.user.id}) }}"> Mi perfil</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Eventos</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-12">
-                <div class="mt-5">
+                <div class="mt-4">
                     <h1 class="mt-5">Solicitudes enviadas</h1>
                     {% if participations is empty %}
                         <div class="text-center">

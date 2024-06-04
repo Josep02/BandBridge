@@ -6,7 +6,18 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h1 class="mt-5">Eventos disponibles</h1>
+                <div class="row mt-5">
+                    <div class="col-12">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Inicio</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Eventos</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+
+                <h1 class="mt-4">Eventos disponibles</h1>
                 <div class="d-flex flex-wrap justify-content-center justify-content-md-center justify-content-lg-between justify-content-xl-between">
                     {% for event in events %}
                         <div class="card card-2 mt-2 mb-2">
@@ -43,7 +54,7 @@
                     {% endfor %}
                 </div>
 
-                <div class="navigation d-flex justify-content-center mt-lg-3">
+                <div class="navigation d-flex justify-content-center mt-3 mb-5">
                     {{ knp_pagination_render(pagination) }}
                 </div>
             </div>

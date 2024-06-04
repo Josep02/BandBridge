@@ -4,6 +4,20 @@
 
 {% block body %}
     <div class="container">
+        <div class="row mt-5">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Inicio</a></li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ path('app_musician_show', {'id': app.user.id}) }}"> Mi perfil</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Modificar perfil</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-12 my-5 d-flex justify-content-center">
                 <div class="border border-black border-opacity-25 p-3 rounded-2 d-flex flex-column align-items-center form-container">

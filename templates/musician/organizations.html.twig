@@ -4,50 +4,33 @@
 
 {% block body %}
     <div class="container">
-        <div class="row mt-5 mb-5">
+        <div class="row mt-5">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Inicio</a></li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ path('app_musician_show', {'id': app.user.id}) }}"> Mi perfil</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Mis organizaciones</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <div class="row mt-4 mb-5">
             <div class="col-12">
                 <h1>Organizaciones</h1>
 
-                <h3 class="mt-4">Eres organizador de:</h3>
-                <div class="pt-1 pb-1 border border-1 rounded-2">
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th scope="col"></th>
-                                <th scope="col">Organizacion</th>
-                                <th scope="col">Clase de organizacion</th>
-                                <th scope="col">Correo</th>
-                                <th scope="col"></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for organize in organizer %}
-                                <tr>
-                                    <td>
-                                        <img src="{{ asset('images/card.png') }}" alt="" width="60" height="60" class="rounded-circle">
-                                    </td>
-                                    <td class="align-middle">{{ organize.organization.name }}</td>
-                                    <td class="align-middle">{{ organize.organization.organizationType.name }}</td>
-                                    <td class="align-middle">{{ organize.organization.email }}</td>
-                                    <td class="align-middle">
-                                        <a href="{{ path('app_organization_organizer_show', {'id': organize.organization.id}) }}">
-                                            <button class="button-4">Ver organizacion</button>
-                                        </a>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <h3 class="mt-5">Formas parte de:</h3>
                 {% if musician is empty %}
-                    <div class="text-center">
+                    <div class="text-center mt-5">
                         <p>No eres musico de ninguna organizacion. Participa en eventos para que te inviten a una <i class="fa-solid fa-face-smile-wink"></i>.</p>
+                        <div class="text-center mb-3">
+                            <a href="{{ path('app_event_index') }}"><button class="button-2">Ver eventos</button></a>
+                        </div>
                     </div>
                 {% else %}
+                    <h3 class="mt-5">Formas parte de:</h3>
                     <div class="pt-1 pb-1 border border-1 rounded-2">
                         <div class="table-responsive">
                             <table class="table table-striped">
@@ -71,7 +54,7 @@
                                         <td class="align-middle">{{ musi.organization.email }}</td>
                                         <td class="align-middle">
                                             <a href="{{ path('app_organization_show', {'id': musi.organization.id}) }}">
-                                                <button class="btn btn-primary">Ver organizacion</button>
+                                                <button class="button-4">Ver organizacion</button>
                                             </a>
                                         </td>
                                     </tr>
@@ -82,6 +65,49 @@
                     </div>
                 {% endif %}
 
+
+                {% if organizer is empty %}
+                    <div class="text-center mt-5">
+                        <p>No eres organizador de ninguna organizacion. Si lo deseas puedes crear una ahora mismo.</p>
+                        <div class="text-center mb-3">
+                            <a href="{{ path('app_organization_new') }}"><button class="button-2">Crear organizacion</button></a>
+                        </div>
+                    </div>
+                {% else %}
+                    <h3 class="mt-5">Tus organizaciones:</h3>
+                    <div class="pt-1 pb-1 border border-1 rounded-2">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">Organizacion</th>
+                                    <th scope="col">Clase de organizacion</th>
+                                    <th scope="col">Correo</th>
+                                    <th scope="col"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for organize in organizer %}
+                                    <tr>
+                                        <td>
+                                            <img src="{{ asset('images/card.png') }}" alt="" width="60" height="60" class="rounded-circle">
+                                        </td>
+                                        <td class="align-middle">{{ organize.organization.name }}</td>
+                                        <td class="align-middle">{{ organize.organization.organizationType.name }}</td>
+                                        <td class="align-middle">{{ organize.organization.email }}</td>
+                                        <td class="align-middle">
+                                            <a href="{{ path('app_organization_organizer_show', {'id': organize.organization.id}) }}">
+                                                <button class="button-4">Ver organizacion</button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>

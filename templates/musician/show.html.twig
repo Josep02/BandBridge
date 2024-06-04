@@ -4,7 +4,18 @@
 
 {% block body %}
     <div class="container">
-        <div class="row mt-5 mb-5">
+        <div class="row mt-5">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Inicio</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Mi perfil</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <div class="row mt-4 mb-5">
             <!-- Contenedor grande a la izquierda -->
             <div class="col-6">
                 <div class="rounded-2 border border-secondary p-3 h-100 text-center align-content-center">
@@ -40,7 +51,7 @@
                     </div>
                     <div class="col-6">
                         <div class="rounded-2 border border-secondary p-3 box-2 text-center align-content-center">
-                            <i class="fa-regular fa-comment"></i>
+                            <a href="{{ path('app_musician_invitations', {'id': musician.id}) }}"><i class="fa-regular fa-comment"></i></a>
                         </div>
                     </div>
                 </div>

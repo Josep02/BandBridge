@@ -8,6 +8,7 @@ use App\Entity\Musician;
 use App\Form\Musician1Type;
 use App\Form\MusicianType;
 use App\Repository\InstrumentRepository;
+use App\Repository\InvitationRepository;
 use App\Repository\MusicianClassRepository;
 use App\Repository\MusicianRepository;
 use App\Repository\ParticipationRequestRepository;
@@ -188,6 +189,19 @@ class MusicianController extends AbstractController
         return $this->render('musician/organizations.html.twig', [
             'organizer' => $organizer,
             'musician' => $musician,
+        ]);
+    }
+
+    #[Route('/{id}/invitations', name: 'app_musician_invitations', methods: ['GET'])]
+    public function invitations(Musician $musician, InvitationRepository $invitationRepository): Response
+    {
+        $invitations = $invitationRepository->findBy([
+            'musician' => $musician,
+            'state' => 'Pendiente'
+        ]);
+
+        return $this->render('musician/invitations.html.twig', [
+            'invitations' => $invitations,
         ]);
     }
 

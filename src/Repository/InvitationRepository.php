@@ -2,22 +2,22 @@
 
 namespace App\Repository;
 
-use App\Entity\InvitationController;
+use App\Entity\Invitation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<InvitationController>
+ * @extends ServiceEntityRepository<Invitation>
  */
-class InvitationControllerRepository extends ServiceEntityRepository
+class InvitationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, InvitationController::class);
+        parent::__construct($registry, Invitation::class);
     }
 
 //    /**
-//     * @return InvitationController[] Returns an array of InvitationController objects
+//     * @return Invitation[] Returns an array of Invitation objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -31,7 +31,7 @@ class InvitationControllerRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?InvitationController
+//    public function findOneBySomeField($value): ?Invitation
 //    {
 //        return $this->createQueryBuilder('i')
 //            ->andWhere('i.exampleField = :val')
