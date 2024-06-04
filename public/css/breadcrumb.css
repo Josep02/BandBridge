@@ -1,0 +1,8 @@
+.breadcrumb li a {
+    text-decoration: none;
+    color: gray;
+}
+
+.breadcrumb li a:hover {
+    color: black;
+}

@@ -1,0 +1,12 @@
+.navigation .pagination span{
+    padding: 0 0.5rem 0 0.5rem;
+}
+
+.navigation .pagination span a{
+    text-decoration: none;
+    color: grey;
+}
+
+.navigation .pagination span a:hover{
+    color: black;
+}
