@@ -9,18 +9,6 @@
                 "enabled": false,
                 "fetch": "eager"
             }
-        },
-        "@symfony/ux-turbo-mercure": {
-            "turbo-stream": {
-                "enabled": true,
-                "fetch": "eager"
-            }
-        },
-        "@symfony/ux-vue": {
-            "vue": {
-                "enabled": true,
-                "fetch": "eager"
-            }
         }
     },
     "entrypoints": []
