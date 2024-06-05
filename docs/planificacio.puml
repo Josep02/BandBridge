@@ -9,17 +9,13 @@ Project starts the 11 of March 2024
 
 -- Fase 2 --
 
-[Introduccio proposta] requires 10 day
-[Introduccio proposta] starts 2024-03-27
-[Introduccio proposta] is colored in LightBlue/Black
-
-[Memoria explicativa] requires 17 day
-[Memoria explicativa] starts 2024-03-27
-[Memoria explicativa] is colored in LightBlue/Black
+[Memòria explicativa] requires 17 day
+[Memòria explicativa] starts 2024-03-27
+[Memòria explicativa] is colored in LightBlue/Black
 
 [Disseny del sistema] requires 1 day
 [Disseny del sistema] starts 2024-03-27
-[Disseny del sistema] starts at [Memoria explicativa]'s start
+[Disseny del sistema] starts at [Memòria explicativa]'s start
 
 [Especificacions de disseny] requires 1 day
 [Especificacions de disseny] starts 2024-03-27
@@ -33,21 +29,21 @@ Project starts the 11 of March 2024
 [Casos d’ús] starts 2024-03-27
 [Casos d’ús] starts at [Disseny del sistema]'s end
 
-[Creacio de mockups] requires 3 day
-[Creacio de mockups] starts 2024-03-27
-[Creacio de mockups] starts at [Disseny del sistema]'s end
+[Creació de mockups] requires 3 day
+[Creació de mockups] starts 2024-03-27
+[Creació de mockups] starts at [Disseny del sistema]'s end
 
 [Anàlisi econòmic] requires 1 day
 [Anàlisi econòmic] starts 2024-04-11
-[Anàlisi econòmic] starts at [Memoria explicativa]'s start
+[Anàlisi econòmic] starts at [Memòria explicativa]'s start
 
-[Ampliacions i Millores] requires 1 day
-[Ampliacions i Millores] starts 2024-04-11
-[Ampliacions i Millores] starts at [Memoria explicativa]'s start
+[Ampliacions i millores] requires 1 day
+[Ampliacions i millores] starts 2024-04-11
+[Ampliacions i millores] starts at [Memòria explicativa]'s start
 
-[Prevenció de Riscos] requires 1 day
-[Prevenció de Riscos] starts 2024-04-11
-[Prevenció de Riscos] starts at [Memoria explicativa]'s start
+[Prevenció de riscos] requires 1 day
+[Prevenció de riscos] starts 2024-04-11
+[Prevenció de riscos] starts at [Memòria explicativa]'s start
 
 -- Fase 3 --
 
@@ -55,48 +51,48 @@ Project starts the 11 of March 2024
 [Projecte] starts 2024-04-23
 [Projecte] is colored in LightBlue/Black
 
-[Creacio entitats] requires 1 day
-[Creacio entitats] starts 2024-04-23
-[Creacio entitats] starts at [Projecte]'s start
+[Creació entitats] requires 1 day
+[Creació entitats] starts 2024-04-23
+[Creació entitats] starts at [Projecte]'s start
 
-[Creacio relacions] requires 1 day
-[Creacio relacions] starts 2024-04-23
-[Creacio relacions] starts at [Projecte]'s start
+[Creació relacions] requires 1 day
+[Creació relacions] starts 2024-04-23
+[Creació relacions] starts at [Projecte]'s start
 
-[Creacio Base de Dades] requires 1 day
-[Creacio Base de Dades] starts 2024-04-23
-[Creacio Base de Dades] starts at [Projecte]'s start
-
-
+[Creació Base de Dades] requires 1 day
+[Creació Base de Dades] starts 2024-04-23
+[Creació Base de Dades] starts at [Projecte]'s start
 
 
-[Funcionalitats basiques] requires 1 day
-[Funcionalitats basiques] starts 2024-04-27
-[Funcionalitats basiques] starts at [Projecte]'s start
+
+
+[Funcionalitats bàsiques] requires 1 day
+[Funcionalitats bàsiques] starts 2024-04-27
+[Funcionalitats bàsiques] starts at [Projecte]'s start
 
 'Tasques relacionades amb el FrontOffice'
 [FrontOffice] requires 10 day
-[FrontOffice] starts at [Funcionalitats basiques]'s end
+[FrontOffice] starts at [Funcionalitats bàsiques]'s end
 
-[Implementacio pagina Home] requires 1 day
-[FrontOffice]->[Implementacio pagina Home]
+[Implementació pagina Home] requires 1 day
+[FrontOffice]->[Implementació pagina Home]
 
-[Iniciar sessio] requires 1 day
-[Iniciar sessio] starts at [FrontOffice]'s end
+[Iniciar sessió] requires 1 day
+[Iniciar sessió] starts at [FrontOffice]'s end
 
 [Registrar nou usuari] requires 1 day
 [Registrar nou usuari] starts 2024-05-2
 [Registrar nou usuari] starts at [FrontOffice]'s end
 
-[Modificar informacio de l'usuari] requires 1 day
-[Modificar informacio de l'usuari] starts 2024-05-2
-[Modificar informacio de l'usuari] starts at [FrontOffice]'s end
+[Modificar informació de l'usuari] requires 1 day
+[Modificar informació de l'usuari] starts 2024-05-2
+[Modificar informació de l'usuari] starts at [FrontOffice]'s end
 
 
 'Tasques relacionades amb el BackOffice'
 [BackOffice] requires 1 day
 [BackOffice] starts 2024-04-27
-[BackOffice] starts at [Funcionalitats basiques]'s end
+[BackOffice] starts at [Funcionalitats bàsiques]'s end
 
 [CRUD Usuaris] requires 1 day
 [CRUD Usuaris] starts at [BackOffice]'s end
@@ -113,11 +109,11 @@ Project starts the 11 of March 2024
 [Funcionalitats especials] starts 2024-05-12
 [Funcionalitats especials] starts at [Projecte]'s start
 
-[Registrar nova organitzacio] requires 1 day
-[Registrar nova organitzacio] starts at [Funcionalitats especials]'s end
+[Registrar nova organització] requires 1 day
+[Registrar nova organització] starts at [Funcionalitats especials]'s end
 
-[Creacio d'events] requires 1 day
-[Creacio d'events] starts at [Funcionalitats especials]'s end
+[Creació d'events] requires 1 day
+[Creació d'events] starts at [Funcionalitats especials]'s end
 
 [Generar invitacions] requires 1 day
 [Generar invitacions] starts 2024-05-25
@@ -128,13 +124,17 @@ Project starts the 11 of March 2024
 [Participacions] starts 2024-05-15
 [Participacions] starts at [Funcionalitats especials]'s end
 
-[Generar participacio] requires 1 day
-[Generar participacio] starts at [Participacions]'s end
+[Generar participació] requires 1 day
+[Generar participació] starts at [Participacions]'s end
 
-[Acceptar/Descartar participacio] requires 1 day
-[Acceptar/Descartar participacio] starts at [Participacions]'s end
+[Acceptar/Descartar participació] requires 1 day
+[Acceptar/Descartar participació] starts at [Participacions]'s end
 
 
+
+[Solució d'errades] requires 7 day
+[Solució d'errades] starts 2024-06-4
+[Solució d'errades] starts at [Projecte]'s start
 
 2024-03-11 to 2024-06-11 are named [BandBridge]
 @endgantt
