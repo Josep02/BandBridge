@@ -1,6 +1,8 @@
 @startgantt
 Project starts the 11 of March 2024
 
+saturday are closed
+
 -- Fase 1 --
 
 [Entrega proposta] requires 4 day
@@ -9,7 +11,7 @@ Project starts the 11 of March 2024
 
 -- Fase 2 --
 
-[Memòria explicativa] requires 17 day
+[Memòria explicativa] requires 30 day
 [Memòria explicativa] starts 2024-03-27
 [Memòria explicativa] is colored in LightBlue/Black
 
@@ -47,7 +49,7 @@ Project starts the 11 of March 2024
 
 -- Fase 3 --
 
-[Projecte] requires 49 days
+[Projecte] requires 47 days
 [Projecte] starts 2024-04-23
 [Projecte] is colored in LightBlue/Black
 
@@ -115,7 +117,7 @@ Project starts the 11 of March 2024
 [Creació d'events] requires 1 day
 [Creació d'events] starts at [Funcionalitats especials]'s end
 
-[Generar invitacions] requires 1 day
+[Generar invitacions] requires 3 day
 [Generar invitacions] starts 2024-05-25
 [Generar invitacions] starts at [Funcionalitats especials]'s end
 
@@ -136,5 +138,5 @@ Project starts the 11 of March 2024
 [Solució d'errades] starts 2024-06-4
 [Solució d'errades] starts at [Projecte]'s start
 
-2024-03-11 to 2024-06-11 are named [BandBridge]
+2024-03-11 to 2024-06-16 are named [BandBridge]
 @endgantt
