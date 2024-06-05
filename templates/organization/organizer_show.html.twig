@@ -1,12 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Organization{% endblock %}
+{% block title %}BandBridge{% endblock %}
 
 {% block body %}
     <div class="container">
+        <div class="row mt-5">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Inicio</a></li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ path('app_musician_show', {'id': app.user.id}) }}">Mi perfil</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ path('app_musician_organizations', {'id': app.user.id}) }}">Mis
+                                organizaciones</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ organization.name }}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-12">
-                <div class="mt-5 d-flex">
+                <div class="mt-4 d-flex">
                     <div class="me-3">
                         <img src="{{ asset('images/card.png') }}" alt="" width="120" height="120" class="rounded-2">
                     </div>
@@ -45,7 +63,8 @@
                                 {% for musician in musicians %}
                                     <tr>
                                         <td>
-                                            <img src="{{ asset('images/' ~ musician.musician.image) }}" alt="" width="60"
+                                            <img src="{{ asset('images/' ~ musician.musician.image) }}" alt=""
+                                                 width="60"
                                                  height="60" class="rounded-circle">
                                         </td>
                                         <td class="align-middle">{{ musician.musician.name }}</td>
@@ -64,7 +83,8 @@
                 {% endif %}
 
                 <!-- Modal -->
-                <div class="modal fade" id="inviteModal" tabindex="-1" aria-labelledby="inviteModalLabel" aria-hidden="true">
+                <div class="modal fade" id="inviteModal" tabindex="-1" aria-labelledby="inviteModalLabel"
+                     aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-lg">
                         <div class="modal-content">
                             <div class="modal-body">
@@ -84,15 +104,19 @@
                                                 <form action="{{ path('app_invitation_new') }}" method="post">
                                                     <tr>
                                                         <td>
-                                                            <img src="{{ asset('images/' ~ musician.image) }}" alt="" width="40" height="40" class="rounded-circle">
+                                                            <img src="{{ asset('images/' ~ musician.image) }}" alt=""
+                                                                 width="40" height="40" class="rounded-circle">
                                                         </td>
                                                         <td class="align-middle">{{ musician.name }}</td>
                                                         <td class="align-middle">
-                                                            <textarea name="message" rows="3" placeholder="Mensaje personalizado"></textarea>
+                                                            <textarea name="message" rows="3"
+                                                                      placeholder="Mensaje personalizado"></textarea>
                                                         </td>
                                                         <td class="align-middle">
-                                                            <input type="hidden" name="musicianId" value="{{ musician.id }}">
-                                                            <input type="hidden" name="organizationId" value="{{ organization.id }}">
+                                                            <input type="hidden" name="musicianId"
+                                                                   value="{{ musician.id }}">
+                                                            <input type="hidden" name="organizationId"
+                                                                   value="{{ organization.id }}">
                                                             <button type="submit" class="button-4">Invitar</button>
                                                         </td>
                                                     </tr>
@@ -108,7 +132,57 @@
                 </div>
 
 
+                <div class="mb-5">
+                    {% if events is not empty %}
+                        <div class="d-flex justify-content-between align-content-center mt-5">
+                            <h2>Eventos relacionados</h2>
+                            <a href="{{ path('app_organization_event_new', {'organizationId': organization.id}) }}">
+                                <button class="button-4">Crear evento</button>
+                            </a>
+                        </div>
 
+                        <div class="d-flex flex-wrap justify-content-center justify-content-md-center justify-content-lg-between justify-content-xl-between">
+                            {% for event in events %}
+                                <div class="card card-2 mt-2 mb-2">
+                                    <div class="d-flex align-items-center">
+                                        <div class="p-3">
+                                            <img src="{{ asset('images/card.png') }}" class="rounded-2" alt="...">
+                                        </div>
+                                        <div>
+                                            <p class="card-title ff-2 fs-4 pe-3">{{ event.name }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="card-body pt-0">
+                                        <p class="card-text">
+                                            {% if event.description|length > 75 %}
+                                                {{ event.description|slice(0, 75) ~ '...' }}
+                                            {% else %}
+                                                {{ event.description }}
+                                            {% endif %}
+                                        </p>
+                                        <p class="card-text ff-2 d-flex align-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                 fill="currentColor"
+                                                 class="bi bi-geo-alt" viewBox="0 0 16 16">
+                                                <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
+                                                <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                                            </svg>
+                                            {{ event.location }}
+                                        </p>
+                                    </div>
+                                    <div class="card-footer p-0">
+                                        <div class="text-center">
+                                            <a href="{{ path('app_event_edit', {'id': event.id}) }}">
+                                                <button type="button" class="w-100 rounded-bottom button-3">Editar
+                                                </button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>

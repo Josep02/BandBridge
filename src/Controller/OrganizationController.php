@@ -178,6 +178,7 @@ class OrganizationController extends AbstractController
             'event' => $event,
             'form' => $form->createView(),
             'instruments' => $instruments,
+            'organization' => $organization
         ]);
     }
 }

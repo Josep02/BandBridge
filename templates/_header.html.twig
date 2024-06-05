@@ -40,17 +40,20 @@
                                                         <li class="nav-item">
                                                             <a class="nav-link" href="{{ path('app_event_index') }}">Eventos</a>
                                                         </li>
-                                                        <li class="nav-item dropdown">
-                                                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                Dropdown
-                                                            </a>
-                                                            <ul class="dropdown-menu">
-                                                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                                            </ul>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="{{ path('app_musician_invitations', {'id': app.user.id}) }}">Notificaciones</a>
                                                         </li>
                                                     </ul>
                                                 </div>
+
+                                                <div data-controller="hello">
+                                                    <input data-hello-target="name" type="text">
+                                                    <button data-action="click->hello#greet">
+                                                        Greet
+                                                    </button>
+                                                    <span data-hello-target="output"></span>
+                                                </div>
+
                                             </div>
                                         </div>
                                     {% else %}

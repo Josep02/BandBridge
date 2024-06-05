@@ -4,9 +4,26 @@
 
 {% block body %}
     <div class="container">
-        <div class="row">
+        <div class="row mt-5">
             <div class="col-12">
-                <div class="mt-5 d-flex">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Inicio</a></li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ path('app_musician_show', {'id': app.user.id}) }}">Mi perfil</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ path('app_musician_organizations', {'id': app.user.id}) }}">Mis
+                                organizaciones</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ organization.name }}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="mt-4 d-flex">
                     <div class="me-3">
                         <img src="{{ asset('images/card.png') }}" alt="" width="120" height="120" class="rounded-2">
                     </div>

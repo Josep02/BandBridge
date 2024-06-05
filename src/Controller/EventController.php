@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Event;
 use App\Entity\Instrument;
+use App\Entity\Organization;
 use App\Form\EventType;
 use App\Repository\EventRepository;
 use App\Repository\InstrumentRepository;
@@ -42,7 +43,7 @@ class EventController extends AbstractController
     }
 
     #[Route('/new', name: 'app_event_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, OrganizationRepository $organizationRepository, int $organizationId): Response
+    public function new(Organization $organization, Request $request, EntityManagerInterface $entityManager, OrganizationRepository $organizationRepository, int $organizationId): Response
     {
         $organization = $organizationRepository->find($organizationId);
 
@@ -61,7 +62,7 @@ class EventController extends AbstractController
 
         return $this->render('event/new.html.twig', [
             'event' => $event,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
