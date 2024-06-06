@@ -131,7 +131,6 @@
                     </div>
                 </div>
 
-
                 <div class="mb-5">
                     {% if events is not empty %}
                         <div class="d-flex justify-content-between align-content-center mt-5">
@@ -171,21 +170,57 @@
                                         </p>
                                     </div>
                                     <div class="card-footer p-0">
-                                        <div class="text-center">
-                                            <a href="{{ path('app_event_edit', {'id': event.id}) }}">
-                                                <button type="button" class="w-100 rounded-bottom button-3">Editar
-                                                </button>
+                                        <div class="text-center d-flex">
+                                            <button class="w-100 button-back-1" data-bs-toggle="modal" data-bs-target="#deleteModal{{ event.id }}">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                            <a href="{{ path('app_organization_event_show', {'organizationId': organization.id, 'eventId': event.id}) }}" class="w-100 button-back-2">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                            <a href="{{ path('app_event_edit', {'id': event.id}) }}" class="w-100 button-back-3">
+                                                <i class="fa fa-pencil"></i>
                                             </a>
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- Delete Confirmation Modal -->
+                                <div class="modal fade" id="deleteModal{{ event.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteModalLabel{{ event.id }}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="deleteModalLabel{{ event.id }}">Confirmar Eliminación</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                ¿Estás seguro de que deseas eliminar este evento?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                <form method="post" action="{{ path('app_event_delete', {'id': event.id}) }}">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ event.id) }}">
+                                                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="d-flex justify-content-between align-content-center mt-5">
+                            <h2>Eventos relacionados</h2>
+                            <a href="{{ path('app_organization_event_new', {'organizationId': organization.id}) }}">
+                                <button class="button-4">Crear evento</button>
+                            </a>
+                        </div>
+                        <div class="mb-5 text-center">
+                            <p>Actualmente {{ organization.name }} no tiene ningun evento. Puedes crear uno ahora mismo.</p>
                         </div>
                     {% endif %}
                 </div>
             </div>
         </div>
     </div>
-
 
 {% endblock %}

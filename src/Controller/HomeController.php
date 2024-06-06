@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Event;
 use App\Entity\Musician;
 use App\Entity\ParticipationRequest;
+use App\Repository\DetailsRepository;
 use App\Repository\EventRepository;
 use App\Repository\MusicianRepository;
 use App\Repository\ParticipationRequestRepository;
@@ -46,10 +47,12 @@ class HomeController extends AbstractController
     }
 
     #[Route('/home/{id}/participation/create', name: 'app_home_participation_create')]
-    public function create($id, EntityManagerInterface $entityManager, ParticipationRequestRepository $participationRequestRepository): Response
+    public function create($id, EntityManagerInterface $entityManager, DetailsRepository $detailsRepository, ParticipationRequestRepository $participationRequestRepository): Response
     {
         $user = $this->getUser();
         $musician = $user->getMusician();
+
+        $instrument = $musician->getInstrument();
 
         $event = $entityManager->getRepository(Event::class)->find($id);
 
@@ -57,6 +60,8 @@ class HomeController extends AbstractController
             'event' => $event,
             'musician' => $musician
         ]);
+
+        $details = $detailsRepository->findOneBy(['Event' => $event, 'requiredInstrument' => $instrument]);
 
         if ($existingParticipation) {
             $this->addFlash(
@@ -72,13 +77,14 @@ class HomeController extends AbstractController
         $participation->setState('In process');
         $participation->setApplicationDate(new DateTime());
         $participation->setMusician($musician);
+        $participation->setDetail($details);
 
         $entityManager->persist($participation);
         $entityManager->flush();
 
         $this->addFlash(
             'success',
-            "Ya se ha enviado una solicitud para este evento"
+            "Solicitud enviada correctamente"
         );
 
         return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);

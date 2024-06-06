@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\DetailsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DetailsRepository::class)]
@@ -24,6 +26,17 @@ class Details
 
     #[ORM\ManyToOne(inversedBy: 'details')]
     private ?Instrument $requiredInstrument = null;
+
+    /**
+     * @var Collection<int, ParticipationRequest>
+     */
+    #[ORM\OneToMany(targetEntity: ParticipationRequest::class, mappedBy: 'detail')]
+    private Collection $participationRequests;
+
+    public function __construct()
+    {
+        $this->participationRequests = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -74,6 +87,36 @@ class Details
     public function setRequiredInstrument(?Instrument $requiredInstrument): static
     {
         $this->requiredInstrument = $requiredInstrument;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ParticipationRequest>
+     */
+    public function getParticipationRequests(): Collection
+    {
+        return $this->participationRequests;
+    }
+
+    public function addParticipationRequest(ParticipationRequest $participationRequest): static
+    {
+        if (!$this->participationRequests->contains($participationRequest)) {
+            $this->participationRequests->add($participationRequest);
+            $participationRequest->setDetail($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipationRequest(ParticipationRequest $participationRequest): static
+    {
+        if ($this->participationRequests->removeElement($participationRequest)) {
+            // set the owning side to null (unless already changed)
+            if ($participationRequest->getDetail() === $this) {
+                $participationRequest->setDetail(null);
+            }
+        }
 
         return $this;
     }

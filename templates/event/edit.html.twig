@@ -4,11 +4,34 @@
 
 {% block body %}
     <div class="container">
+        <div class="row mt-5">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Inicio</a></li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ path('app_musician_show', {'id': app.user.id}) }}">Mi perfil</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ path('app_musician_organizations', {'id': app.user.id}) }}">Mis
+                                organizaciones</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ path('app_organization_organizer_show', {'id': organization.id}) }}">
+                                {{ organization.name }}
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Editar evento</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
         <div class="row">
-            <div class="col-12 my-5 d-flex justify-content-center">
+            <div class="col-12 mt-4 d-flex justify-content-center">
                 <div class="bg-white mb-5 border border-black border-opacity-25 p-3 rounded-2 d-flex flex-column align-items-center form-container">
 
-                    <h1 class="mb-4">Crear nuevo evento</h1>
+                    <h1 class="mb-4">Editar evento</h1>
 
                     {{ form_start(form, {'attr': {'class': 'form'}}) }}
                     <div class="row">
@@ -40,7 +63,7 @@
                     </div>
 
                     <div class="text-end mt-3">
-                        <button type="submit" class="btn btn-primary">Crear evento</button>
+                        <button type="submit" class="button-4">Guardar</button>
                     </div>
                     {{ form_end(form) }}
                 </div>

@@ -26,6 +26,9 @@ class ParticipationRequest
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $applicationDate = null;
 
+    #[ORM\ManyToOne(inversedBy: 'participationRequests')]
+    private ?Details $detail = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +78,18 @@ class ParticipationRequest
     public function setApplicationDate(\DateTimeInterface $applicationDate): static
     {
         $this->applicationDate = $applicationDate;
+
+        return $this;
+    }
+
+    public function getDetail(): ?Details
+    {
+        return $this->detail;
+    }
+
+    public function setDetail(?Details $detail): static
+    {
+        $this->detail = $detail;
 
         return $this;
     }

@@ -5,15 +5,17 @@ use App\Entity\Details;
 use App\Entity\Event;
 use App\Entity\MusicianClass;
 use App\Entity\Organization;
+use App\Entity\ParticipationRequest;
 use App\Form\EventType;
 use App\Form\OrganizationType;
+use App\Repository\DetailsRepository;
 use App\Repository\EventRepository;
 use App\Repository\InstrumentRepository;
 use App\Repository\MusicianClassRepository;
 use App\Repository\MusicianRepository;
 use App\Repository\OrganizationRepository;
 use App\Repository\OrganizationTypeRepository;
-use DateTime;
+use App\Repository\ParticipationRequestRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -142,10 +144,11 @@ class OrganizationController extends AbstractController
         }
 
         $instruments = $instrumentRepository->findAll();
+        $numInstruments = count($instruments);
 
         $event = new Event();
         $event->setOrganization($organization);
-        $event->setCreated(new DateTime());
+        $event->setCreated(new \DateTime());
 
         $form = $this->createForm(EventType::class, $event);
         $form->handleRequest($request);
@@ -153,18 +156,24 @@ class OrganizationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($event);
 
-            for ($i = 0; $i < 2; $i++) {
+            for ($i = 0; $i < $numInstruments; $i++) {
                 $quantity = $request->request->get('quantity_' . $i);
                 $minPayment = $request->request->get('min_payment_' . $i);
                 $instrumentId = $request->request->get('instrument_' . $i);
 
+                if ($quantity === null || $minPayment === null || $instrumentId === null) {
+                    continue;
+                }
+
                 $details = new Details();
                 $details->setEvent($event);
-                $details->setQuantity($quantity);
-                $details->setMinPayment($minPayment);
+                $details->setQuantity((int)$quantity);
+                $details->setMinPayment((float)$minPayment);
 
                 $instrument = $instrumentRepository->find($instrumentId);
-                $details->setRequiredInstrument($instrument);
+                if ($instrument) {
+                    $details->setRequiredInstrument($instrument);
+                }
 
                 $entityManager->persist($details);
             }
@@ -180,5 +189,83 @@ class OrganizationController extends AbstractController
             'instruments' => $instruments,
             'organization' => $organization
         ]);
+    }
+
+    #[Route('/{organizationId}/organizer/event/{eventId}', name: 'app_organization_event_show', methods: ['GET'])]
+    public function showEvent(
+        $organizationId,
+        $eventId,
+        ParticipationRequestRepository $participationRequestRepository,
+        InstrumentRepository $instrumentRepository,
+        OrganizationRepository $organizationRepository,
+        EventRepository $eventRepository,
+        DetailsRepository $detailsRepository
+    ): Response {
+        $organization = $organizationRepository->find($organizationId);
+
+        if (!$organization) {
+            throw $this->createNotFoundException('Organization not found');
+        }
+
+        $event = $eventRepository->find($eventId);
+
+        if (!$event) {
+            throw $this->createNotFoundException('Event not found');
+        }
+
+        $instruments = $instrumentRepository->findAll();
+        $details = $detailsRepository->findBy(['Event' => $event]);
+        $participations = $participationRequestRepository->findBy(['event' => $event]);
+
+        return $this->render('event/organizer_event.html.twig', [
+            'organization' => $organization,
+            'event' => $event,
+            'details' => $details,
+            'instruments' => $instruments,
+            'participations' => $participations,
+        ]);
+    }
+
+
+
+    #[Route('/{organizationId}/organizer/event/{eventId}/new-detail', name: 'app_organization_event_detail_new', methods: ['POST'])]
+    public function newDetail($organizationId, $eventId, Request $request, EntityManagerInterface $entityManager, InstrumentRepository $instrumentRepository, OrganizationRepository $organizationRepository, EventRepository $eventRepository): Response
+    {
+        $event = $eventRepository->find($eventId);
+        $organization = $organizationRepository->find($organizationId);
+
+        if (!$event || !$organization) {
+            throw $this->createNotFoundException('Event or Organization not found');
+        }
+
+        $numInstruments = $request->request->get('num_instruments');
+
+        $numInstruments = intval($numInstruments);
+
+        for ($i = 0; $i < $numInstruments; $i++) {
+            $quantity = $request->request->get('quantity_' . $i);
+            $minPayment = $request->request->get('min_payment_' . $i);
+            $instrumentId = $request->request->get('instrument_' . $i);
+
+            if ($quantity === null || $minPayment === null || $instrumentId === null) {
+                continue;
+            }
+
+            $details = new Details();
+            $details->setEvent($event);
+            $details->setQuantity((int)$quantity);
+            $details->setMinPayment((float)$minPayment);
+
+            $instrument = $instrumentRepository->find($instrumentId);
+            if ($instrument) {
+                $details->setRequiredInstrument($instrument);
+            }
+
+            $entityManager->persist($details);
+        }
+
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_organization_event_show', ['organizationId' => $organizationId, 'eventId' => $eventId], Response::HTTP_SEE_OTHER);
     }
 }

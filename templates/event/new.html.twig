@@ -3,7 +3,7 @@
 {% block title %}Nuevo evento{% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container" data-controller="add-instrument">
         <div class="row mt-5">
             <div class="col-12">
                 <nav aria-label="breadcrumb">
@@ -56,34 +56,20 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="form-floating mb-3">
-                        {{ form_widget(form.description, {'attr': {'class': 'form-control', 'placeholder': 'Descripcion'}}) }}
-                        {{ form_label(form.description, 'Descripcion') }}
-                    </div>
-
-                    <div id="instruments-container">
-                        <div class="row instrument-row mb-3">
-                            <div class="col-4">
-                                <label for="instruments_0">Instrumento</label>
-                                <select id="instruments_0" name="instrument_0" class="form-select">
-                                    {% for instrument in instruments %}
-                                        <option value="{{ instrument.id }}">{{ instrument.name }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div class="col-4">
-                                <label for="min_payment_0">Pago Mínimo</label>
-                                <input type="number" step="0.01" id="min_payment_0" name="min_payment_0" class="form-control">
-                            </div>
-                            <div class="col-4">
-                                <label for="quantity_0">Cantidad</label>
-                                <input type="number" id="quantity_0" name="quantity_0" class="form-control">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-floating mb-3">
+                                {{ form_widget(form.description, {'attr': {'class': 'form-control', 'placeholder': 'Descripcion'}}) }}
+                                {{ form_label(form.description, 'Descripcion') }}
                             </div>
                         </div>
                     </div>
 
-                    <button type="button" id="add-instrument" class="btn btn-secondary mb-3">Añadir Instrumento</button>
+                    <div id="instruments-container" data-add-instrument-target="container">
+                        <div class="row instrument-row mb-3"></div>
+                    </div>
+
+                    <button type="button" id="add-instrument" class="btn btn-secondary mb-3" data-action="add-instrument#addInstrument">Añadir Instrumento</button>
 
                     <div class="text-end mt-3">
                         <button type="submit" class="button-4">Crear evento</button>
@@ -92,34 +78,25 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <script>
-        let instrumentIndex = 1;
-        document.getElementById('add-instrument').addEventListener('click', function() {
-            const container = document.getElementById('instruments-container');
-            const newRow = document.createElement('div');
-            newRow.classList.add('row', 'instrument-row', 'mb-3');
-            newRow.innerHTML = `
-                <div class="col-4">
-                    <label for="instruments_${instrumentIndex}">Instrumento</label>
-                    <select id="instruments_${instrumentIndex}" name="instrument_${instrumentIndex}" class="form-select">
-                        {% for instrument in instruments %}
-                            <option value="{{ instrument.id }}">{{ instrument.name }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="col-4">
-                    <label for="min_payment_${instrumentIndex}">Pago Mínimo</label>
-                    <input type="number" step="0.01" id="min_payment_${instrumentIndex}" name="min_payment_${instrumentIndex}" class="form-control">
-                </div>
-                <div class="col-4">
-                    <label for="quantity_${instrumentIndex}">Cantidad</label>
-                    <input type="number" id="quantity_${instrumentIndex}" name="quantity_${instrumentIndex}" class="form-control">
-                </div>
-            `;
-            container.appendChild(newRow);
-            instrumentIndex++;
-        });
-    </script>
+        <!-- Template for new instruments -->
+        <template data-add-instrument-target="template">
+                    <div class="col-4">
+                        <label for="instruments___index__">Instrumento</label>
+                        <select id="instruments___index__" name="instrument___index__" class="form-select">
+                            {% for instrument in instruments %}
+                                <option value="{{ instrument.id }}">{{ instrument.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <label for="min_payment___index__">Pago Mínimo</label>
+                        <input type="number" step="0.01" id="min_payment___index__" name="min_payment___index__" class="form-control">
+                    </div>
+                    <div class="col-4">
+                        <label for="quantity___index__">Cantidad</label>
+                        <input type="number" id="quantity___index__" name="quantity___index__" class="form-control">
+                    </div>
+        </template>
+    </div>
 {% endblock %}

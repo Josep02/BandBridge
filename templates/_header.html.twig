@@ -44,13 +44,10 @@
                                                             <a class="nav-link" href="{{ path('app_musician_invitations', {'id': app.user.id}) }}">Notificaciones</a>
                                                         </li>
                                                     </ul>
-                                                </div>
 
-                                                <!-- would render -->
-                                                <div data-controller="hello">
-                                                    ...
-                                                </div>
+                                                    <span id="invitation-count" data-api-count="{{ path('app_api_count') }}"></span>
 
+                                                </div>
                                             </div>
                                         </div>
                                     {% else %}

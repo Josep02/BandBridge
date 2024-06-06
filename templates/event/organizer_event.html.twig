@@ -1,0 +1,190 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Event{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Inicio</a></li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ path('app_musician_show', {'id': app.user.id}) }}">Mi perfil</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ path('app_musician_organizations', {'id': app.user.id}) }}">Mis
+                                organizaciones</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ path('app_organization_organizer_show', {'id': organization.id}) }}">
+                                {{ organization.name }}
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ event.name }}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="mt-4 d-flex">
+                    <div class="me-3">
+                        <img src="{{ asset('images/card.png') }}" alt="" width="120" height="120" class="rounded-2">
+                    </div>
+                    <div>
+                        <p class="fs-2">{{ event.name }}</p>
+                        <p>Evento de {{ organization.name }}</p>
+                    </div>
+                </div>
+
+                <hr class="mt-4 mb-4">
+
+                <p class="text-center">{{ event.description }}</p>
+
+                <div class="d-flex justify-content-between mt-5">
+                    <h2>Instrumentos requeridos:</h2>
+                    <div>
+                        <button type="button" class="button-4" data-bs-toggle="modal" data-bs-target="#addInstrumentModal">
+                            Añadir instrumento
+                        </button>
+                    </div>
+                </div>
+
+                {% if details is not empty %}
+                    <div class="pt-1 border border-1 rounded-2 mb-5">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Instrumento</th>
+                                    <th scope="col">Pago minimo</th>
+                                    <th scope="col">Cantidad</th>
+                                    <th scope="col"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for detail in details %}
+                                    <tr>
+                                        <td class="align-middle">{{ detail.requiredInstrument.name }}</td>
+                                        <td class="align-middle">{{ detail.minPayment }}</td>
+                                        <td class="align-middle">{{ detail.quantity }}</td>
+                                        <td class="align-middle text-end">
+                                            <button type="button" class="button-4">
+                                                Modificar
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    {% set filtered_participations = participations|filter(participation => participation.detail.id == detail.id) %}
+                                    {% if filtered_participations|length > 0 %}
+                                            <td colspan="4">
+                                                <div class="d-flex justify-content-between">
+                                                    {% for participation in filtered_participations %}
+                                                        <div class="card card-1">
+                                                            <div class="card-body">
+                                                                <h4 class="card-title">{{ participation.event.name }} - <span class="fs-6">{{ participation.musician.name }}</span></h4>
+                                                            </div>
+                                                            <div class="card-footer p-0">
+                                                                <div class="text-center d-flex justify-content-between">
+                                                                    <form action="" method="post" class="w-100">
+                                                                        <button type="submit" class="button-back-1 w-100">
+                                                                            <i class="fa-solid fa-xmark"></i>
+                                                                        </button>
+                                                                    </form>
+                                                                    <form action="" method="post" class="w-100">
+                                                                        <button type="submit" class="button-back-3 w-100">
+                                                                            <i class="fa-solid fa-check"></i>
+                                                                        </button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                            </td>
+                                    {% endif %}
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="text-center mb-5">
+                        <p>Actualmente en esta organización no hay miembros, empieza a invitar músicos.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="addInstrumentModal" tabindex="-1" aria-labelledby="addInstrumentModalLabel" aria-hidden="true" data-target="add-instrument.container">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="POST" action="{{ path('app_organization_event_detail_new', {'organizationId': organization.id, 'eventId' : event.id}) }}">
+
+                    <div class="modal-body">
+                        <input type="hidden" name="num_instruments" value="0"> <!-- Agregar este campo oculto para enviar el número de instrumentos -->
+                        <div id="instruments-container" data-add-instrument-target="container">
+                            <div class="text-end">
+                                <button type="button" class="btn btn-secondary" id="add-instrument-button">
+                                    Añadir instrumento
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="button-4">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var addInstrumentButton = document.getElementById('add-instrument-button');
+            var instrumentsContainer = document.getElementById('instruments-container');
+            var numInstrumentsInput = document.querySelector('input[name="num_instruments"]');
+            var index = 0; // Inicializar el contador
+
+            addInstrumentButton.addEventListener('click', function() {
+                // Crear los inputs
+                var inputContainer = document.createElement('div');
+                inputContainer.classList.add('row', 'mb-3');
+                inputContainer.innerHTML = `
+            <div class="col-4">
+                <label for="instruments_${index}">Instrumento</label>
+                <select id="instruments_${index}" name="instrument_${index}" class="form-select">
+                    {% for instrument in instruments %}
+                        <option value="{{ instrument.id }}">{{ instrument.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-4">
+                <label for="min_payment_${index}">Pago Mínimo</label>
+                <input type="number" step="0.01" id="min_payment_${index}" name="min_payment_${index}" class="form-control">
+            </div>
+            <div class="col-4">
+                <label for="quantity_${index}">Cantidad</label>
+                <input type="number" id="quantity_${index}" name="quantity_${index}" class="form-control">
+            </div>
+        `;
+                instrumentsContainer.appendChild(inputContainer);
+
+                // Incrementar el contador
+                index++;
+
+                // Actualizar el valor de num_instruments
+                numInstrumentsInput.value = index;
+            });
+        });
+
+    </script>
+
+
+
+{% endblock %}
