@@ -46,10 +46,13 @@ class MusicianController extends AbstractController
             $file = $form['avatar']->getData();
 
             if ($file) {
-                $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+                $originalFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $fileExtension = $file->guessExtension();
+                $fileName = $originalFileName . '.' . $fileExtension;
+                $uploadDir = $this->getParameter('images');
+                $filePath = $uploadDir . '/' . $fileName;
 
-                $file->move(
-                    $this->getParameter('images'), $fileName);
+                $file->move($uploadDir, $fileName);
 
                 $musician->setImage($fileName);
             } else {
@@ -57,7 +60,6 @@ class MusicianController extends AbstractController
             }
 
             $instrumentoSeleccionado = $request->request->get('instrumento');
-
             $instrument = $instrumentRepository->find($instrumentoSeleccionado);
 
             $username = $form->get('username')->getData();
@@ -69,7 +71,6 @@ class MusicianController extends AbstractController
             $login->setRole('ROLE_USER');
 
             $musician->setLogin($login);
-
             $musician->setInstrument($instrument);
 
             $entityManager->persist($login);
@@ -85,6 +86,8 @@ class MusicianController extends AbstractController
             'instruments' => $instruments,
         ]);
     }
+
+
 
     #[Route('/{id}/show', name: 'app_musician_show', methods: ['GET'])]
     public function show($id, MusicianRepository $musicianRepository, MusicianClassRepository $musicianClassRepository, ParticipationRequestRepository $participationRequestRepository): Response
@@ -140,7 +143,7 @@ class MusicianController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash(
-                'warning',
+                'success',
                 "Informacion actualizada correctamente"
             );
 

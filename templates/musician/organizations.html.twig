@@ -47,7 +47,7 @@
                                 {% for musi in musician %}
                                     <tr>
                                         <td>
-                                            <img src="{{ asset('images/card.png') }}" alt="" width="60" height="60" class="rounded-circle">
+                                            <img src="{{ asset('images/' ~ musi.organization.image) }}" alt="" width="60" height="60" class="rounded-circle">
                                         </td>
                                         <td class="align-middle">{{ musi.organization.name }}</td>
                                         <td class="align-middle">{{ musi.organization.organizationType.name }}</td>
@@ -91,7 +91,7 @@
                                 {% for organize in organizer %}
                                     <tr>
                                         <td>
-                                            <img src="{{ asset('images/card.png') }}" alt="" width="60" height="60" class="rounded-circle">
+                                            <img src="{{ asset('images/' ~ organize.organization.image) }}" alt="" width="60" height="60" class="rounded-circle">
                                         </td>
                                         <td class="align-middle">{{ organize.organization.name }}</td>
                                         <td class="align-middle">{{ organize.organization.organizationType.name }}</td>

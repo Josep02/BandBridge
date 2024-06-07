@@ -13,8 +13,7 @@
                             <a href="{{ path('app_musician_show', {'id': app.user.id}) }}">Mi perfil</a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="{{ path('app_musician_organizations', {'id': app.user.id}) }}">Mis
-                                organizaciones</a>
+                            <a href="{{ path('app_musician_organizations', {'id': app.user.id}) }}">Mis organizaciones</a>
                         </li>
                         <li class="breadcrumb-item">
                             <a href="{{ path('app_organization_organizer_show', {'id': organization.id}) }}">
@@ -31,7 +30,7 @@
             <div class="col-12">
                 <div class="mt-4 d-flex">
                     <div class="me-3">
-                        <img src="{{ asset('images/card.png') }}" alt="" width="120" height="120" class="rounded-2">
+                        <img src="{{ asset('images/' ~ event.organization.image ) }}" alt="" width="120" height="120" class="rounded-2">
                     </div>
                     <div>
                         <p class="fs-2">{{ event.name }}</p>
@@ -78,31 +77,34 @@
                                     </tr>
                                     {% set filtered_participations = participations|filter(participation => participation.detail.id == detail.id) %}
                                     {% if filtered_participations|length > 0 %}
-                                            <td colspan="4">
-                                                <div class="d-flex justify-content-between">
-                                                    {% for participation in filtered_participations %}
-                                                        <div class="card card-1">
-                                                            <div class="card-body">
-                                                                <h4 class="card-title">{{ participation.event.name }} - <span class="fs-6">{{ participation.musician.name }}</span></h4>
-                                                            </div>
-                                                            <div class="card-footer p-0">
-                                                                <div class="text-center d-flex justify-content-between">
-                                                                    <form action="" method="post" class="w-100">
-                                                                        <button type="submit" class="button-back-1 w-100">
-                                                                            <i class="fa-solid fa-xmark"></i>
-                                                                        </button>
-                                                                    </form>
-                                                                    <form action="" method="post" class="w-100">
-                                                                        <button type="submit" class="button-back-3 w-100">
-                                                                            <i class="fa-solid fa-check"></i>
-                                                                        </button>
-                                                                    </form>
-                                                                </div>
+                                        <td colspan="4">
+                                            <div class="d-flex justify-content-between">
+                                                {% for participation in filtered_participations %}
+                                                    <div class="card card-1">
+                                                        <div class="card-body">
+                                                            <div class="text-center align-content-center">
+                                                                <img src="{{ asset('images/' ~ participation.musician.image) }}" alt="" width="60" height="60" class="rounded-circle me-3">
+                                                                <span class="fs-5">{{ participation.musician.name }}</span>
                                                             </div>
                                                         </div>
-                                                    {% endfor %}
-                                                </div>
-                                            </td>
+                                                        <div class="card-footer p-0">
+                                                            <div class="text-center d-flex justify-content-between">
+                                                                <form action="{{ path('app_invitation_reject', {'id': participation.id}) }}" method="post" class="w-100">
+                                                                    <button type="submit" class="button-back-1 w-100">
+                                                                        <i class="fa-solid fa-xmark"></i>
+                                                                    </button>
+                                                                </form>
+                                                                <form action="{{ path('app_invitation_accept', {'id': participation.id}) }}" method="post" class="w-100">
+                                                                    <button type="submit" class="button-back-3 w-100">
+                                                                        <i class="fa-solid fa-check"></i>
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </td>
                                     {% endif %}
                                 {% endfor %}
                                 </tbody>
@@ -111,8 +113,29 @@
                     </div>
                 {% else %}
                     <div class="text-center mb-5">
-                        <p>Actualmente en esta organización no hay miembros, empieza a invitar músicos.</p>
+                        <p>Actualmente en este evento no se requieren instrumentos.</p>
                     </div>
+                {% endif %}
+
+
+                {% if participationsAccepted is not empty%}
+                    <div class="mt-5">
+                        <h2>Participantes confirmados:</h2>
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-5">
+                        {% for participationAccepted in participationsAccepted %}
+                            <div class="card card-1">
+                                <div class="card-body">
+                                    <div class="text-center align-content-center">
+                                        <img src="{{ asset('images/' ~ participationAccepted.musician.image) }}" alt="" width="60" height="60" class="rounded-circle me-3">
+                                        <span class="fs-5">{{ participationAccepted.musician.name }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
                 {% endif %}
             </div>
         </div>
@@ -184,7 +207,4 @@
         });
 
     </script>
-
-
-
 {% endblock %}

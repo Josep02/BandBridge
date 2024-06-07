@@ -52,6 +52,7 @@ class OrganizationFixtures extends Fixture
             $organization->setName($this->faker->company);
             $organization->setDescription($this->faker->text(255));
             $organization->setEmail($this->faker->email);
+            $organization->setImage('card.png');
             $manager->persist($organization);
             $organizations[] = $organization;
         }

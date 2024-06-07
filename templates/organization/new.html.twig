@@ -38,6 +38,10 @@
                         </div>
                         <div class="col-6">
                             <div class="form-floating mb-3">
+                                {{ form_widget(form.image, {'attr': {'class': 'form-control', 'placeholder': 'Imagen'}}) }}
+                                {{ form_label(form.image, 'Imagen') }}
+                            </div>
+                            <div class="form-floating mb-3">
                                 <button type="button" class="button-2 w-100 p-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                     Tipo de organizacion
                                 </button>

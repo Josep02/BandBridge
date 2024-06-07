@@ -47,6 +47,22 @@ class OrganizationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form['image']->getData();
+
+            if ($file) {
+                $originalFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $fileExtension = $file->guessExtension();
+                $fileName = $originalFileName . '.' . $fileExtension;
+                $uploadDir = $this->getParameter('images');
+                $filePath = $uploadDir . '/' . $fileName;
+
+                $file->move($uploadDir, $fileName);
+
+                $organization->setImage($fileName);
+            } else {
+                $organization->setImage('card.png');
+            }
+
             $type = $request->request->get('type');
             $organizationType = $organizationTypeRepository->find($type);
             $organization->setOrganizationType($organizationType);
@@ -61,7 +77,7 @@ class OrganizationController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash(
-                'warning',
+                'success',
                 "Organizacion registrada correctamente."
             );
 
@@ -215,7 +231,9 @@ class OrganizationController extends AbstractController
 
         $instruments = $instrumentRepository->findAll();
         $details = $detailsRepository->findBy(['Event' => $event]);
-        $participations = $participationRequestRepository->findBy(['event' => $event]);
+        $participations = $participationRequestRepository->findBy(['event' => $event, 'state' => 'In process']);
+
+        $participationsAccepted = $participationRequestRepository->findBy(['event' => $event, 'state' => 'Accepted']);
 
         return $this->render('event/organizer_event.html.twig', [
             'organization' => $organization,
@@ -223,6 +241,7 @@ class OrganizationController extends AbstractController
             'details' => $details,
             'instruments' => $instruments,
             'participations' => $participations,
+            'participationsAccepted' => $participationsAccepted,
         ]);
     }
 

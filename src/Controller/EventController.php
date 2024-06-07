@@ -8,6 +8,7 @@ use App\Entity\Organization;
 use App\Form\EventType;
 use App\Repository\EventRepository;
 use App\Repository\InstrumentRepository;
+use App\Repository\MusicianRepository;
 use App\Repository\OrganizationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -20,11 +21,17 @@ use Symfony\Component\Routing\Attribute\Route;
 class EventController extends AbstractController
 {
     #[Route('/', name: 'app_event_index', methods: ['GET'])]
-    public function index(EventRepository $eventRepository, PaginatorInterface $paginator, Request $request): Response
+    public function index(EventRepository $eventRepository,  MusicianRepository $musicianRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $user = $this->getUser();
+
+        $musician = $musicianRepository->findOneBy(['login' => $user]);
+
+        $instrument = $musician->getInstrument();
+
         $q = $request->query->get('q', '');
         if (empty($q)) {
-            $query = $eventRepository->findAllQuery();
+            $query = $eventRepository->findForMe($instrument);
         } else {
             $query = $eventRepository->findByTextQuery($q);
         }

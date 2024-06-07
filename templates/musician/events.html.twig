@@ -21,7 +21,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="mt-4">
-                    <h1 class="mt-5">Solicitudes enviadas</h1>
+                    <h1>Solicitudes enviadas</h1>
                     {% if participations is empty %}
                         <div class="text-center">
                             <p>No tienes solicitudes enviadas. Aqui se mostraran las solicitudes que envies para participar en eventos.</p>
@@ -46,15 +46,16 @@
                     <h1 class="mt-5">Proximas actuaciones</h1>
                     {% if accepteds is empty %}
                         <div class="text-center">
+                            <img src="{{ asset('images/Hands - Sign Yes.png' ) }}" alt="" width="82" height="140">
                             <p>Envia solicitudes para que te acepten en ellas. Aqui se mostraran tus proximos eventos.</p>
                         </div>
                     {% else %}
-                        <div class="d-flex flex-wrap justify-content-center">
+                        <div class="d-flex flex-wrap justify-content-between">
                             {% for accepted in accepteds %}
                                 <div class="card card-2 mt-2 mb-2">
                                     <div class="d-flex align-items-center">
                                         <div class="p-3">
-                                            <img src="{{ asset('images/card.png') }}" class="rounded-2" alt="...">
+                                            <img src="{{ asset('images/' ~ accepted.event.organization.image ) }}" alt="" class="rounded-2">
                                         </div>
                                         <div><p class="card-title ff-2 fs-4 pe-3">{{ accepted.event.name }}</p></div>
                                     </div>
@@ -68,6 +69,7 @@
                     <h1 class="mt-5">Peticiones rechazadas</h1>
                     {% if refuseds is empty %}
                         <div class="text-center">
+                            <img src="{{ asset('images/Hands - Sign No.png' ) }}" alt="" width="82" height="160">
                             <p>Aqui se mostrarn aquellas solicitudes en las que no te han aceptado <i class="fa-solid fa-face-sad-tear"></i>.</p>
                         </div>
                     {% else %}
@@ -76,7 +78,7 @@
                                 <div class="card card-2 mt-2 mb-2">
                                     <div class="d-flex align-items-center">
                                         <div class="p-3">
-                                            <img src="{{ asset('images/card.png') }}" class="rounded-2" alt="...">
+                                            <img src="{{ asset('images/' ~ refused.event.organization.image ) }}" alt="" class="rounded-2">
                                         </div>
                                         <div><p class="card-title ff-2 fs-4 pe-3">{{ refused.event.name }}</p></div>
                                     </div>

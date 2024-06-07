@@ -3,6 +3,18 @@
 {% block title %}BandBridge{% endblock %}
 
 {% block body %}
+    <div class="container-fluid bg-0 pt-5 pb-5 mb-5">
+        <div class="row">
+            <div class="col-md-2 d-none d-md-block"></div>
+            <div class="col-sm-12 col-md-8 col-lg-8">
+                <div class="m-0">
+                    <p class="fs-0 ff-3 m-0 text-light">Empieza a participar <br> en eventos</p>
+                </div>
+            </div>
+            <div class="col-md-2 d-none d-md-block"></div>
+        </div>
+    </div>
+
     <div class="container">
 
         {# Eventos para el usuario registrado #}
@@ -16,7 +28,7 @@
                             <a href="{{ path('app_home_event_show', {id: forMeEvent.id}) }}" class="text-decoration-none text-black">
                                 <div class="d-flex align-items-center">
                                     <div class="p-3">
-                                        <img src="{{ asset('images/card.png') }}" class="rounded-2" alt="...">
+                                        <img src="{{ asset('images/' ~ forMeEvent.organization.image) }}" class="rounded-2" alt="...">
                                     </div>
                                     <div><p class="card-title ff-2 fs-4 pe-3">{{ forMeEvent.name }}</p></div>
                                 </div>
@@ -35,15 +47,14 @@
                                             <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
                                             <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
                                         </svg>
-                                        Oliva, Valencia
+                                        {{ forMeEvent.location }}
                                     </p>
                                 </div>
                             </a>
                             <div class="card-footer p-0">
-                                <div class="text-center">
+                                <a href="{{ path('app_home_participation_create', {'id': forMeEvent.id}) }}">
                                     <button type="button" class=" w-100 rounded-bottom button-3">Participar</button>
-                                    <a href="{{ path('app_home_participation_create', {'id': forMeEvent.id}) }}" class="button-3">Participar</a>
-                                </div>
+                                </a>
                             </div>
                         </div>
                     {% endfor %}
@@ -70,7 +81,7 @@
                     {% for forMeEvent in forMeEvents|slice(0, 3) %}
                         <div class="card card-2 mt-2 mb-2">
                             <div class="d-flex align-items-center">
-                                <div class="p-3"><img src="{{ asset('images/card.png') }}"
+                                <div class="p-3"><img src="{{ asset('images/' ~ forMeEvent.organization.image) }}"
                                                       class="rounded-2" alt="..."></div>
                                 <div><p class="card-title ff-2 fs-4 pe-3">{{ forMeEvent.name }}</p></div>
                             </div>
@@ -89,7 +100,7 @@
                                         <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
                                         <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
                                     </svg>
-                                    Oliva, Valencia
+                                    {{ forMeEvent.location }}
                                 </p>
                             </div>
                             <div class="card-footer p-0">
@@ -111,104 +122,6 @@
         </div>
 
 
-        {# Todos los eventos disponibles #}
-        <div class="row mt-5 d-xl-none">
-            <div class="col-lg-1 col-xl-2"></div>
-            <div class="col-sm-12 col-md-12 col-lg-10 col-xl-8">
-                <h1 class="">Todos los eventos</h1>
-                <div class=" d-flex flex-wrap justify-content-center justify-content-md-center justify-content-lg-between justify-content-xl-between mb-2">
-                    {% for activeEvent in activeEvents|slice(0, 2) %}
-                        <div class="card card-2 mt-2 mb-2">
-                            <div class="d-flex align-items-center">
-                                <div class="p-3"><img src="{{ asset('images/card.png') }}"
-                                                      class="rounded-2" alt="..."></div>
-                                <div><p class="card-title ff-2 fs-4 pe-3">{{ activeEvent.name }}</p></div>
-                            </div>
-                            <div class="card-body pt-0">
-                                <p class="card-text">
-                                    {% if activeEvent.description|length > 75 %}
-                                        {{ activeEvent.description|slice(0, 75) ~ '...' }}
-                                    {% else %}
-                                        {{ activeEvent.description }}
-                                    {% endif %}
-                                </p>
-                                <p class="card-text ff-2 d-flex align-items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                         fill="currentColor"
-                                         class="bi bi-geo-alt" viewBox="0 0 16 16">
-                                        <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
-                                        <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-                                    </svg>
-                                    Oliva, Valencia
-                                </p>
-                            </div>
-                            <div class="card-footer p-0">
-                                <div class="text-center">
-                                    <button type="button" class=" w-100 rounded-bottom button-3">Participar</button>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="col-lg-1 col-xl-2"></div>
-        </div>
-
-        <div class="row mt-2 d-xl-none">
-            <div class="col-lg-1 col-xl-2"></div>
-            <div class="col-sm-12 col-md-12 col-lg-10 col-xl-8">
-                <div class="text-end">
-                    <button class="button-2">Ver mas</button>
-                </div>
-            </div>
-            <div class="col-lg-1 col-xl-2"></div>
-        </div>
-
-
-        <div class="row mt-5 d-none d-xl-block d-xxl-block">
-            <div class="col-xl-12">
-                <h1 class="">Todos los eventos</h1>
-                <div class=" d-flex flex-wrap justify-content-center justify-content-md-center justify-content-lg-between justify-content-xl-between mb-2">
-                    {% for activeEvent in activeEvents|slice(0, 3) %}
-                        <div class="card card-2 mt-2 mb-2">
-                            <div class="d-flex align-items-center">
-                                <div class="p-3"><img src="{{ asset('images/card.png') }}"
-                                                      class="rounded-2" alt="..."></div>
-                                <div><p class="card-title ff-2 fs-4 pe-3">{{ activeEvent.name }}</p></div>
-                            </div>
-                            <div class="card-body pt-0">
-                                <p class="card-text">
-                                    {% if activeEvent.description|length > 75 %}
-                                        {{ activeEvent.description|slice(0, 75) ~ '...' }}
-                                    {% else %}
-                                        {{ activeEvent.description }}
-                                    {% endif %}
-                                </p>
-                                <p class="card-text ff-2 d-flex align-items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                         fill="currentColor"
-                                         class="bi bi-geo-alt" viewBox="0 0 16 16">
-                                        <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
-                                        <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-                                    </svg>
-                                    Oliva, Valencia
-                                </p>
-                            </div>
-                            <div class="card-footer p-0">
-                                <div class="text-center">
-                                    <button type="button" class=" w-100 rounded-bottom button-3">Participar</button>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-                <div class="text-end">
-                    <button class="button-2">Ver mas</button>
-                </div>
-            </div>
-        </div>
-
-
         {# Eventos en estado cerrado #}
         <div class="row mt-5 d-xl-none">
             <div class="col-lg-1 col-xl-2"></div>
@@ -218,7 +131,7 @@
                     {% for closedEvent in closedEvents|slice(0, 2) %}
                         <div class="card card-2 mt-2 mb-2 gray-filter">
                             <div class="d-flex align-items-center">
-                                <div class="p-3"><img src="{{ asset('images/card.png') }}"
+                                <div class="p-3"><img src="{{ asset('images/' ~ closedEvent.organization.image) }}"
                                                       class="rounded-2" alt="..."></div>
                                 <div><p class="card-title ff-2 fs-4 pe-3">{{ closedEvent.name }}</p></div>
                             </div>
@@ -237,7 +150,7 @@
                                         <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
                                         <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
                                     </svg>
-                                    Oliva, Valencia
+                                    {{ closedEvent.location }}
                                 </p>
                             </div>
                         </div>
@@ -265,7 +178,7 @@
                     {% for closedEvent in closedEvents|slice(0, 3) %}
                         <div class="card card-2 mt-2 mb-2 gray-filter">
                             <div class="d-flex align-items-center">
-                                <div class="p-3"><img src="{{ asset('images/card.png') }}"
+                                <div class="p-3"><img src="{{ asset('images/' ~ closedEvent.organization.image) }}"
                                                       class="rounded-2" alt="..."></div>
                                 <div><p class="card-title ff-2 fs-4 pe-3">{{ closedEvent.name }}</p></div>
                             </div>
@@ -284,7 +197,7 @@
                                         <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
                                         <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
                                     </svg>
-                                    Oliva, Valencia
+                                    {{ closedEvent.location }}
                                 </p>
                             </div>
                         </div>
