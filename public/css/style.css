@@ -42,6 +42,13 @@
     background-size: cover;
 }
 
+.bg-6 {
+    background-image: url('../images/duotone7.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 .bg-1 {
     background-color: #f47d6e;
 }

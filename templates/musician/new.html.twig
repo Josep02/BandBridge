@@ -36,8 +36,12 @@
                                 {{ form_label(form.username, 'Nombre de usuario') }}
                             </div>
                             <div class="form-floating mb-3">
-                                {{ form_widget(form.password, {'attr': {'class': 'form-control', 'placeholder': 'Contrasena'}}) }}
-                                {{ form_label(form.password, 'Contrasena') }}
+                                {{ form_widget(form.password, {'attr': {'class': 'form-control', 'placeholder': 'Contraseña'}}) }}
+                                {{ form_label(form.password, 'Contraseña') }}
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="password" id="rpassword" name="rpassword" class="form-control" placeholder="Repetir Contraseña">
+                                <label for="rpassword">Repetir Contraseña</label>
                             </div>
                             <div>
                                 <button type="button" class="button-2 w-100 p-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
