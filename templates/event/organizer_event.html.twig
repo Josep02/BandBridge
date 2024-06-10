@@ -13,7 +13,8 @@
                             <a href="{{ path('app_musician_show', {'id': app.user.id}) }}">Mi perfil</a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="{{ path('app_musician_organizations', {'id': app.user.id}) }}">Mis organizaciones</a>
+                            <a href="{{ path('app_musician_organizations', {'id': app.user.id}) }}">Mis
+                                organizaciones</a>
                         </li>
                         <li class="breadcrumb-item">
                             <a href="{{ path('app_organization_organizer_show', {'id': organization.id}) }}">
@@ -30,7 +31,8 @@
             <div class="col-12">
                 <div class="mt-4 d-flex">
                     <div class="me-3">
-                        <img src="{{ asset('images/' ~ event.organization.image ) }}" alt="" width="120" height="120" class="rounded-2">
+                        <img src="{{ asset('images/' ~ event.organization.image ) }}" alt="" width="120" height="120"
+                             class="rounded-2">
                     </div>
                     <div>
                         <p class="fs-2">{{ event.name }}</p>
@@ -45,7 +47,8 @@
                 <div class="d-flex justify-content-between mt-5">
                     <h2>Instrumentos requeridos:</h2>
                     <div>
-                        <button type="button" class="button-4" data-bs-toggle="modal" data-bs-target="#addInstrumentModal">
+                        <button type="button" class="button-4" data-bs-toggle="modal"
+                                data-bs-target="#addInstrumentModal">
                             Añadir instrumento
                         </button>
                     </div>
@@ -65,46 +68,69 @@
                                 </thead>
                                 <tbody>
                                 {% for detail in details %}
-                                    <tr>
-                                        <td class="align-middle">{{ detail.requiredInstrument.name }}</td>
-                                        <td class="align-middle">{{ detail.minPayment }}</td>
-                                        <td class="align-middle">{{ detail.quantity }}</td>
-                                        <td class="align-middle text-end">
-                                            <button type="button" class="button-4">
-                                                Modificar
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    {% set filtered_participations = participations|filter(participation => participation.detail.id == detail.id) %}
-                                    {% if filtered_participations|length > 0 %}
-                                        <td colspan="4">
-                                            <div class="d-flex justify-content-between">
-                                                {% for participation in filtered_participations %}
-                                                    <div class="card card-1">
-                                                        <div class="card-body">
-                                                            <div class="text-center align-content-center">
-                                                                <img src="{{ asset('images/' ~ participation.musician.image) }}" alt="" width="60" height="60" class="rounded-circle me-3">
-                                                                <span class="fs-5">{{ participation.musician.name }}</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-footer p-0">
-                                                            <div class="text-center d-flex justify-content-between">
-                                                                <form action="{{ path('app_invitation_reject', {'id': participation.id}) }}" method="post" class="w-100">
-                                                                    <button type="submit" class="button-back-1 w-100">
-                                                                        <i class="fa-solid fa-xmark"></i>
-                                                                    </button>
-                                                                </form>
-                                                                <form action="{{ path('app_invitation_accept', {'id': participation.id}) }}" method="post" class="w-100">
-                                                                    <button type="submit" class="button-back-3 w-100">
-                                                                        <i class="fa-solid fa-check"></i>
-                                                                    </button>
-                                                                </form>
-                                                            </div>
+                                    {% if detail.quantity > 0 %}
+                                        <tr>
+                                            <td class="align-middle">{{ detail.requiredInstrument.name }}</td>
+                                            <td class="align-middle">{{ detail.minPayment }}</td>
+                                            <td class="align-middle">{{ detail.quantity }}</td>
+                                            <td class="align-middle text-end">
+                                                {% set filtered_participations = participations|filter(participation => participation.detail.id == detail.id) %}
+                                                {% if filtered_participations|length > 0 %}
+                                                    <a data-bs-toggle="collapse" href="#collapseExample{{ detail.id }}"
+                                                       class="text-decoration-none">
+                                                        <button type="button" class="button-4" role="button"
+                                                                aria-expanded="false"
+                                                                aria-controls="collapseExample{{ detail.id }}">
+                                                            Ver peticiones
+                                                        </button>
+                                                    </a>
+                                                {% endif %}
+                                                <button type="button" class="button-4">
+                                                    Modificar
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        {% set filtered_participations = participations|filter(participation => participation.detail.id == detail.id) %}
+                                        {% if filtered_participations|length > 0 %}
+                                            <tr>
+                                                <td colspan="4" class="p-0 m-0">
+                                                    <div class="collapse" id="collapseExample{{ detail.id }}">
+                                                        <div class="d-flex flex-wrap justify-content-center">
+                                                            {% for participation in filtered_participations %}
+                                                                <div class="card card-1 m-4">
+                                                                    <div class="card-body h-100">
+                                                                        <div class="text-center align-content-center">
+                                                                            <img src="{{ asset('images/' ~ participation.musician.image) }}"
+                                                                                 alt="" width="60" height="60"
+                                                                                 class="rounded-circle me-3">
+                                                                            <span class="fs-5">{{ participation.musician.name }}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="card-footer p-0">
+                                                                        <div class="text-center d-flex justify-content-between">
+                                                                            <form action="{{ path('app_participation_reject', {'id': participation.id}) }}"
+                                                                                  method="post" class="w-100">
+                                                                                <button type="submit"
+                                                                                        class="button-back-1 w-100">
+                                                                                    <i class="fa-solid fa-xmark"></i>
+                                                                                </button>
+                                                                            </form>
+                                                                            <form action="{{ path('app_participation_accept', {'id': participation.id}) }}"
+                                                                                  method="post" class="w-100">
+                                                                                <button type="submit"
+                                                                                        class="button-back-3 w-100">
+                                                                                    <i class="fa-solid fa-check"></i>
+                                                                                </button>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            {% endfor %}
                                                         </div>
                                                     </div>
-                                                {% endfor %}
-                                            </div>
-                                        </td>
+                                                </td>
+                                            </tr>
+                                        {% endif %}
                                     {% endif %}
                                 {% endfor %}
                                 </tbody>
@@ -118,17 +144,24 @@
                 {% endif %}
 
 
-                {% if participationsAccepted is not empty%}
+                {% if participationsAccepted is not empty %}
                     <div class="mt-5">
                         <h2>Participantes confirmados:</h2>
                     </div>
 
-                    <div class="d-flex justify-content-between mb-5">
+                    <div class="d-flex flex-wrap justify-content-evenly mb-5 mt-4">
                         {% for participationAccepted in participationsAccepted %}
-                            <div class="card card-1">
-                                <div class="card-body">
+                            <div class="card card-1 mb-4">
+                                <div class="card-body position-relative">
+                                    <form action="{{ path('app_participation_reject', {'id': participationAccepted.id}) }}"
+                                          method="post" class="w-100">
+                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-2 bg-secondary bg-danger z-3">
+                                            <i class="fa-solid fa-xmark fs-4"></i>
+                                        </span>
+                                    </form>
                                     <div class="text-center align-content-center">
-                                        <img src="{{ asset('images/' ~ participationAccepted.musician.image) }}" alt="" width="60" height="60" class="rounded-circle me-3">
+                                        <img src="{{ asset('images/' ~ participationAccepted.musician.image) }}" alt=""
+                                             width="60" height="60" class="rounded-circle me-3">
                                         <span class="fs-5">{{ participationAccepted.musician.name }}</span>
                                     </div>
                                 </div>
@@ -142,13 +175,16 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="addInstrumentModal" tabindex="-1" aria-labelledby="addInstrumentModalLabel" aria-hidden="true" data-target="add-instrument.container">
+    <div class="modal fade" id="addInstrumentModal" tabindex="-1" aria-labelledby="addInstrumentModalLabel"
+         aria-hidden="true" data-target="add-instrument.container">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form method="POST" action="{{ path('app_organization_event_detail_new', {'organizationId': organization.id, 'eventId' : event.id}) }}">
+                <form method="POST"
+                      action="{{ path('app_organization_event_detail_new', {'organizationId': organization.id, 'eventId' : event.id}) }}">
 
                     <div class="modal-body">
-                        <input type="hidden" name="num_instruments" value="0"> <!-- Agregar este campo oculto para enviar el número de instrumentos -->
+                        <input type="hidden" name="num_instruments" value="0">
+                        <!-- Agregar este campo oculto para enviar el número de instrumentos -->
                         <div id="instruments-container" data-add-instrument-target="container">
                             <div class="text-end">
                                 <button type="button" class="btn btn-secondary" id="add-instrument-button">
@@ -168,13 +204,13 @@
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             var addInstrumentButton = document.getElementById('add-instrument-button');
             var instrumentsContainer = document.getElementById('instruments-container');
             var numInstrumentsInput = document.querySelector('input[name="num_instruments"]');
             var index = 0; // Inicializar el contador
 
-            addInstrumentButton.addEventListener('click', function() {
+            addInstrumentButton.addEventListener('click', function () {
                 // Crear los inputs
                 var inputContainer = document.createElement('div');
                 inputContainer.classList.add('row', 'mb-3');

@@ -68,9 +68,9 @@
             <div class="col-12">
                 <h1>Tus próximos eventos:</h1>
                 {% if events is not empty %}
-                <div class="d-flex justify-content-between">
+                <div class="d-flex flex-wrap justify-content-between">
                     {% for event in events %}
-                        <div class="card card-2 mt-2 mb-2">
+                        <div class="card card-3 mt-2 mb-2">
                             <div class="d-flex align-items-center">
                                 <div class="p-3">
                                     <img src="{{ asset('images/' ~ event.event.organization.image ) }}" alt="" class="rounded-2">

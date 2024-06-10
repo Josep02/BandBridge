@@ -21,47 +21,48 @@
         <div class="row mt-4 mb-5">
             <div class="col-12">
                 <h1>Valoraciones</h1>
-                    <div class="text-center">
-                        <img src="{{ asset('images/Hands - Like.png' ) }}" alt="" width="160" height="160" class="rounded-2">
-                        <p class="mt-3">Actualmente no tienes valoraciones.</p>
-                    </div>
-        </div>
+                <div class="text-center">
+                    <img src="{{ asset('images/Hands - Like.png' ) }}" alt="" width="160" height="160" class="rounded-2">
+                    <p class="mt-3">Actualmente no tienes valoraciones.</p>
+                </div>
+            </div>
 
-        <div class="row mt-4 mb-5">
-            <div class="col-12">
-                <h1>Invitaciones</h1>
+            <div class="row mt-4 mb-5">
+                <div class="col-12">
+                    <h1>Invitaciones</h1>
 
-                {% if invitations is empty %}
-                    <div class="text-center">
-                        <img src="{{ asset('images/Hands - Mail.png' ) }}" alt="" width="160" height="160" class="rounded-2">
-                        <p class="mt-3">Actualmente no tienes ninguna invitación lo sentimos.</p>
-                    </div>
-                {% else %}
-                    <div class="d-flex justify-content-between">
-                        {% for invitation in invitations %}
-                            <div class="card card-2">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ invitation.organization.name }}</h5>
-                                    <p class="card-text">{{ invitation.message }}</p>
-                                </div>
-                                <div class="card-footer p-0">
-                                    <div class="text-center d-flex justify-content-between">
-                                        <form action="{{ path('app_invitation_reject', {'id': invitation.id}) }}" method="post" class="w-100">
-                                            <button type="submit" class="button-back-1 w-100">
-                                                <i class="fa-solid fa-xmark"></i>
-                                            </button>
-                                        </form>
-                                        <form action="{{ path('app_invitation_accept', {'id': invitation.id}) }}" method="post" class="w-100">
-                                            <button type="submit" class="button-back-3 w-100">
-                                                <i class="fa-solid fa-check"></i>
-                                            </button>
-                                        </form>
+                    {% if invitations is empty %}
+                        <div class="text-center">
+                            <img src="{{ asset('images/Hands - Mail 2.png' ) }}" alt="" width="160" height="160" class="rounded-2">
+                            <p class="mt-3">Actualmente no tienes ninguna invitación lo sentimos.</p>
+                        </div>
+                    {% else %}
+                        <div class="d-flex justify-content-between">
+                            {% for invitation in invitations %}
+                                <div class="card card-2">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ invitation.organization.name }}</h5>
+                                        <p class="card-text">{{ invitation.message }}</p>
+                                    </div>
+                                    <div class="card-footer p-0">
+                                        <div class="text-center d-flex justify-content-between">
+                                            <form action="{{ path('app_invitation_reject', {'id': invitation.id}) }}" method="post" class="w-100">
+                                                <button type="submit" class="button-back-1 w-100">
+                                                    <i class="fa-solid fa-xmark"></i>
+                                                </button>
+                                            </form>
+                                            <form action="{{ path('app_invitation_accept', {'id': invitation.id}) }}" method="post" class="w-100">
+                                                <button type="submit" class="button-back-3 w-100">
+                                                    <i class="fa-solid fa-check"></i>
+                                                </button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>

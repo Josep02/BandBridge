@@ -6,6 +6,7 @@ use App\Repository\InvitationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[Route('/api')]
 class ApiController extends AbstractController
@@ -14,17 +15,13 @@ class ApiController extends AbstractController
     public function index(InvitationRepository $invitationRepository): Response
     {
         $user = $this->getUser();
-
-        $invitations = $invitationRepository->findOneBy(['state' => 'Pendiente', 'musician' => $user]);
-
         $totalInvitations = 0;
 
-        if ($invitations) {
-            $totalInvitations = count($invitations->getInvitations());
+        if ($user instanceof UserInterface) {
+            $invitations = $invitationRepository->findBy(['state' => 'Pendiente', 'musician' => $user]);
+            $totalInvitations = count($invitations);
         }
 
-        $response = $this->json(['count_number' => $totalInvitations]);
-
-        return $response;
+        return $this->json(['count_number' => $totalInvitations]);
     }
 }

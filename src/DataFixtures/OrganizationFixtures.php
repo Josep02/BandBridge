@@ -9,6 +9,7 @@ use App\Entity\Musician;
 use App\Entity\MusicianClass;
 use App\Entity\Organization;
 use App\Entity\OrganizationType;
+use App\Entity\ParticipationRequest;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
@@ -32,6 +33,12 @@ class OrganizationFixtures extends Fixture
             ['name' => 'Brass Band', 'description' => 'Agrupación musical con instrumentos de viento metal y percusión.'],
             ['name' => 'Orquesta', 'description' => 'Conjunto musical que interpreta música clásica y contemporánea.'],
         ];
+
+        $musicians = $manager->getRepository(Musician::class)->findAll();
+        $events = $manager->getRepository(Event::class)->findAll();
+        $details = $manager->getRepository(Details::class)->findAll();
+
+        $states = ['In process', 'Refused', 'Accepted'];
 
         $organizationTypeEntities = [];
 
@@ -60,7 +67,7 @@ class OrganizationFixtures extends Fixture
         $musicians = $manager->getRepository(Musician::class)->findAll();
         $instruments = $manager->getRepository(Instrument::class)->findAll();
 
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $musicianClass = new MusicianClass();
 
             $randomMusician = $this->faker->randomElement($musicians);

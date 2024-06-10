@@ -43,14 +43,14 @@ class MusicianFixtures extends Fixture
         $manager->persist($admin);
         $manager->persist($adminLogin);
 
-        // Crear un usuario admin
+        // Crear un usuario
         $user = new Musician();
         $user->setName('pepe');
         $user->setEmail('pepe@gmail.com');
         $user->setImage('example.png');
         $user->setLastname('pepe');
 
-        // Crear un login para el usuario admin
+        // Crear un login para el usuario
         $userLogin = new Login();
         $userLogin->setUsername('pepe');
         $userLogin->setPassword($this->hasher->hashPassword($user, 'pepe'));
@@ -61,7 +61,7 @@ class MusicianFixtures extends Fixture
         $manager->persist($userLogin);
 
         // Crear usuarios normales
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 25; $i++) {
             $musician = new Musician();
             $musician->setName($this->faker->name);
             $musician->setLastname($this->faker->lastName);
@@ -73,7 +73,7 @@ class MusicianFixtures extends Fixture
 
             // Crear un login para el usuario normal
             $normalLogin = new Login();
-            $normalLogin->setUsername('manolo');
+            $normalLogin->setUsername($this->faker->userName());
             $normalLogin->setPassword($this->hasher->hashPassword($musician, 'password'));
             $normalLogin->setRole('ROLE_USER');
             $normalLogin->setMusician($musician);
