@@ -1,27 +1,26 @@
 @startuml
+
+entity Login {
+    + id : int
+    - username : string
+    - password : string
+    - role : string
+}
+
 entity Musician {
     + id : int
     - name : string
     - lastname : string
-    - username : string
     - email : string
     - image : string
-    - password : string
-}
-
-entity Valoration {
-    + id : int
-    - title : string
-    - description : string
-}
-
-entity Instrument {
-    + id : int
-    - name : string
+    - instrument : Instrument
 }
 
 entity MusicianClass {
     + id : int
+    - musician : Musician
+    - organization : Organization
+    - role : string
 }
 
 entity Organization {
@@ -29,6 +28,8 @@ entity Organization {
     - name : string
     - email : string
     - description : string
+    - image : string
+    - type : OrganizationType
 }
 
 entity OrganizationType {
@@ -37,27 +38,61 @@ entity OrganizationType {
     - description : string
 }
 
+entity Valoration {
+    + id : int
+    - title : string
+    - description : string
+    - musician : Musician
+}
+
 entity Event {
     + id : int
+    - organization : Organization
     - name : string
     - description : string
     - date : Date
     - created : Date
     - location : string
+    - state : string
 }
 
 entity Details {
     + id : int
     - minPayment : float
+    - requiredInstrument : Instrument
+    - event : Event
     - quantity : int
 }
 
+entity Classification {
+    + id : int
+    - name : string
+}
+
+entity Instrument {
+    + id : int
+    - name : string
+    - classification : Classification
+}
+
 entity ParticipationRequest {
-    - id : int
+    + id : int
     - state : int
     - musician : Musician
     - details : Details
+    - event : Event
+    - applicationDate : Date
 }
+
+entity Invitation {
+    + id : int
+    - musician : Musician
+    - organization : Organization
+    - state : string
+    - message : string
+}
+
+Musician ||--|| Login
 
 Musician ||--o{ Valoration
 Musician ||--|{ Instrument
@@ -65,12 +100,18 @@ Musician ||--|{ MusicianClass
 Musician }o--o{ ParticipationRequest
 
 ParticipationRequest ||--|| Event
+ParticipationRequest }o--|| Details
 
 MusicianClass }|--|| Organization
 
 Organization ||--o{ OrganizationType
 Organization ||--o{ Event
+Organization ||--o{ Invitation
 
-Event ||--o{ Details
+Invitation }o--|| Musician
 
-@enduml at [Funcionalitats especials]'s end
+Classification ||--o{ Instrument
+
+Details }o--|| Event
+
+@enduml

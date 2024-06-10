@@ -1,13 +1,18 @@
 @startuml
+
+class Login {
+    - id : int
+    - username : string
+    - password : string
+    - role : string
+}
+
 class Musician {
     - id : int
     - name : string
     - lastname : string
-    - username : string
     - email : string
     - image : string
-    - password : string
-    - valoration : Valoration
     - instrument : Instrument
 }
 
@@ -15,6 +20,7 @@ class MusicianClass {
     - id : int
     - musician : Musician
     - organization : Organization
+    - role : string
 }
 
 class Organization {
@@ -22,6 +28,7 @@ class Organization {
     - name : string
     - email : string
     - description : string
+    - image : string
     - type : OrganizationType
 }
 
@@ -35,22 +42,25 @@ class Valoration {
     - id : int
     - title : string
     - description : string
+    - musician : Musician
 }
 
 class Event {
     - id : int
+    - organization : Organization
     - name : string
     - description : string
     - date : Date
     - created : Date
     - location : string
-    - details : Details
+    - state : string
 }
 
 class Details {
     - id : int
     - minPayment : float
     - requiredInstrument : Instrument
+    - event : Event
     - quantity : int
 }
 
@@ -70,23 +80,38 @@ class ParticipationRequest {
     - state : int
     - musician : Musician
     - details : Details
+    - event : Event
+    - applicationDate : Date
 }
 
-Musician -- Musician
-Musician "1" -- "0..N" Valoration
-Musician "1" -- "N" Instrument
+class Invitation {
+    - id : int
+    - musician : Musician
+    - organization : Organization
+    - state : string
+    - message : string
+}
+
+Musician "1" -- "1" Login
+
+Musician "1" -- "0.N" Valoration
+Musician "1" -- "1" Instrument
 Musician "1" -- "N" MusicianClass
-Musician "1" -- "0..N" ParticipationRequest
+Musician "1" -- "0.N" ParticipationRequest
 
 ParticipationRequest "1" -- "1" Event
+ParticipationRequest "N" -- "1" Details
 
 MusicianClass "N" -- "1" Organization
 
-Organization "1" -- "0..N" OrganizationType
-Organization "1" -- "0..N" Event
+Organization "1" -- "0.N" OrganizationType
+Organization "1" -- "0.N" Event
+Organization "1" -- "0.N" Invitation
 
-Classification "1" -- "0..N" Instrument
+Invitation "0.N" -- "1" Musician
 
-Event "1" -- "0..N" Details
+Classification "1" -- "0.N" Instrument
+
+Details "N" -- "1" Event
 
 @enduml
