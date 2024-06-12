@@ -35,14 +35,17 @@
                                 {{ form_widget(form.username, {'attr': {'class': 'form-control', 'placeholder': 'Nombre de usuario'}}) }}
                                 {{ form_label(form.username, 'Nombre de usuario') }}
                             </div>
-                            <div class="form-floating mb-3">
-                                {{ form_widget(form.password, {'attr': {'class': 'form-control', 'placeholder': 'Contraseña'}}) }}
-                                {{ form_label(form.password, 'Contraseña') }}
+                            <div data-controller="confirm-password">
+                                <div class="form-floating mb-3">
+                                    {{ form_widget(form.password, {'attr': {'class': 'form-control', 'placeholder': 'Contraseña', 'data-confirm-password-target': 'password'}}) }}
+                                    {{ form_label(form.password, 'Contraseña') }}
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Repetir Contraseña" data-confirm-password-target="confirmPassword" required>
+                                    <label for="confirmPassword">Repetir Contraseña</label>
+                                </div>
                             </div>
-                            <div class="form-floating mb-3">
-                                <input type="password" id="rpassword" name="rpassword" class="form-control" placeholder="Repetir Contraseña">
-                                <label for="rpassword">Repetir Contraseña</label>
-                            </div>
+
                             <div>
                                 <button type="button" class="button-2 w-100 p-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                     Seleccionar Instrumento
@@ -53,12 +56,53 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-body">
-                                                <div class="d-flex flex-wrap">
+                                                <div class="d-flex flex-wrap justify-content-center">
+                                                {% for instrument in instruments %}
+                                                        {% if instrument.classification.name == 'Viento Madera'  %}
+                                                            <div class="button-2 m-1" data-bs-dismiss="modal">
+                                                                <input type="radio" id="instrumento{{ instrument.id }}" name="instrumento" value="{{ instrument.id }}">
+                                                                <label for="instrumento{{ instrument.id }}">{{ instrument.name }}</label><br>
+                                                            </div>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </div>
+
+                                                <hr class="text-dark m-2">
+
+                                                <div class="d-flex flex-wrap justify-content-center">
                                                     {% for instrument in instruments %}
-                                                        <div class="button-2 m-1" data-bs-dismiss="modal">
-                                                            <input type="radio" id="instrumento{{ instrument.id }}" name="instrumento" value="{{ instrument.id }}">
-                                                            <label for="instrumento{{ instrument.id }}">{{ instrument.name }}</label><br>
-                                                        </div>
+                                                        {% if instrument.classification.name == 'Viento Metal'  %}
+                                                            <div class="button-2 m-1" data-bs-dismiss="modal">
+                                                                <input type="radio" id="instrumento{{ instrument.id }}" name="instrumento" value="{{ instrument.id }}">
+                                                                <label for="instrumento{{ instrument.id }}">{{ instrument.name }}</label><br>
+                                                            </div>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </div>
+
+                                                <hr class="text-dark m-2">
+
+                                                <div class="d-flex flex-wrap justify-content-center">
+                                                    {% for instrument in instruments %}
+                                                        {% if instrument.classification.name == 'Percusión'  %}
+                                                            <div class="button-2 m-1" data-bs-dismiss="modal">
+                                                                <input type="radio" id="instrumento{{ instrument.id }}" name="instrumento" value="{{ instrument.id }}">
+                                                                <label for="instrumento{{ instrument.id }}">{{ instrument.name }}</label><br>
+                                                            </div>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </div>
+
+                                                <hr class="text-dark m-2">
+
+                                                <div class="d-flex flex-wrap justify-content-center">
+                                                    {% for instrument in instruments %}
+                                                        {% if instrument.classification.name == 'Cuerda'  %}
+                                                            <div class="button-2 m-1" data-bs-dismiss="modal">
+                                                                <input type="radio" id="instrumento{{ instrument.id }}" name="instrumento" value="{{ instrument.id }}">
+                                                                <label for="instrumento{{ instrument.id }}">{{ instrument.name }}</label><br>
+                                                            </div>
+                                                        {% endif %}
                                                     {% endfor %}
                                                 </div>
                                             </div>
