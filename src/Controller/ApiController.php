@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Event;
+use App\Repository\EventRepository;
 use App\Repository\InvitationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,5 +25,31 @@ class ApiController extends AbstractController
         }
 
         return $this->json(['count_number' => $totalInvitations]);
+    }
+
+    #[Route('/chart', name: 'app_api_chart')]
+    public function chart(EventRepository $eventRepository): Response
+    {
+        $events = $eventRepository->findAll();
+
+        $eventsByMonth = [];
+        foreach ($events as $event) {
+            $date = $event->getCreated();
+            $month = $date->format('Y-m');
+            if (!isset($eventsByMonth[$month])) {
+                $eventsByMonth[$month] = 0;
+            }
+            $eventsByMonth[$month]++;
+        }
+
+        ksort($eventsByMonth);
+
+        $labels = array_keys($eventsByMonth);
+        $data = array_values($eventsByMonth);
+
+        return $this->json([
+            'labels' => $labels,
+            'data' => $data
+        ]);
     }
 }

@@ -14,7 +14,6 @@ class LoginController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils, AuthorizationCheckerInterface $authorizationChecker): Response
     {
         $error = $authenticationUtils->getLastAuthenticationError();
-
         $lastUsername = $authenticationUtils->getLastUsername();
 
         if ($authorizationChecker->isGranted('ROLE_ADMIN')) {

@@ -15,16 +15,20 @@ export default class extends Controller {
 
         console.log(`Password: ${password}, Confirm Password: ${confirmPassword}`);
 
-        this.passwordTarget.classList.remove('border-success', 'border-danger');
-        this.confirmPasswordTarget.classList.remove('border-success', 'border-danger');
+        this.passwordTarget.classList.remove('border-success', 'border-danger', 'border-2');
+        this.confirmPasswordTarget.classList.remove('border-success', 'border-danger', 'border-2');
 
         if (password && confirmPassword) {
             if (password === confirmPassword) {
                 this.confirmPasswordTarget.classList.add('border-success');
                 this.passwordTarget.classList.add('border-success');
+                this.confirmPasswordTarget.classList.add('border-2');
+                this.passwordTarget.classList.add('border-2');
             } else {
                 this.confirmPasswordTarget.classList.add('border-danger');
                 this.passwordTarget.classList.add('border-danger');
+                this.confirmPasswordTarget.classList.add('border-2');
+                this.passwordTarget.classList.add('border-2');
             }
         }
     }

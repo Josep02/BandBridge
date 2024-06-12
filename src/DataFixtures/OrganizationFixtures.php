@@ -82,7 +82,7 @@ class OrganizationFixtures extends Fixture
             $manager->persist($musicianClass);
         }
 
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 30; $i++) {
             $event = new Event();
 
             $randomOrganization = $organizations[array_rand($organizations)];
@@ -90,8 +90,13 @@ class OrganizationFixtures extends Fixture
 
             $event->setName($this->faker->company);
             $event->setDescription($this->faker->text(255));
-            $event->setDate($this->faker->dateTime);
-            $event->setCreated($this->faker->dateTime);
+
+            $createdDate = $this->faker->dateTimeBetween('2023-01-01', '2024-12-31');
+            $event->setCreated($createdDate);
+
+            $date = $this->faker->dateTimeBetween( $event->getCreated(), '2024-12-31');
+            $event->setDate($date);
+
             $event->setLocation('Pego');
 
             $randomState = $this->faker->randomElement(['Active', 'Closed']);
