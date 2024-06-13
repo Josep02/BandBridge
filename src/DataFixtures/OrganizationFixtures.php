@@ -21,7 +21,7 @@ class OrganizationFixtures extends Fixture
 
     public function __construct()
     {
-        $this->faker = Factory::create();
+        $this->faker = Factory::create('es_ES');
     }
 
     public function load(ObjectManager $manager): void

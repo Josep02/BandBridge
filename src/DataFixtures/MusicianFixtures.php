@@ -18,7 +18,7 @@ class MusicianFixtures extends Fixture
 
     public function __construct(UserPasswordHasherInterface $hasher)
     {
-        $this->faker = Factory::create('es_Es');
+        $this->faker = Factory::create('es_ES');
         $this->hasher = $hasher;
     }
 
