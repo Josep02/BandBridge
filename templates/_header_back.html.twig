@@ -1,33 +1,54 @@
 <nav class="bg-2 d-lg-none d-xl-none d-xxl-none">
     <div class="container-fluid bg-2">
         <nav class="navbar navbar-expand-lg bg-body-tertiary bg-2 p-0">
-            <div class="container-fluid bg-2">
+            <div class="container-fluid bg-2 pt-1">
                 <a class="navbar-brand text-white">
-                    <img src="{{ asset('../assets/images/icon.png') }}" alt="Logo" width="35" height="35">
+                    <img src="{{ asset('images/icon.png') }}" alt="Logo" width="35" height="35">
                     BandBridge
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="button-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <div class="collapse navbar-collapse pt-3" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 fs-5">
+                        <li class="mb-2">
+                            <a href="{{ path('app_back') }}" class="text-decoration-none text-white">Inicio</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
+                        <li class="mb-1">
+                            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white ps-0 fs-5" data-bs-toggle="collapse" data-bs-target="#event-collapse" aria-expanded="false">
+                                Eventos
+                            </button>
+                            <div class="collapse" id="event-collapse">
+                                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                    <li><a href="{{ path('app_back_event_index') }}" class="link-body-emphasis-2 d-inline-flex text-decoration-none rounded text-white ps-3 pe-3 pt-1 pb-1">Todos los eventos</a></li>
+                                    <li><a href="{{ path('app_back_event_new') }}" class="link-body-emphasis-2 d-inline-flex text-decoration-none rounded text-white ps-3 pe-3 pt-1 pb-1">Nuevo evento</a></li>
+                                </ul>
+                            </div>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                            </ul>
+
+                        <li class="mb-1">
+                            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white ps-0 fs-5" data-bs-toggle="collapse" data-bs-target="#user-collapse" aria-expanded="false">
+                                Usuarios
+                            </button>
+                            <div class="collapse" id="user-collapse">
+                                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                    <li><a href="{{ path('app_back_musician_index') }}" class="link-body-emphasis-2 d-inline-flex text-decoration-none rounded text-white ps-3 pe-3 pt-1 pb-1">Lista de suarios</a></li>
+                                    <li><a href="{{ path('app_back_musician_new') }}" class="link-body-emphasis-2 d-inline-flex text-decoration-none rounded text-white ps-3 pe-3 pt-1 pb-1">Nuevo usuario</a></li>
+                                    <li><a href="{{ path('app_back_musician_class_index') }}" class="link-body-emphasis-2 d-inline-flex text-decoration-none rounded text-white ps-3 pe-3 pt-1 pb-1">Gestionar roles</a></li>
+                                </ul>
+                            </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+
+                        <li class="mb-1">
+                            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white ps-0 fs-5" data-bs-toggle="collapse" data-bs-target="#organization-collapse" aria-expanded="false">
+                                Organizaciones
+                            </button>
+                            <div class="collapse" id="organization-collapse">
+                                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                    <li><a href="{{ path('app_back_organization_index') }}" class="link-body-emphasis-2 d-inline-flex text-decoration-none rounded text-white ps-3 pe-3 pt-1 pb-1">Todas las org.</a></li>
+                                    <li><a href="{{ path('app_back_organization_new') }}" class="link-body-emphasis-2 d-inline-flex text-decoration-none rounded text-white ps-3 pe-3 pt-1 pb-1">Nueva organizacion</a></li>
+                                </ul>
+                            </div>
                         </li>
                     </ul>
                 </div>

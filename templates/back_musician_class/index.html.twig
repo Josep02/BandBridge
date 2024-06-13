@@ -4,36 +4,49 @@
 
 {% block body %}
     <div class="bg-white rounded-2 p-3">
-        <h1>Roles de los usuarios</h1>
+        <div class="d-flex justify-content-between">
+            <h1>Roles de los usuarios</h1>
+            <a href="{{ path('app_back_musician_class_new') }}">
+                <button class="button-4">Nuevo</button>
+            </a>
+        </div>
 
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Usuario</th>
-                <th>Role</th>
-                <th>Organization</th>
-                <th>actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for musician_class in musician_classes %}
-                <tr>
-                    <td>{{ musician_class.musician.name }}</td>
-                    <td>{{ musician_class.role }}</td>
-                    <td>{{ musician_class.organization.name }}</td>
-                    <td>
-                        <a href="{{ path('app_back_musician_class_show', {'id': musician_class.id}) }}">show</a>
-                        <a href="{{ path('app_back_musician_class_edit', {'id': musician_class.id}) }}">edit</a>
-                    </td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="3">no records found</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+        <div class="d-flex flex-wrap justify-content-center">
+                {% for musician_class in musician_classes %}
+                    <div class="card card-4 mb-3 m-2">
+                           <div class="card-body p-0">
+                               <div class="d-flex justify-content-center">
+                                   <div class="w-100 p-1 text-center align-content-center">
+                                       <div class="">
+                                           <img src="{{ asset('images/' ~ musician_class.musician.image ) }}" alt="" width="60" height="60" class="rounded-circle">
+                                           <p class="m-0 p-0">{{ musician_class.musician.name }}</p>
+                                       </div>
+                                   </div>
+                                   <div class="w-100 p-0 text-center align-content-center">
+                                       {{ musician_class.role }}
+                                   </div>
+                                   <div class="w-100 p-1 text-center align-content-center">
+                                       <div class="">
+                                           <img src="{{ asset('images/' ~ musician_class.organization.image ) }}" alt="" width="60" height="60" class="rounded-2">
+                                           <p class="m-0 p-0">{{ musician_class.organization.name }}</p>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                        <div class="card-footer d-flex justify-content-between p-0">
+                            <a href="{{ path('app_back_musician_delete', {'id': musician_class.id}) }}" class="text-decoration-none text-center w-100 button-back-1">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                            <a href="{{ path('app_back_musician_edit', {'id': musician_class.id}) }}" class="text-decoration-none text-center w-100 button-back-3">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
 
-        <a href="{{ path('app_back_musician_class_new') }}">Create new</a>
+        <div class="navigation d-flex justify-content-center mt-4 mb-5">
+            {{ knp_pagination_render(pagination) }}
+        </div>
     </div>
 {% endblock %}

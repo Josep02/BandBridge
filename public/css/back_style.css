@@ -1,0 +1,49 @@
+.link-body-emphasis-2:hover {
+    color: white;
+    background: #232323;
+}
+
+.btn-back-1 {
+    color: white;
+    background: #ff2f2f;
+    border: 1px solid #ff2f2f;
+    border-radius: 4px;
+    padding: 5px;
+    transition: background 0.3s, color 0.3s;
+}
+
+.btn-back-1:hover {
+    border: 1px solid lightgray;
+    color: #ff2f2f;
+    background-color: white;
+}
+
+.btn-back-2 {
+    color: white;
+    background: #2727ff;
+    border: 1px solid #2727ff;
+    border-radius: 4px;
+    padding: 5px;
+    transition: background 0.3s, color 0.3s;
+}
+
+.btn-back-2:hover {
+    border: 1px solid lightgray;
+    color: #2727ff;
+    background-color: white;
+}
+
+.btn-back-3 {
+    color: white;
+    background: #3acf3a;
+    border: 1px solid #3acf3a;
+    border-radius: 4px;
+    padding: 5px;
+    transition: background 0.3s, color 0.3s;
+}
+
+.btn-back-3:hover {
+    border: 1px solid lightgray;
+    color: #3acf3a;
+    background-color: white;
+}

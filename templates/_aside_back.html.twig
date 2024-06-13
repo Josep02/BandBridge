@@ -1,4 +1,4 @@
-<aside class="col-2 aside h-auto p-2 ps-3 bg-2 d-none d-lg-block d-xl-block d-xxl-block position-relative">
+<aside class="col-2 aside h-auto p-2 ps-3 bg-2 d-none d-lg-block d-xl-block d-xxl-block">
     <nav id="main-menu">
         <div class="text-center text-white pt-3">
             <span class="ff-2 fs-5">
@@ -17,8 +17,8 @@
                 </button>
                 <div class="collapse" id="event-collapse">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        <li><a href="{{ path('app_back_event_index') }}" class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white ps-3">Todos los eventos</a></li>
-                        <li><a href="{{ path('app_back_event_new') }}" class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white ps-3">Nuevo evento</a></li>
+                        <li><a href="{{ path('app_back_event_index') }}" class="link-body-emphasis-2 d-inline-flex text-decoration-none rounded text-white ps-3 pe-3 pt-1 pb-1">Todos los eventos</a></li>
+                        <li><a href="{{ path('app_back_event_new') }}" class="link-body-emphasis-2 d-inline-flex text-decoration-none rounded text-white ps-3 pe-3 pt-1 pb-1">Nuevo evento</a></li>
                     </ul>
                 </div>
             </li>
@@ -29,9 +29,9 @@
                 </button>
                 <div class="collapse" id="user-collapse">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        <li><a href="{{ path('app_back_musician_index') }}" class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white ps-3">Lista de suarios</a></li>
-                        <li><a href="{{ path('app_back_musician_new') }}" class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white ps-3">Nuevo usuario</a></li>
-                        <li><a href="{{ path('app_back_musician_class_index') }}" class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white ps-3">Gestionar roles</a></li>
+                        <li><a href="{{ path('app_back_musician_index') }}" class="link-body-emphasis-2 d-inline-flex text-decoration-none rounded text-white ps-3 pe-3 pt-1 pb-1">Lista de suarios</a></li>
+                        <li><a href="{{ path('app_back_musician_new') }}" class="link-body-emphasis-2 d-inline-flex text-decoration-none rounded text-white ps-3 pe-3 pt-1 pb-1">Nuevo usuario</a></li>
+                        <li><a href="{{ path('app_back_musician_class_index') }}" class="link-body-emphasis-2 d-inline-flex text-decoration-none rounded text-white ps-3 pe-3 pt-1 pb-1">Gestionar roles</a></li>
                     </ul>
                 </div>
             </li>
@@ -42,8 +42,8 @@
                 </button>
                 <div class="collapse" id="organization-collapse">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        <li><a href="{{ path('app_back_organization_index') }}" class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white ps-3">Todas las org.</a></li>
-                        <li><a href="{{ path('app_back_organization_new') }}" class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white ps-3">Nueva organizacion</a></li>
+                        <li><a href="{{ path('app_back_organization_index') }}" class="link-body-emphasis-2 d-inline-flex text-decoration-none rounded text-white ps-3 pe-3 pt-1 pb-1">Todas las org.</a></li>
+                        <li><a href="{{ path('app_back_organization_new') }}" class="link-body-emphasis-2 d-inline-flex text-decoration-none rounded text-white ps-3 pe-3 pt-1 pb-1">Nueva organizacion</a></li>
                     </ul>
                 </div>
             </li>
@@ -51,12 +51,12 @@
 
         <hr class="text-white">
 
-        <div class="dropdown mt-auto">
+        <div class="dropdown">
             <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle text-white" data-bs-toggle="dropdown" aria-expanded="false">
                 <span>@mdo</span>
             </a>
             <ul class="dropdown-menu text-small shadow" style="">
-                <li><a class="dropdown-item" href="{{ path('app_logout') }}">Cerrar sesión</a></li>
+                <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
             </ul>
         </div>
     </nav>

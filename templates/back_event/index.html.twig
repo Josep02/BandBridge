@@ -4,7 +4,17 @@
 
 {% block body %}
     <div class="rounded-2 bg-white p-3">
-        <h1 class="pb-3">Administra los eventos</h1>
+        <div class="d-flex justify-content-between">
+            <div>
+                <h1 class="pb-3">Administra los eventos</h1>
+            </div>
+            <div>
+                <a href="{{ path('app_back_event_new') }}">
+                    <button class="button-4">Nuevo evento</button>
+                </a>
+            </div>
+        </div>
+
         <div class="d-flex flex-wrap justify-content-evenly">
             {% for event in events %}
                 <div class="card card-2 mt-2 mb-2">
@@ -78,7 +88,9 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                <a href="{{ path('app_back_event_show', {'id': event.id}) }}" class="btn btn-primary">Ver más</a>
+                                <a href="{{ path('app_back_event_show', {'id': event.id}) }}">
+                                    <button class="button-4">Ver más</button>
+                                </a>
                             </div>
                         </div>
                     </div>

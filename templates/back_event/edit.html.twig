@@ -61,10 +61,10 @@
             </tbody>
         </table>
 
-        <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
+        <div class="text-end">
+            <a href="{{ path('app_back_event_index') }}" class="btn btn-secondary">Volver a la lista</a>
+            <button class="button-4">{{ button_label|default('Guardar') }}</button>
+        </div>
         {{ form_end(form) }}
-
-        <a href="{{ path('app_back_event_index') }}" class="btn btn-secondary mt-3">Volver a la lista</a>
-        <a href="{{ path('app_back_event_show', {'id': event.id}) }}" class="btn btn-info mt-3">Ver</a>
     </div>
 {% endblock %}

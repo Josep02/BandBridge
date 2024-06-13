@@ -6,6 +6,7 @@ use App\Entity\MusicianClass;
 use App\Form\MusicianClassType;
 use App\Repository\MusicianClassRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,10 +16,26 @@ use Symfony\Component\Routing\Attribute\Route;
 class BackMusicianClassController extends AbstractController
 {
     #[Route('/', name: 'app_back_musician_class_index', methods: ['GET'])]
-    public function index(MusicianClassRepository $musicianClassRepository): Response
+    public function index(MusicianClassRepository $musicianClassRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $q = $request->query->get('q', '');
+
+        if (empty($q)) {
+            $query = $musicianClassRepository->findAll();
+        } else {
+            $query = $musicianClassRepository->findByTextQuery($q);
+        }
+
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            12
+        );
+
         return $this->render('back_musician_class/index.html.twig', [
-            'musician_classes' => $musicianClassRepository->findAll(),
+            'musician_classes' => $pagination,
+            'pagination' => $pagination,
+            'q' => $q
         ]);
     }
 

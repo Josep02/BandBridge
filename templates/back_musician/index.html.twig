@@ -15,6 +15,7 @@
                         <th scope="col">Nombre</th>
                         <th scope="col">Apellidos</th>
                         <th scope="col">Correo Electrónico</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -23,9 +24,16 @@
                             <td>{{ musician.name }}</td>
                             <td>{{ musician.lastname }}</td>
                             <td>{{ musician.email }}</td>
-                            <td>
-                                <a href="{{ path('app_back_musician_show', {'id': musician.id}) }}">show</a>
-                                <a href="{{ path('app_back_musician_edit', {'id': musician.id}) }}">edit</a>
+                            <td class="d-flex justify-content-between">
+                                <a href="{{ path('app_back_musician_delete', {'id': musician.id}) }}" class="text-decoration-none btn-back-1 ps-3 pe-3">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                                <a href="{{ path('app_back_musician_show', {'id': musician.id}) }}" class="text-decoration-none btn-back-2 ps-3 pe-3">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                                <a href="{{ path('app_back_musician_edit', {'id': musician.id}) }}" class="text-decoration-none btn-back-3 ps-3 pe-3">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
                             </td>
                         </tr>
                     {% endfor %}

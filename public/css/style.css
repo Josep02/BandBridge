@@ -45,7 +45,7 @@
 .bg-6 {
     background-image: url('../images/duotone7.png');
     background-position: center;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     background-size: cover;
 }
 
@@ -149,18 +149,26 @@
     width: 90px;
 }
 
-@media (max-width: 990px) {
-    .card-2 {
-        width: 100%;
-    }
-}
-
 .card-3 {
     width: 320px;
 }
 
 .card-3 img {
     width: 80px;
+}
+
+.card-4 {
+    width: 320px;
+}
+
+@media (max-width: 990px) {
+    .card-2 {
+        width: 100%;
+    }
+
+    .card-4 {
+        width: 100%;
+    }
 }
 
 /*Targets*/

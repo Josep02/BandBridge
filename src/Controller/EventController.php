@@ -30,6 +30,7 @@ class EventController extends AbstractController
         $instrument = $musician->getInstrument();
 
         $q = $request->query->get('q', '');
+
         if (empty($q)) {
             $query = $eventRepository->findForMe($instrument);
         } else {

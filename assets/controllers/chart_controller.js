@@ -20,10 +20,10 @@ export default class extends Controller {
         const chartData = {
             labels: labels,
             datasets: [{
-                label: 'Events per Month',
+                label: 'Eventos por mes',
                 data: data,
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)',
+                borderColor: 'rgb(255,86,56)',
                 tension: 0.1
             }]
         };
