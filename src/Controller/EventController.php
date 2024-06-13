@@ -21,7 +21,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class EventController extends AbstractController
 {
     #[Route('/', name: 'app_event_index', methods: ['GET'])]
-    public function index(EventRepository $eventRepository,  MusicianRepository $musicianRepository, PaginatorInterface $paginator, Request $request): Response
+    public function index(EventRepository $eventRepository, MusicianRepository $musicianRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $user = $this->getUser();
 

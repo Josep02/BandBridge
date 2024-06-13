@@ -50,6 +50,11 @@ class BackMusicianController extends AbstractController
             $entityManager->persist($musician);
             $entityManager->flush();
 
+            $this->addFlash(
+                'success',
+                "Usuario creado correctamente"
+            );
+
             return $this->redirectToRoute('app_back_musician_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -76,6 +81,11 @@ class BackMusicianController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
+            $this->addFlash(
+                'success',
+                "Usuario modificado correctamente"
+            );
+
             return $this->redirectToRoute('app_back_musician_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -88,9 +98,33 @@ class BackMusicianController extends AbstractController
     #[Route('/{id}', name: 'app_back_musician_delete', methods: ['POST'])]
     public function delete(Request $request, Musician $musician, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$musician->getId(), $request->getPayload()->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$musician->getId(), $request->request->get('_token'))) {
+            $login = $musician->getLogin();
+
+            foreach ($musician->getParticipationRequests() as $participationRequest) {
+                $entityManager->remove($participationRequest);
+            }
+
+            foreach ($musician->getValorations() as $valoration) {
+                $entityManager->remove($valoration);
+            }
+
+            foreach ($musician->getMusicianClass() as $musicianClass) {
+                $entityManager->remove($musicianClass);
+            }
+
             $entityManager->remove($musician);
             $entityManager->flush();
+
+            if ($login !== null) {
+                $entityManager->remove($login);
+                $entityManager->flush();
+            }
+
+            $this->addFlash(
+                'success',
+                "Usuario eliminado correctamente"
+            );
         }
 
         return $this->redirectToRoute('app_back_musician_index', [], Response::HTTP_SEE_OTHER);

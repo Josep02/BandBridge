@@ -18,10 +18,8 @@ class BackMusicianType extends AbstractType
         $builder
             ->add('name')
             ->add('lastname')
-            ->add('username')
             ->add('email')
             ->add('image')
-            ->add('password')
             ->add('Instrument', EntityType::class, [
                 'class' => Instrument::class,
                 'choice_label' => 'name',

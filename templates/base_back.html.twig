@@ -7,6 +7,8 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/back_style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/navigation.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/flash_back.css') }}" rel="stylesheet">
+
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
@@ -19,6 +21,20 @@
 {% include '_header_back.html.twig' %}
 <main class="container-fluid">
     <div class="row">
+        <div class="container-flash">
+            <div class="flash-messages">
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                            <div>
+                                <p class="me-5">{{ message }}</p>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
         {% include '_aside_back.html.twig' %}
         <section class="col-lg-10 col-md-12 bg-2 p-2">
             {% block body %}

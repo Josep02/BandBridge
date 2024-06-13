@@ -36,6 +36,11 @@ class BackEventController extends AbstractController
             $entityManager->persist($event);
             $entityManager->flush();
 
+            $this->addFlash(
+                'success',
+                "Evento creado correctamente"
+            );
+
             return $this->redirectToRoute('app_back_event_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -62,6 +67,11 @@ class BackEventController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
+            $this->addFlash(
+                'success',
+                "El evento ha sido modificado correctamente"
+            );
+
             return $this->redirectToRoute('app_back_event_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -72,7 +82,7 @@ class BackEventController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_back_event_delete', methods: ['POST'])]
-    public function delete(EventRepository $eventRepository, Request $request, Event $event, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Event $event, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$event->getId(), $request->request->get('_token'))) {
             $entityManager->beginTransaction();
@@ -90,10 +100,17 @@ class BackEventController extends AbstractController
                 $entityManager->flush();
 
                 $entityManager->commit();
+
+
             } catch (\Exception $e) {
                 $entityManager->rollback();
                 throw $e;
             }
+
+            $this->addFlash(
+                'success',
+                "Evento eliminado correctamente"
+            );
         }
 
         return $this->redirectToRoute('app_back_event_index', [], Response::HTTP_SEE_OTHER);

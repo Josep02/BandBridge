@@ -50,6 +50,11 @@ class BackMusicianClassController extends AbstractController
             $entityManager->persist($musicianClass);
             $entityManager->flush();
 
+            $this->addFlash(
+                'success',
+                "Nuevo rol creado correctamente"
+            );
+
             return $this->redirectToRoute('app_back_musician_class_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -76,6 +81,11 @@ class BackMusicianClassController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
+            $this->addFlash(
+                'success',
+                "Rol modificado correctamente"
+            );
+
             return $this->redirectToRoute('app_back_musician_class_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -91,6 +101,11 @@ class BackMusicianClassController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$musicianClass->getId(), $request->getPayload()->get('_token'))) {
             $entityManager->remove($musicianClass);
             $entityManager->flush();
+
+            $this->addFlash(
+                'success',
+                "Rol eliminado correctamente"
+            );
         }
 
         return $this->redirectToRoute('app_back_musician_class_index', [], Response::HTTP_SEE_OTHER);

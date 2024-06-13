@@ -3,11 +3,13 @@
 {% block title %}Edit MusicianClass{% endblock %}
 
 {% block body %}
-    <h1>Edit MusicianClass</h1>
+    <div class="bg-white rounded-2 p-3">
+        <h1>Editar rol</h1>
 
-    {{ include('back_musician_class/_form.html.twig', {'button_label': 'Update'}) }}
+        {{ include('back_musician_class/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_back_musician_class_index') }}">back to list</a>
+        <a href="{{ path('app_back_musician_class_index') }}">back to list</a>
 
-    {{ include('back_musician_class/_delete_form.html.twig') }}
+        {{ include('back_musician_class/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

@@ -9,10 +9,12 @@ use App\Form\Musician1Type;
 use App\Form\MusicianType;
 use App\Repository\InstrumentRepository;
 use App\Repository\InvitationRepository;
+use App\Repository\LoginRepository;
 use App\Repository\MusicianClassRepository;
 use App\Repository\MusicianRepository;
 use App\Repository\ParticipationRequestRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -90,7 +92,7 @@ class MusicianController extends AbstractController
 
 
     #[Route('/{id}/show', name: 'app_musician_show', methods: ['GET'])]
-    public function show($id, MusicianRepository $musicianRepository, MusicianClassRepository $musicianClassRepository, ParticipationRequestRepository $participationRequestRepository): Response
+    public function show($id, MusicianRepository $musicianRepository, PaginatorInterface $paginator, MusicianClassRepository $musicianClassRepository, ParticipationRequestRepository $participationRequestRepository): Response
     {
         $user = $this->getUser();
 
@@ -108,6 +110,39 @@ class MusicianController extends AbstractController
             'musician' => $musician,
             'organizer' => $organizer,
             'events' => $events,
+        ]);
+    }
+
+    #[Route('/{id}/profile', name: 'app_musician_profile', methods: ['GET'])]
+    public function profile($id, MusicianRepository $musicianRepository, PaginatorInterface $paginator, LoginRepository $loginRepository, MusicianClassRepository $musicianClassRepository, ParticipationRequestRepository $participationRequestRepository, Request $request): Response
+    {
+        $musician = $musicianRepository->findOneBy(['id' => $id]);
+
+        if (!$musician) {
+            throw $this->createNotFoundException('No se encontró el músico asociado con este usuario.');
+        }
+
+        $events = $participationRequestRepository->findByState($musician, 'Accepted');
+
+        $q = $request->query->get('q', '');
+
+        if (empty($q)) {
+            $query = $events;
+        } else {
+            $query = $participationRequestRepository->findByTextQuery($q);
+        }
+
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            4
+        );
+
+        return $this->render('musician/profile.html.twig', [
+            'musician' => $musician,
+            'events' => $pagination,
+            'pagination' => $pagination,
+            'q' => $q
         ]);
     }
 
@@ -164,6 +199,11 @@ class MusicianController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$musician->getId(), $request->getPayload()->get('_token'))) {
             $entityManager->remove($musician);
             $entityManager->flush();
+
+            $this->addFlash(
+                'success',
+                "Eliminado correctamente."
+            );
         }
 
         return $this->redirectToRoute('app_musician_index', [], Response::HTTP_SEE_OTHER);

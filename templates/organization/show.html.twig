@@ -37,13 +37,50 @@
 
                 <p class="text-center">{{ organization.description }}</p>
 
+                <h2 class="mt-5">Sus musicos:</h2>
+
                 {% if musicians is not empty %}
-                    <h2 class="mt-5">Sus musicos</h2>
-                    <ul>
-                        {% for musician in musicians %}
-                            <li>{{ musician.musician.name }} - {{ musician.musician.instrument.name }}</li>
-                        {% endfor %}
-                    </ul>
+                    <div class="pt-1 border border-1 rounded-2 mb-5">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">Usuario</th>
+                                    <th scope="col">Correo</th>
+                                    <th scope="col">Instrumento</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for musician in musicians %}
+                                    <tr>
+                                        <td>
+                                            <img src="{{ asset('images/' ~ musician.musician.image) }}" alt=""
+                                                 width="60"
+                                                 height="60" class="rounded-circle">
+                                        </td>
+                                        <td class="align-middle">{{ musician.musician.name }}</td>
+                                        <td class="align-middle">{{ musician.musician.email }}</td>
+                                        <td class="align-middle">{{ musician.musician.instrument.name }}</td>
+                                        <td class="align-middle">
+                                            <a href="{{ path('app_musician_profile', {'id': musician.musician.id}) }}"
+                                               class="text-decoration-none">
+                                                <button class="button-4">Ver perfil</button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="text-center mb-5">
+                        <img src="{{ asset('images/Hands - Phone 2.png' ) }}" alt="" width="160" height="160"
+                             class="rounded-2">
+                        <p>Actualmente en esta organización no hay músicos.</p>
+                    </div>
                 {% endif %}
             </div>
         </div>

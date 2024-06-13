@@ -34,12 +34,34 @@
                                </div>
                            </div>
                         <div class="card-footer d-flex justify-content-between p-0">
-                            <a href="{{ path('app_back_musician_delete', {'id': musician_class.id}) }}" class="text-decoration-none text-center w-100 button-back-1">
+                            <button class="w-100 button-back-1" data-bs-toggle="modal" data-bs-target="#deleteModal{{ musician_class.id }}">
                                 <i class="fa fa-trash"></i>
-                            </a>
-                            <a href="{{ path('app_back_musician_edit', {'id': musician_class.id}) }}" class="text-decoration-none text-center w-100 button-back-3">
+                            </button>
+                            <a href="{{ path('app_back_musician_class_edit', {'id': musician_class.id}) }}" class="text-decoration-none text-center w-100 button-back-3">
                                 <i class="fa fa-pencil"></i>
                             </a>
+                        </div>
+                    </div>
+
+                    <!-- Delete Confirmation Modal -->
+                    <div class="modal fade" id="deleteModal{{ musician_class.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteModalLabel{{ musician_class.id }}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="deleteModalLabel{{ musician_class.id }}">Confirmar Eliminación</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    ¿Estás seguro de que deseas eliminar este rol?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <form method="post" action="{{ path('app_back_musician_class_delete', {'id': musician_class.id}) }}">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ musician_class.id) }}">
+                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 {% endfor %}

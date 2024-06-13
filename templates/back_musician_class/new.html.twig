@@ -3,9 +3,11 @@
 {% block title %}New MusicianClass{% endblock %}
 
 {% block body %}
-    <h1>Create new MusicianClass</h1>
+    <div class="bg-white rounded-2 p-3">
+        <h1>Crear nou rol</h1>
 
-    {{ include('back_musician_class/_form.html.twig') }}
+        {{ include('back_musician_class/_form.html.twig') }}
 
-    <a href="{{ path('app_back_musician_class_index') }}">back to list</a>
+        <a href="{{ path('app_back_musician_class_index') }}">back to list</a>
+    </div>
 {% endblock %}
