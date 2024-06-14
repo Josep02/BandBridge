@@ -29,7 +29,7 @@ class BackMusicianClassController extends AbstractController
         $pagination = $paginator->paginate(
             $query,
             $request->query->getInt('page', 1),
-            12
+            16
         );
 
         return $this->render('back_musician_class/index.html.twig', [
