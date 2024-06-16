@@ -17,4 +17,11 @@ class DefaultController extends AbstractController
         ]);
     }
 
+    #[Route('/cookies', name: 'app_cookies')]
+    public function cookies(): Response
+    {
+        return $this->render('default/cookies.html.twig', [
+            'controller_name' => 'DefaultController',
+        ]);
+    }
 }
