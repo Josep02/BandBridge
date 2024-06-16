@@ -12,14 +12,24 @@ use App\Repository\ParticipationRequestRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+#[IsGranted(
+    new Expression(
+        'is_granted("ROLE_USER", subject)'
+    ))]
 class HomeController extends AbstractController
 {
     #[Route('/home', name: 'app_home')]
     public function index(EventRepository $eventRepository): Response
     {
+        if ($this->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_back');
+        }
+
         $user = $this->getUser();
         $musician = $user->getMusician();
         $instrument = $musician->getInstrument();

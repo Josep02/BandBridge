@@ -95,6 +95,11 @@ class EventController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
+            $this->addFlash(
+                'success',
+                "El evento se ha modificado exitosamente"
+            );
+
             return $this->redirectToRoute('app_organization_organizer_show', ['id' => $organizationId], Response::HTTP_SEE_OTHER);
         }
 
@@ -124,6 +129,11 @@ class EventController extends AbstractController
 
                 $entityManager->remove($event);
                 $entityManager->flush();
+
+                $this->addFlash(
+                    'danger',
+                    "Evento eliminado"
+                );
 
                 $entityManager->commit();
             } catch (\Exception $e) {
