@@ -167,4 +167,73 @@
             <div class="col-2"></div>
         </div>
     </div>
+
+    <!-- Modal HTML structure -->
+    <div class="modal fade" id="welcomeModal" tabindex="-1" aria-labelledby="welcomeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="welcomeModalLabel">Uso de cookies</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Este sitio web utiliza cookies para garantizar que obtenga la mejor experiencia en nuestro sitio
+                        web.
+                    </p>
+                    <p>Para más información, visita nuestra <a href="{{ path('app_cookies') }}">política de cookies</a>.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn bg-tertiary-lm" data-bs-dismiss="modal" id="acceptCookies">Aceptar
+                    </button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="denyCookies">Denegar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to handle cookies
+        document.addEventListener('DOMContentLoaded', function () {
+            function setCookie(name, value, days) {
+                let expires = "";
+                if (days) {
+                    let date = new Date();
+                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                    expires = "; expires=" + date.toUTCString();
+                }
+                document.cookie = name + "=" + (value || "") + expires + "; path=/";
+            }
+
+            function getCookie(name) {
+                let nameEQ = name + "=";
+                let ca = document.cookie.split(';');
+                for (let i = 0; i < ca.length; i++) {
+                    let c = ca[i];
+                    while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+                }
+                return null;
+            }
+
+            function checkCookie() {
+                let userAccepted = getCookie("userAcceptedCookies");
+                if (!userAccepted) {
+                    let welcomeModal = new bootstrap.Modal(document.getElementById('welcomeModal'), {});
+                    welcomeModal.show();
+                }
+            }
+
+            document.getElementById('acceptCookies').addEventListener('click', function () {
+                setCookie("userAcceptedCookies", "true", 30);
+            });
+
+            document.getElementById('denyCookies').addEventListener('click', function () {
+                setCookie('userDeniedCookies', 'false', 30);
+            });
+
+            checkCookie();
+        });
+    </script>
 {% endblock %}
