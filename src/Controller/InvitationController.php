@@ -44,6 +44,11 @@ class InvitationController extends AbstractController
         $entityManager->persist($invitation);
         $entityManager->flush();
 
+        $this->addFlash(
+            'success',
+            "Invitación enviada correctamente"
+        );
+
         return $this->redirectToRoute('app_organization_organizer_show', ['id' => $organizationId]);
     }
 
@@ -63,6 +68,11 @@ class InvitationController extends AbstractController
         $entityManager->persist($musicianClass);
         $entityManager->flush();
 
+        $this->addFlash(
+            'success',
+            "Enhorabuena!! Has aceptado una invitación"
+        );
+
         return $this->redirectToRoute('app_musician_show', ['id' => $invitation->getMusician()->getId()]);
     }
 
@@ -72,6 +82,11 @@ class InvitationController extends AbstractController
         $invitation->setState('Denegada');
 
         $entityManager->flush();
+
+        $this->addFlash(
+            'danger',
+            "Invitación rechazada"
+        );
 
         return $this->redirectToRoute('app_musician_show', ['id' => $invitation->getMusician()->getId()]);
     }
